@@ -1,0 +1,13 @@
+# Installed dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Shareable environment template
+!.env.example
+
+# OS metadata
+.DS_Store
+Thumbs.db
