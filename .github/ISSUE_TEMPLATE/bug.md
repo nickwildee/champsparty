@@ -1,9 +1,9 @@
 ---
 name: 버그
 about: 재현 가능한 오류를 기록합니다.
-title: ""
-labels: "bug"
-assignees: ""
+title: ''
+labels: 'bug'
+assignees: ''
 ---
 
 ## 발생한 문제
