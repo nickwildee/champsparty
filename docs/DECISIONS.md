@@ -1,6 +1,6 @@
 # 주요 논의와 결정 기록
 
-- 인계 문서 버전: 0.4
+- 인계 문서 버전: 0.7
 - 기준일: 2026-11-17
 - 프로젝트: 포켓몬 챔피언스 능력치 세부 조정 계산기, 정식 명칭 미정
 - 현재 요구사항: [PROJECT.md](PROJECT.md)
@@ -13,6 +13,7 @@
 - **구현 방향:** 사용할 구성을 정했으나 버전·설정·실행 결과는 확인하지 않은 내용.
 - **미정·검증 필요:** 구현 계약이나 실제 실행 결과로 확정할 내용.
 - D01~D12의 최초 작성 기준일은 2026-11-16이다. 저장소 초기 설정과 문서 인계의 확인 결과는 D12, 개발 도구 검증 결과는 D13, 최소 앱 실행 환경의 결정과 검증은 D14에 기록했다. 실제 계산·인증·저장 기능의 실행 검증 결과와 성능 개선 수치는 아직 없다.
+- 포켓몬 이미지의 제공처·스타일과 비상업적 운영·권리 고지 방향은 D16에 기록했다.
 - 요구사항과 구현 판단에 영향을 준 기술적 논의·선택 이유·검증 결과를 기록한다. 학습용 질문·답변, 일반 개념 설명, 이해도와 설명·동의·승인 과정은 제외한다.
 
 ## D01. 숙련자의 세팅 조정을 위한 현재 결과 표시
@@ -153,6 +154,17 @@
 - **실행 환경의 제한:** 샌드박스 안의 빌드는 Turbopack의 내부 포트 생성이 `Operation not permitted`로 막혔다. 최초 실패의 `.next` 캐시를 비운 뒤 권한 제한 밖에서 동일한 `pnpm build`가 통과했다. 개발·프로덕션 서버도 포트 사용이 가능한 환경에서 검증했다. 이 제약을 해결하기 위해 번들러나 기능 범위를 변경하지 않았다.
 - **남은 작업:** `add`는 연결 확인용이다. `@smogon/calc`의 실제 챔피언스 지원·계산 계약·성능, 화면 설계, 인증·DB·저장은 다음 단계에서 각각 논의·검증한다.
 - **확인 자료:** [워크스페이스 프로토콜](https://pnpm.io/workspaces), [Next.js 워크스페이스 코드 변환](https://nextjs.org/docs/app/api-reference/config/next-config-js/transpilePackages), [Next.js ESLint 10 지원과 peer 경고](https://nextjs.org/docs/app/api-reference/config/eslint), [pnpm peer 범위 보정](https://pnpm.io/settings/dependency-resolution), [Tailwind Next.js 연동](https://tailwindcss.com/docs/installation/framework-guides/nextjs), [Prettier와 린터 통합](https://prettier.io/docs/integrating-with-linters).
+
+## D16. PokéAPI 공식 일러스트와 비상업적 운영·권리 고지
+
+- **문제와 범위:** 계산 화면에서 포켓몬을 식별할 수 있는 이미지의 제공처와 스타일을 조사하고, 서비스의 운영 목적·권리 고지 방향을 정한다. 이미지 연결과 고지 UI는 아직 구현 범위에 포함하지 않는다.
+- **선택과 대안:** PokéAPI Sprites의 `other/official-artwork` 정적 PNG로 이미지 스타일을 통일한다. HOME 이미지, 도트 이미지와 애니메이션도 제공되지만 공식 일러스트를 사용하는 방향으로 정했다. 이미지 없는 화면은 외부 이미지 의존성을 없애는 대안이다.
+- **선택 이유:** 포켓몬을 식별할 수 있는 정적 일러스트로 화면의 이미지 스타일을 통일한다. 현재 계산 화면에는 애니메이션 재생이 필요하지 않다.
+- **조사 결과와 후속 확인:** PokéAPI 데이터에서 한카리아스 ID `445`, 메가 메타그로스 ID `10076`을 확인했다. 메가진화를 기본 종의 도감 번호에만 연결하지 않아야 한다. 전체 포켓몬·폼 매핑과 이미지 전달 방식은 구현 단계에서 정하고 검증한다.
+- **운영과 고지 방향:** 학습 및 정보 제공을 위한 비상업적 팬 프로젝트로 운영한다. 비상업적 목적, 포켓몬 이미지·명칭의 권리자, 관련 회사의 공식 승인·후원·제휴 관계 부재, PokéAPI 출처와 이미지 라이선스 링크를 표시할 예정이다. 고지의 위치와 컴포넌트 구성은 구현 단계에서 정한다.
+- **권리 확인의 한계:** PokéAPI 저장소는 CC0를 표시하면서 이미지 저작권이 The Pokémon Company에 있다고 명시하고, 제3자의 권리 해결이나 필요한 허락의 확보를 보장하지 않는다. 이미지에 대한 개별 사용 허락은 확인되지 않았다. 다른 사이트의 사용 사례, 비상업적 목적과 권리자 고지를 권리자의 묵시적 허락 또는 적법성 확인으로 취급하지 않는다. 이 상태에서 이미지를 사용하는 제약을 유지하며 운영 범위 변경 시 사용 조건을 다시 검토한다.
+- **현재 상태:** 이미지 제공처·형식과 대표 포켓몬·폼의 식별자를 조사하고 사용 방향을 정했다. 저장소의 이미지 연결·고지 UI·외부 이미지 설정은 미적용 상태다. 전체 지원 포켓몬의 이미지 존재 여부나 법적 사용 권한을 검증한 것은 아니다.
+- **확인 자료:** [PokéAPI 이미지와 형식](https://github.com/PokeAPI/sprites#sprites), [PokéAPI 포켓몬·폼 ID 데이터](https://github.com/PokeAPI/pokeapi/blob/master/data/v2/csv/pokemon.csv), [이미지 저장소 라이선스](https://github.com/PokeAPI/sprites/blob/master/LICENCE.txt), [Pokémon 공식 이미지 사용 안내](https://support.pokemon.com/hc/en-us/articles/360000634094-Can-I-use-Pok%C3%A9mon-images-or-materials), [CC0와 제3자 권리](https://wiki.creativecommons.org/wiki/CC0_FAQ).
 
 ## 앞으로 결정 기록을 갱신할 때
 
