@@ -1,6 +1,6 @@
 # 주요 논의와 결정 기록
 
-- 인계 문서 버전: 0.2
+- 인계 문서 버전: 0.3
 - 기준일: 2026-11-17
 - 프로젝트: 포켓몬 챔피언스 능력치 세부 조정 계산기, 정식 명칭 미정
 - 현재 요구사항: [PROJECT.md](PROJECT.md)
@@ -12,7 +12,7 @@
 - **합의:** 현재 요구사항과 작업 방향으로 채택한 내용.
 - **구현 방향:** 사용할 구성을 정했으나 버전·설정·실행 결과는 확인하지 않은 내용.
 - **미정·검증 필요:** 구현 계약이나 실제 실행 결과로 확정할 내용.
-- D01~D12의 최초 작성 기준일은 2026-11-16이다. 저장소 초기 설정과 문서 인계의 확인 결과는 D12, 개발 도구 검증 결과는 D13에 기록했다. 앱 기능의 실행 검증 결과와 성능 개선 수치는 아직 없다.
+- D01~D12의 최초 작성 기준일은 2026-11-16이다. 저장소 초기 설정과 문서 인계의 확인 결과는 D12, 개발 도구 검증 결과는 D13, 최소 앱 실행 환경의 결정과 검증은 D14에 기록했다. 실제 계산·인증·저장 기능의 실행 검증 결과와 성능 개선 수치는 아직 없다.
 - 원문 대화 전체의 전사본이 아니라 주요 질문, 수정과 선택 이유를 정리한 기록이다. 이후 중요한 논의도 같은 기준으로 추가한다.
 
 ## D01. 숙련자의 세팅 조정을 위한 현재 결과 표시
@@ -140,6 +140,25 @@
 - **잠금 파일:** 사용자 터미널 작업 후 `pnpm-lock.yaml`이 생겼다. 현재 내용은 pnpm 자체 버전 관리 항목이며 앱 의존성 설치 완료를 뜻하지 않는다.
 - **남은 검증:** 앱·계산 패키지 생성, 의존성 설치, 실행·빌드, 계산·인증·DB 연동은 별도 단계다. Next.js 생성 옵션, 린터·포매터와 스타일링 구성은 다음 단계에서 논의한다.
 - **확인 자료:** [Node.js 26.13.1 LTS 배포](https://nodejs.org/en/blog/release/v26.13.1), [pnpm 12.19.0 배포](https://pnpm.io/blog/releases/12.19.0), [fnm 설치와 셸 설정](https://github.com/Schniz/fnm#installation).
+
+## D14. 두 패키지 연결과 최소 Next.js 실행 환경
+
+- **문제와 범위:** 웹과 독립 계산 패키지를 실제 워크스페이스 구성원으로 연결하고 개발·검사·빌드 명령을 마련한다. 실제 포켓몬 계산, 로그인과 DB 연결은 후속 설계로 남긴다.
+- **진행과 승인:** 먼저 읽기 전용으로 문서·파일·변경사항·도구 버전을 확인하고 구조를 설명했다. 사용자가 워크스페이스·의존성·진입점·코드 변환 흐름을 직접 정리한 뒤, 계산 패키지의 별도 빌드와 타입 검사의 차이 및 `tsc --noEmit` 명령을 보완 설명했다. 이후 사용자가 선행 PR 병합, 새 브랜치 작업과 Tailwind·Prettier 도입을 승인했다. 설명했다는 이유만으로 사용자가 세부 구현까지 이해했다고 기록하지 않는다.
+- **브랜치와 선행 작업:** 문서 PR #2는 `89a96e8`, 개발 도구 PR #3은 `aea96d0`으로 `main`에 병합했다. #3은 문서 병합 후 자체 커밋만 최신 `main`에 재배치해 검토 범위를 유지했다. 이슈 #4의 구현은 최신 `main`에서 만든 `codex/4-next-workspace`에서 진행한다.
+- **등록과 의존성:** 루트의 `apps/*`·`packages/*` 등록을 유지하고 `@champsparty/web`, `@champsparty/calculator`를 구성했다. 웹의 `dependencies`에 계산 패키지를 `workspace:*`로 선언한다. 단순히 폴더를 등록하는 것과 사용하는 패키지의 의존성을 선언하는 것은 별개다. 필요한 도구는 실행하는 패키지에 선언하며, 전체 저장소 서식을 다루는 Prettier는 루트에 둔다.
+- **계산 패키지 공개 방식:** `exports`로 `src/index.ts`의 TypeScript 원본을 공개한다. 현재 Next.js가 워크스페이스 소스를 변환하므로 별도 계산 패키지 빌드·변경 감시나 `transpilePackages` 설정을 추가하지 않았다. 대안인 JavaScript·타입 선언 파일 사전 빌드는 독립 배포와 여러 소비 환경에 유리하지만, 현재 소비자는 웹 하나여서 원본 공개가 단순하다. 소비자가 TypeScript 변환 기능을 제공해야 한다는 제약을 감수한다.
+- **계산 경계:** 계산 패키지는 React·Next.js·DOM·Node.js 전역 타입을 요구하지 않도록 자체 TypeScript 설정을 둔다. 연결 확인용 `add` 함수만 제공하며 실제 계산 API는 확정하지 않는다. 웹의 작은 Client Component가 버튼 이벤트에서 이 함수를 호출해 브라우저 실행을 확인한다. 페이지의 서버 렌더링 성공만으로 브라우저 계산을 검증했다고 판단하지 않는다.
+- **Next.js 옵션:** Next.js `16.4.6`, React·React DOM `19.3.0`, App Router, TypeScript, `src/`, 웹 내부 별칭 `@/*`, 기본 Turbopack을 사용한다. 생성 도구의 옵션을 명시하고 설치를 건너뛴 뒤 두 패키지를 준비해 루트에서 설치했다. React Compiler와 Cache Components는 현재 요구에 필요하지 않아 활성화하지 않았다. 생성 도구가 만든 웹 내부 워크스페이스·중복 README·별도 gitignore를 제거하고 루트에서 관리한다.
+- **지침 파일 자동 생성:** `--no-agents-md`는 초기 생성만 제어하며 `next dev`는 별도로 지침 파일을 만들었다. 설치 버전에 포함된 공식 설명을 확인해 `agentRules: false`로 자동 생성을 끄고 기존 루트 AGENTS.md를 사용한다. 임의로 공통 협업 지침을 추가하지 않는다.
+- **스타일링 논의와 변경:** 최초에는 기본 페이지 실행에 맞춰 기본 CSS를 제안했다. 사용자가 Tailwind를 미리 쓰는 이점과 Prettier 보류 이유를 질문했고, 도입을 지시한 것은 아니라고 명시했다. 반복되는 입력 폼·결과 영역·반응형 배치의 생산성을 고려해 Tailwind를 추천한 뒤 명시적인 승인을 받았다. Tailwind `4.3.3`과 공식 PostCSS 연동을 사용한다. 대안은 CSS Modules다. JSX 클래스가 길어질 수 있고 CSS 원리도 익혀야 하는 점을 감수한다.
+- **서식과 린트:** 코드·설정·문서 서식을 일찍 통일하도록 Prettier `3.10.1`을 도입하고 `format`·`format:check`를 제공한다. ESLint는 코드 사용 규칙, Prettier는 서식을 담당하며 별도로 실행한다. 각 ESLint 설정에 `eslint-config-prettier`를 적용한다. Git hook·별도 공통 설정 패키지는 추가하지 않는다.
+- **검사 도구의 호환성:** 타입 검사는 TypeScript `5.9.3`을 두 패키지에서 사용한다. 최신 TypeScript `7.0.2`와 달리 현재 typescript-eslint `8.73.0`의 지원 범위는 `<6.1.0`이므로 호환되는 5.9 계열을 선택했다. 생성 도구의 ESLint 9는 설치 중 지원 종료 경고가 나와, Next.js 16.4에서 공식 지원하는 ESLint `10.15.0`을 사용한다. `eslint-plugin-import@2.32.0`, `eslint-plugin-jsx-a11y@6.10.2`, `eslint-plugin-react@7.37.5`의 peer 선언에는 10이 빠져 있어 이 세 버전에만 pnpm `overrides`의 `:peer` 선택자로 `^9 || ^10`을 지정했다. 실제 린트를 통과했으며 각 플러그인의 선언이 갱신되면 해당 보정을 제거한다. 모든 플러그인 기능을 별도로 재현한 검증은 아니다.
+- **설치 기록:** pnpm `12.19.0`이 선택한 typescript-eslint `8.73.0` 계열의 최근 배포 버전에 대해 자동 추가한 정확한 버전의 `minimumReleaseAgeExclude` 항목을 유지했다. 전체 패키지의 출시 대기 시간을 끄는 설정은 사용하지 않는다. 실제 의존성과 로컬 연결은 루트 lockfile에 기록하며 생성된 코드·검사 캐시는 추적하지 않는다.
+- **실제 검증:** pnpm이 루트와 두 패키지를 인식하고, 웹이 계산 패키지를 로컬 링크로 참조한다. 두 패키지의 타입 검사와 린트, 서식 검사, peer 의존성 검사, 고정 lockfile 설치와 웹 프로덕션 빌드를 통과했다. 프로덕션 HTTP 200, 개발·프로덕션 브라우저 버튼 동작, Tailwind 스타일 적용과 브라우저 경고·오류 부재를 확인했다.
+- **실행 환경의 제한:** 샌드박스 안의 빌드는 Turbopack의 내부 포트 생성이 `Operation not permitted`로 막혔다. 최초 실패의 `.next` 캐시를 비운 뒤 권한 제한 밖에서 동일한 `pnpm build`가 통과했다. 개발·프로덕션 서버도 포트 사용이 가능한 환경에서 검증했다. 이 제약을 해결하기 위해 번들러나 기능 범위를 변경하지 않았다.
+- **남은 작업:** `add`는 연결 확인용이다. `@smogon/calc`의 실제 챔피언스 지원·계산 계약·성능, 화면 설계, 인증·DB·저장은 다음 단계에서 각각 논의·검증한다.
+- **확인 자료:** [워크스페이스 프로토콜](https://pnpm.io/workspaces), [Next.js 워크스페이스 코드 변환](https://nextjs.org/docs/app/api-reference/config/next-config-js/transpilePackages), [Next.js ESLint 10 지원과 peer 경고](https://nextjs.org/docs/app/api-reference/config/eslint), [pnpm peer 범위 보정](https://pnpm.io/settings/dependency-resolution), [Tailwind Next.js 연동](https://tailwindcss.com/docs/installation/framework-guides/nextjs), [Prettier와 린터 통합](https://prettier.io/docs/integrating-with-linters).
 
 ## 앞으로 결정 기록을 갱신할 때
 

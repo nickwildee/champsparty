@@ -1,9 +1,9 @@
 ---
 name: 작업
 about: 기능, 개선, 문서, 설정 작업을 계획합니다.
-title: ""
-labels: ""
-assignees: ""
+title: ''
+labels: ''
+assignees: ''
 ---
 
 ## 목적

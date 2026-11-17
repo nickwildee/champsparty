@@ -1,0 +1,5 @@
+.codex/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+pnpm-lock.yaml

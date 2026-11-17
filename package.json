@@ -4,5 +4,17 @@
   "packageManager": "pnpm@12.19.0",
   "engines": {
     "node": ">=26.13.1 <27"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @champsparty/web dev",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "build": "pnpm --filter @champsparty/web build",
+    "start": "pnpm --filter @champsparty/web start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.10.1"
   }
 }
