@@ -1,7 +1,7 @@
 # 포켓몬 챔피언스 능력치 세부 조정 계산기
 
 - 정식 프로젝트명: 미정
-- 인계 문서 버전: 0.3
+- 인계 문서 버전: 0.4
 - 기준일: 2026-11-17
 - 상태: pnpm 워크스페이스·최소 Next.js 실행 환경 구성 및 패키지 연결 검증 완료
 - 협업 원칙: [AGENTS.md](../AGENTS.md)
@@ -168,8 +168,8 @@
 - `AGENTS.md`, `docs/PROJECT.md`, `docs/DECISIONS.md`의 초판 인계는 `docs/project-handoff` 브랜치의 `f5a72e8`에 커밋되었다. 루트에 중복된 기획·결정 문서는 없고 내부 문서 링크는 정상이다.
 - 이후 문서 PR #2가 `89a96e8`, 개발 도구 PR #3이 `aea96d0`으로 `main`에 Squash 병합되었다. 이번 실행 환경 작업은 최신 `main`에서 만든 `codex/4-next-workspace` 브랜치와 이슈 #4에서 진행했다.
 - 초기 환경 조회에서는 Node.js `23.7.0`, npm `10.9.2`, pnpm `10.18.1`, Corepack `0.31.0`을 확인했다. 이후 fnm, Node.js `26.13.1`, pnpm `12.19.0`과 최소 루트 설정 반영을 합의했다.
-- `.node-version`, 비공개 패키지용 루트 `package.json`, `apps/*`·`packages/*`를 지정한 `pnpm-workspace.yaml`을 추가했다. `private: true`는 npm 배포 방지 설정이며 GitHub 저장소 공개 여부를 바꾸지 않는다.
-- 최초 `brew install fnm`은 실행 환경의 Homebrew 경로 쓰기 제한으로 실패했다. 이후 사용자가 fnm `1.39.0`, Node.js `26.13.1`, pnpm `12.19.0`을 설치했다. 처음 안내한 셸 연결 명령은 기존 `.zshrc` 마지막 줄의 줄바꿈 부재를 고려하지 못해 두 명령이 붙었고, 사용자가 별도 줄로 수정했다. 현재 파일에는 `eval "$(fnm env --use-on-cd --shell zsh)"`가 별도 줄에 있다.
+- `.node-version`, 비공개 패키지용 루트 `package.json`, `apps/*`·`packages/*`를 지정한 `pnpm-workspace.yaml`을 추가했다.
+- fnm `1.39.0`, Node.js `26.13.1`, pnpm `12.19.0`을 설치했다. 최초 Homebrew 설치는 실행 환경의 경로 쓰기 제한으로 실패했다. `.zshrc`의 마지막 줄바꿈 부재로 붙었던 PATH 설정과 fnm 연결문은 별도 줄로 분리했다. 현재 `eval "$(fnm env --use-on-cd --shell zsh)"`가 별도 줄에 있다.
 - 2026-11-17 샌드박스 안의 새 zsh에서는 fnm 멀티셸 링크 생성이 `Operation not permitted`로 막혀 실제 `node`가 Homebrew의 `v24.22.1`을 가리켰다. 권한 제한 밖에서 같은 새 로그인·대화형 zsh를 실행하자 `fnm current`와 `node --version`이 모두 `v26.13.1`, `npm --version`이 `11.20.0`, `pnpm --version`이 `12.19.0`이었다. `node`와 `pnpm`은 fnm 멀티셸 경로에서 실행됐다. 이 차이는 샌드박스 권한에 따른 것이며 사용자 셸 설정 오류로 확인되지 않았다.
 - 목표 버전의 새 셸에서 `pnpm -r list --depth -1`이 비공개 `champsparty` 루트를 인식했다. 이전에 목표 Node.js 설치 경로를 검증 프로세스의 PATH에만 지정했을 때도 Node.js `26.13.1`, npm `11.20.0`, pnpm `12.19.0`과 `pnpm --filter champsparty list --depth -1`의 루트 인식을 확인했다. 영구 PATH 설정은 변경하지 않았다.
 - 개발 도구 단계에서는 루트 JSON·버전, YAML 구문·경로, LF, 문서 링크와 공백 검사를 확인했다. 당시 lockfile에는 pnpm 자체 버전 관리 항목만 있었다. 이번 단계에서는 두 패키지의 실제 의존성과 내부 연결까지 lockfile에 반영했다.
@@ -227,6 +227,7 @@
 
 - 버전 0.2에서는 기획과 기능 범위를 유지하고, 초기 저장소 설정·문서 인계·개발 도구 설치와 실행 검증 결과를 갱신했다.
 - 버전 0.3에서는 워크스페이스·Next.js·Tailwind·검사 도구의 구성, 실행 방법과 실제 검증 결과를 반영했다.
+- 버전 0.4에서는 학습 대화·일반 개념 설명·승인 경위를 제외하고, 설치 오류의 원인·해결 내용과 검증 결과를 유지했다. 협업 지침은 공통 원칙 v1.2를 적용한다.
 - 기능 범위나 현재 상태가 바뀌면 승인된 범위에서 이 문서를 갱신한다.
 - 중요한 이유와 대안은 DECISIONS.md에 남긴다.
 - 현재 기획과 이전 아이디어가 다르면 최신 합의를 적용한다. 과거의 모바일 우선, 상대 10마리, 파티 취약점 보고서 등의 아이디어로 현재 범위를 바꾸지 않는다.
