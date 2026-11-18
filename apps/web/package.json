@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "db:check": "NODE_ENV=development node --conditions=react-server --import=tsx scripts/db-check.ts",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint . --max-warnings 0"
   },
