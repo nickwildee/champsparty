@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./verification": "./src/verification.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -16,5 +17,8 @@
     "eslint-config-prettier": "10.1.8",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.73.0"
+  },
+  "dependencies": {
+    "@smogon/calc": "0.12.0"
   }
 }
