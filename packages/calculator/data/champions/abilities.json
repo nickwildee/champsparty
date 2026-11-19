@@ -1,0 +1,7747 @@
+[
+  {
+    "id": "adaptability",
+    "name": "Adaptability",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 43
+      }
+    ]
+  },
+  {
+    "id": "aerilate",
+    "name": "Aerilate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 57
+      }
+    ]
+  },
+  {
+    "id": "aftermath",
+    "name": "Aftermath",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 78
+      }
+    ]
+  },
+  {
+    "id": "analytic",
+    "name": "Analytic",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ability-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "analytic-toggle"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": false
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 110
+      }
+    ]
+  },
+  {
+    "id": "angerpoint",
+    "name": "Anger Point",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 131
+      }
+    ]
+  },
+  {
+    "id": "anticipation",
+    "name": "Anticipation",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 174
+      }
+    ]
+  },
+  {
+    "id": "armortail",
+    "name": "Armor Tail",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 215
+      }
+    ]
+  },
+  {
+    "id": "aromaveil",
+    "name": "Aroma Veil",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 234
+      }
+    ]
+  },
+  {
+    "id": "auraguard",
+    "name": "Aura Guard",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 310
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 8
+      }
+    ]
+  },
+  {
+    "id": "battlearmor",
+    "name": "Battle Armor",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "critical-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 355
+      }
+    ]
+  },
+  {
+    "id": "battlebond",
+    "name": "Battle Bond",
+    "sourceNonstandard": null,
+    "engineDataPresent": false,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 362
+      }
+    ]
+  },
+  {
+    "id": "berserk",
+    "name": "Berserk",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 414
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 12
+      }
+    ]
+  },
+  {
+    "id": "bigpecks",
+    "name": "Big Pecks",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 445
+      }
+    ]
+  },
+  {
+    "id": "blaze",
+    "name": "Blaze",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "low-hp-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "knownEngineGap": "Engine checks actual HP; an activation-only adapter is needed to preserve the app full-HP assumption.",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 460
+      }
+    ]
+  },
+  {
+    "id": "bulletproof",
+    "name": "Bulletproof",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 480
+      }
+    ]
+  },
+  {
+    "id": "cheekpouch",
+    "name": "Cheek Pouch",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 492
+      }
+    ]
+  },
+  {
+    "id": "chlorophyll",
+    "name": "Chlorophyll",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 512
+      }
+    ]
+  },
+  {
+    "id": "clearbody",
+    "name": "Clear Body",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 523
+      }
+    ]
+  },
+  {
+    "id": "cloudnine",
+    "name": "Cloud Nine",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 543
+      }
+    ]
+  },
+  {
+    "id": "competitive",
+    "name": "Competitive",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 645
+      }
+    ]
+  },
+  {
+    "id": "compoundeyes",
+    "name": "Compound Eyes",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 666
+      }
+    ]
+  },
+  {
+    "id": "contrary",
+    "name": "Contrary",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 678
+      }
+    ]
+  },
+  {
+    "id": "corrosion",
+    "name": "Corrosion",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 691
+      }
+    ]
+  },
+  {
+    "id": "cudchew",
+    "name": "Cud Chew",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 742
+      }
+    ]
+  },
+  {
+    "id": "curiousmedicine",
+    "name": "Curious Medicine",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 772
+      }
+    ]
+  },
+  {
+    "id": "cursedbody",
+    "name": "Cursed Body",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 784
+      }
+    ]
+  },
+  {
+    "id": "cutecharm",
+    "name": "Cute Charm",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 798
+      }
+    ]
+  },
+  {
+    "id": "damp",
+    "name": "Damp",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 811
+      }
+    ]
+  },
+  {
+    "id": "defiant",
+    "name": "Defiant",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 901
+      }
+    ]
+  },
+  {
+    "id": "disguise",
+    "name": "Disguise",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change",
+        "transformation"
+      ],
+      "requiredInputIds": [
+        "disguiseIntact"
+      ],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicNote": "First-hit protection/full-HP effects may change after damage; single-hit support does not prove exact multi-hit/KO support.",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change",
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "disguise"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "disguiseIntact": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 970
+      }
+    ]
+  },
+  {
+    "id": "dragonize",
+    "name": "Dragonize",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1036
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 18
+      }
+    ]
+  },
+  {
+    "id": "drizzle",
+    "name": "Drizzle",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field",
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1078
+      }
+    ]
+  },
+  {
+    "id": "drought",
+    "name": "Drought",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field",
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1088
+      }
+    ]
+  },
+  {
+    "id": "dryskin",
+    "name": "Dry Skin",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1098
+      }
+    ]
+  },
+  {
+    "id": "earlybird",
+    "name": "Early Bird",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1126
+      }
+    ]
+  },
+  {
+    "id": "eartheater",
+    "name": "Earth Eater",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1133
+      }
+    ]
+  },
+  {
+    "id": "eelevate",
+    "name": "Eelevate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1147
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 22
+      }
+    ]
+  },
+  {
+    "id": "effectspore",
+    "name": "Effect Spore",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1161
+      }
+    ]
+  },
+  {
+    "id": "electricsurge",
+    "name": "Electric Surge",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1179
+      }
+    ]
+  },
+  {
+    "id": "electromorphosis",
+    "name": "Electromorphosis",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ability-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1188
+      }
+    ]
+  },
+  {
+    "id": "emergencyexit",
+    "name": "Emergency Exit",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1250
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 26
+      }
+    ]
+  },
+  {
+    "id": "fairyaura",
+    "name": "Fairy Aura",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1267
+      }
+    ]
+  },
+  {
+    "id": "filter",
+    "name": "Filter",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1284
+      }
+    ]
+  },
+  {
+    "id": "firemane",
+    "name": "Fire Mane",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1296
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 35
+      }
+    ]
+  },
+  {
+    "id": "flamebody",
+    "name": "Flame Body",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1317
+      }
+    ]
+  },
+  {
+    "id": "flashfire",
+    "name": "Flash Fire",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ability-activation",
+        "existing-context"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1342
+      }
+    ]
+  },
+  {
+    "id": "flowerveil",
+    "name": "Flower Veil",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1420
+      }
+    ]
+  },
+  {
+    "id": "fluffy",
+    "name": "Fluffy",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1459
+      }
+    ]
+  },
+  {
+    "id": "forecast",
+    "name": "Forecast",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "transformation"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1471
+      }
+    ]
+  },
+  {
+    "id": "forewarn",
+    "name": "Forewarn",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1505
+      }
+    ]
+  },
+  {
+    "id": "friendguard",
+    "name": "Friend Guard",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1534
+      }
+    ]
+  },
+  {
+    "id": "frisk",
+    "name": "Frisk",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1546
+      }
+    ]
+  },
+  {
+    "id": "furcoat",
+    "name": "Fur Coat",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1579
+      }
+    ]
+  },
+  {
+    "id": "galewings",
+    "name": "Gale Wings",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1589
+      }
+    ]
+  },
+  {
+    "id": "gluttony",
+    "name": "Gluttony",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1619
+      }
+    ]
+  },
+  {
+    "id": "goodasgold",
+    "name": "Good as Gold",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1631
+      }
+    ]
+  },
+  {
+    "id": "gooey",
+    "name": "Gooey",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1643
+      }
+    ]
+  },
+  {
+    "id": "grasspelt",
+    "name": "Grass Pelt",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1698
+      }
+    ]
+  },
+  {
+    "id": "grassysurge",
+    "name": "Grassy Surge",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1708
+      }
+    ]
+  },
+  {
+    "id": "guarddog",
+    "name": "Guard Dog",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1728
+      }
+    ]
+  },
+  {
+    "id": "guts",
+    "name": "Guts",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "status-trigger"
+      ],
+      "requiredInputIds": [
+        "status"
+      ],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "defaultStatus": "brn",
+      "mechanicInputIds": [
+        "statusEnabled"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "status"
+      ],
+      "productRuleIds": [
+        "status-trigger"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "status": "burn; poison for poison-specific abilities"
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1771
+      }
+    ]
+  },
+  {
+    "id": "harvest",
+    "name": "Harvest",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "field",
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1801
+      }
+    ]
+  },
+  {
+    "id": "healer",
+    "name": "Healer",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1818
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 39
+      }
+    ]
+  },
+  {
+    "id": "heatproof",
+    "name": "Heatproof",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1834
+      }
+    ]
+  },
+  {
+    "id": "heavymetal",
+    "name": "Heavy Metal",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1859
+      }
+    ]
+  },
+  {
+    "id": "hospitality",
+    "name": "Hospitality",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1875
+      }
+    ]
+  },
+  {
+    "id": "hugepower",
+    "name": "Huge Power",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1887
+      }
+    ]
+  },
+  {
+    "id": "hungerswitch",
+    "name": "Hunger Switch",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change",
+        "transformation"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change",
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "fixed-form"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1897
+      }
+    ]
+  },
+  {
+    "id": "hustle",
+    "name": "Hustle",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects",
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1909
+      }
+    ]
+  },
+  {
+    "id": "hydration",
+    "name": "Hydration",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status",
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1926
+      }
+    ]
+  },
+  {
+    "id": "hypercutter",
+    "name": "Hyper Cutter",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1941
+      }
+    ]
+  },
+  {
+    "id": "icebody",
+    "name": "Ice Body",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 1956
+      }
+    ]
+  },
+  {
+    "id": "illuminate",
+    "name": "Illuminate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2038
+      }
+    ]
+  },
+  {
+    "id": "illusion",
+    "name": "Illusion",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "party"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2056
+      }
+    ]
+  },
+  {
+    "id": "immunity",
+    "name": "Immunity",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2097
+      }
+    ]
+  },
+  {
+    "id": "imposter",
+    "name": "Imposter",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "transformation"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "ability-change-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2116
+      }
+    ]
+  },
+  {
+    "id": "infiltrator",
+    "name": "Infiltrator",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2132
+      }
+    ]
+  },
+  {
+    "id": "innardsout",
+    "name": "Innards Out",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2141
+      }
+    ]
+  },
+  {
+    "id": "innerfocus",
+    "name": "Inner Focus",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2154
+      }
+    ]
+  },
+  {
+    "id": "insomnia",
+    "name": "Insomnia",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2169
+      }
+    ]
+  },
+  {
+    "id": "intimidate",
+    "name": "Intimidate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks",
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2194
+      }
+    ]
+  },
+  {
+    "id": "ironfist",
+    "name": "Iron Fist",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2237
+      }
+    ]
+  },
+  {
+    "id": "justified",
+    "name": "Justified",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2250
+      }
+    ]
+  },
+  {
+    "id": "keeneye",
+    "name": "Keen Eye",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2261
+      }
+    ]
+  },
+  {
+    "id": "klutz",
+    "name": "Klutz",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2279
+      }
+    ]
+  },
+  {
+    "id": "leafguard",
+    "name": "Leaf Guard",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status",
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2292
+      }
+    ]
+  },
+  {
+    "id": "levitate",
+    "name": "Levitate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2312
+      }
+    ]
+  },
+  {
+    "id": "libero",
+    "name": "Libero",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "transformation"
+      ],
+      "requiredInputIds": [
+        "abilityActive",
+        "moveId"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "move-type-change"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2319
+      }
+    ]
+  },
+  {
+    "id": "lightmetal",
+    "name": "Light Metal",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2335
+      }
+    ]
+  },
+  {
+    "id": "lightningrod",
+    "name": "Lightning Rod",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2344
+      }
+    ]
+  },
+  {
+    "id": "limber",
+    "name": "Limber",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2369
+      }
+    ]
+  },
+  {
+    "id": "liquidooze",
+    "name": "Liquid Ooze",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2403
+      }
+    ]
+  },
+  {
+    "id": "liquidvoice",
+    "name": "Liquid Voice",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2417
+      }
+    ]
+  },
+  {
+    "id": "longreach",
+    "name": "Long Reach",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2429
+      }
+    ]
+  },
+  {
+    "id": "magicbounce",
+    "name": "Magic Bounce",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2438
+      }
+    ]
+  },
+  {
+    "id": "magicguard",
+    "name": "Magic Guard",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2466
+      }
+    ]
+  },
+  {
+    "id": "magician",
+    "name": "Magician",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item",
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "item-transfer-ability-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2478
+      }
+    ]
+  },
+  {
+    "id": "magmaarmor",
+    "name": "Magma Armor",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2502
+      }
+    ]
+  },
+  {
+    "id": "marvelscale",
+    "name": "Marvel Scale",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "status-trigger"
+      ],
+      "requiredInputIds": [
+        "status"
+      ],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "defaultStatus": "brn",
+      "mechanicInputIds": [
+        "statusEnabled"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "status"
+      ],
+      "productRuleIds": [
+        "status-trigger"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "status": "burn; poison for poison-specific abilities"
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2535
+      }
+    ]
+  },
+  {
+    "id": "megalauncher",
+    "name": "Mega Launcher",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2547
+      }
+    ]
+  },
+  {
+    "id": "megasol",
+    "name": "Mega Sol",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2559
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 50
+      }
+    ]
+  },
+  {
+    "id": "merciless",
+    "name": "Merciless",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2573
+      }
+    ]
+  },
+  {
+    "id": "mimicry",
+    "name": "Mimicry",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2582
+      }
+    ]
+  },
+  {
+    "id": "minus",
+    "name": "Minus",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2644
+      }
+    ]
+  },
+  {
+    "id": "mirrorarmor",
+    "name": "Mirror Armor",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2658
+      }
+    ]
+  },
+  {
+    "id": "moldbreaker",
+    "name": "Mold Breaker",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2690
+      }
+    ]
+  },
+  {
+    "id": "moody",
+    "name": "Moody",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2702
+      }
+    ]
+  },
+  {
+    "id": "motordrive",
+    "name": "Motor Drive",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2736
+      }
+    ]
+  },
+  {
+    "id": "moxie",
+    "name": "Moxie",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2750
+      }
+    ]
+  },
+  {
+    "id": "multiscale",
+    "name": "Multiscale",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicNote": "First-hit protection/full-HP effects may change after damage; single-hit support does not prove exact multi-hit/KO support.",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "hp-protection"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2761
+      }
+    ]
+  },
+  {
+    "id": "mummy",
+    "name": "Mummy",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "ability-change-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2780
+      }
+    ]
+  },
+  {
+    "id": "naturalcure",
+    "name": "Natural Cure",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2812
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "id": "noguard",
+    "name": "No Guard",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 2971
+      }
+    ]
+  },
+  {
+    "id": "oblivious",
+    "name": "Oblivious",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3009
+      }
+    ]
+  },
+  {
+    "id": "opportunist",
+    "name": "Opportunist",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3042
+      }
+    ]
+  },
+  {
+    "id": "overcoat",
+    "name": "Overcoat",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3109
+      }
+    ]
+  },
+  {
+    "id": "overgrow",
+    "name": "Overgrow",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "low-hp-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "knownEngineGap": "Engine checks actual HP; an activation-only adapter is needed to preserve the app full-HP assumption.",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3125
+      }
+    ]
+  },
+  {
+    "id": "owntempo",
+    "name": "Own Tempo",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3145
+      }
+    ]
+  },
+  {
+    "id": "parentalbond",
+    "name": "Parental Bond",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3171
+      }
+    ]
+  },
+  {
+    "id": "pickpocket",
+    "name": "Pickpocket",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "item-transfer-ability-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3240
+      }
+    ]
+  },
+  {
+    "id": "pickup",
+    "name": "Pickup",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3263
+      }
+    ]
+  },
+  {
+    "id": "piercingdrill",
+    "name": "Piercing Drill",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3283
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 64
+      }
+    ]
+  },
+  {
+    "id": "pixilate",
+    "name": "Pixilate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3297
+      }
+    ]
+  },
+  {
+    "id": "plus",
+    "name": "Plus",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3318
+      }
+    ]
+  },
+  {
+    "id": "poisonheal",
+    "name": "Poison Heal",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects",
+        "status-trigger"
+      ],
+      "requiredInputIds": [
+        "status"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "defaultStatus": "psn",
+      "mechanicNote": "Use poison for the status toggle. The status can affect moves such as Facade, but Poison Heal recovery stays outside the current KO contract.",
+      "mechanicInputIds": [
+        "statusEnabled"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "status"
+      ],
+      "productRuleIds": [
+        "status-trigger"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "status": "burn; poison for poison-specific abilities"
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3332
+      }
+    ]
+  },
+  {
+    "id": "poisonpoint",
+    "name": "Poison Point",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3345
+      }
+    ]
+  },
+  {
+    "id": "poisontouch",
+    "name": "Poison Touch",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item",
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3371
+      }
+    ]
+  },
+  {
+    "id": "prankster",
+    "name": "Prankster",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3426
+      }
+    ]
+  },
+  {
+    "id": "pressure",
+    "name": "Pressure",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3438
+      }
+    ]
+  },
+  {
+    "id": "protean",
+    "name": "Protean",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "transformation"
+      ],
+      "requiredInputIds": [
+        "abilityActive",
+        "moveId"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "move-type-change"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3498
+      }
+    ]
+  },
+  {
+    "id": "psychicsurge",
+    "name": "Psychic Surge",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3581
+      }
+    ]
+  },
+  {
+    "id": "punkrock",
+    "name": "Punk Rock",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3590
+      }
+    ]
+  },
+  {
+    "id": "purepower",
+    "name": "Pure Power",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3609
+      }
+    ]
+  },
+  {
+    "id": "purifyingsalt",
+    "name": "Purifying Salt",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3619
+      }
+    ]
+  },
+  {
+    "id": "queenlymajesty",
+    "name": "Queenly Majesty",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3717
+      }
+    ]
+  },
+  {
+    "id": "quickdraw",
+    "name": "Quick Draw",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3736
+      }
+    ]
+  },
+  {
+    "id": "quickfeet",
+    "name": "Quick Feet",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "status-trigger"
+      ],
+      "requiredInputIds": [
+        "status"
+      ],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "defaultStatus": "brn",
+      "mechanicInputIds": [
+        "statusEnabled"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "status"
+      ],
+      "productRuleIds": [
+        "status-trigger"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "status": "burn; poison for poison-specific abilities"
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3749
+      }
+    ]
+  },
+  {
+    "id": "raindish",
+    "name": "Rain Dish",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3760
+      }
+    ]
+  },
+  {
+    "id": "rattled",
+    "name": "Rattled",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3772
+      }
+    ]
+  },
+  {
+    "id": "receiver",
+    "name": "Receiver",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only",
+        "copied-ability"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "copiedAbilityId"
+      ],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "copied-ability"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "ability-change-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3788
+      }
+    ]
+  },
+  {
+    "id": "reckless",
+    "name": "Reckless",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3800
+      }
+    ]
+  },
+  {
+    "id": "refrigerate",
+    "name": "Refrigerate",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3813
+      }
+    ]
+  },
+  {
+    "id": "regenerator",
+    "name": "Regenerator",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3834
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 68
+      }
+    ]
+  },
+  {
+    "id": "ripen",
+    "name": "Ripen",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3843
+      }
+    ]
+  },
+  {
+    "id": "rivalry",
+    "name": "Rivalry",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "gender-condition"
+      ],
+      "requiredInputIds": [
+        "rivalrySameGender"
+      ],
+      "existingContextSignals": [
+        "gender"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "attackerGender",
+        "defenderGender"
+      ],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "gender-condition"
+      ],
+      "definitionInputIds": [
+        "rivalrySameGender"
+      ],
+      "productRuleIds": [
+        "rivalry-toggle"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3882
+      }
+    ]
+  },
+  {
+    "id": "rockhead",
+    "name": "Rock Head",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3907
+      }
+    ]
+  },
+  {
+    "id": "roughskin",
+    "name": "Rough Skin",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3939
+      }
+    ]
+  },
+  {
+    "id": "runaway",
+    "name": "Run Away",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3951
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 76
+      }
+    ]
+  },
+  {
+    "id": "sandforce",
+    "name": "Sand Force",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3957
+      }
+    ]
+  },
+  {
+    "id": "sandrush",
+    "name": "Sand Rush",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3975
+      }
+    ]
+  },
+  {
+    "id": "sandspit",
+    "name": "Sand Spit",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting",
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3989
+      }
+    ]
+  },
+  {
+    "id": "sandstream",
+    "name": "Sand Stream",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 3998
+      }
+    ]
+  },
+  {
+    "id": "sandveil",
+    "name": "Sand Veil",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects",
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4007
+      }
+    ]
+  },
+  {
+    "id": "sapsipper",
+    "name": "Sap Sipper",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4024
+      }
+    ]
+  },
+  {
+    "id": "scrappy",
+    "name": "Scrappy",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4080
+      }
+    ]
+  },
+  {
+    "id": "screencleaner",
+    "name": "Screen Cleaner",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4100
+      }
+    ]
+  },
+  {
+    "id": "seedsower",
+    "name": "Seed Sower",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting",
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4120
+      }
+    ]
+  },
+  {
+    "id": "shadowtag",
+    "name": "Shadow Tag",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4157
+      }
+    ]
+  },
+  {
+    "id": "sharpness",
+    "name": "Sharpness",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4175
+      }
+    ]
+  },
+  {
+    "id": "shedskin",
+    "name": "Shed Skin",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "residual-only-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4188
+      }
+    ]
+  },
+  {
+    "id": "sheerforce",
+    "name": "Sheer Force",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4203
+      }
+    ]
+  },
+  {
+    "id": "shellarmor",
+    "name": "Shell Armor",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "critical-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4223
+      }
+    ]
+  },
+  {
+    "id": "shielddust",
+    "name": "Shield Dust",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4230
+      }
+    ]
+  },
+  {
+    "id": "skilllink",
+    "name": "Skill Link",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4298
+      }
+    ]
+  },
+  {
+    "id": "slushrush",
+    "name": "Slush Rush",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4348
+      }
+    ]
+  },
+  {
+    "id": "sniper",
+    "name": "Sniper",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "critical-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4359
+      }
+    ]
+  },
+  {
+    "id": "snowcloak",
+    "name": "Snow Cloak",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects",
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4371
+      }
+    ]
+  },
+  {
+    "id": "snowwarning",
+    "name": "Snow Warning",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "field-setting"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "field-setting"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "field-setter-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4388
+      }
+    ]
+  },
+  {
+    "id": "solarpower",
+    "name": "Solar Power",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4397
+      }
+    ]
+  },
+  {
+    "id": "solidrock",
+    "name": "Solid Rock",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4415
+      }
+    ]
+  },
+  {
+    "id": "soundproof",
+    "name": "Soundproof",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4437
+      }
+    ]
+  },
+  {
+    "id": "speedboost",
+    "name": "Speed Boost",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4454
+      }
+    ]
+  },
+  {
+    "id": "spicyspray",
+    "name": "Spicy Spray",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4467
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 87
+      }
+    ]
+  },
+  {
+    "id": "stakeout",
+    "name": "Stakeout",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ability-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4477
+      }
+    ]
+  },
+  {
+    "id": "stall",
+    "name": "Stall",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4497
+      }
+    ]
+  },
+  {
+    "id": "stalwart",
+    "name": "Stalwart",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4504
+      }
+    ]
+  },
+  {
+    "id": "stamina",
+    "name": "Stamina",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4515
+      }
+    ]
+  },
+  {
+    "id": "stancechange",
+    "name": "Stance Change",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "transformation"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "fixed-form"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4524
+      }
+    ]
+  },
+  {
+    "id": "static",
+    "name": "Static",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4537
+      }
+    ]
+  },
+  {
+    "id": "steadfast",
+    "name": "Steadfast",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4550
+      }
+    ]
+  },
+  {
+    "id": "steelyspirit",
+    "name": "Steely Spirit",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4590
+      }
+    ]
+  },
+  {
+    "id": "stench",
+    "name": "Stench",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "secondary-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4603
+      }
+    ]
+  },
+  {
+    "id": "stickyhold",
+    "name": "Sticky Hold",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp",
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4623
+      }
+    ]
+  },
+  {
+    "id": "strongjaw",
+    "name": "Strong Jaw",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4662
+      }
+    ]
+  },
+  {
+    "id": "sturdy",
+    "name": "Sturdy",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicNote": "First-hit protection/full-HP effects may change after damage; single-hit support does not prove exact multi-hit/KO support.",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "hp-protection"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4674
+      }
+    ]
+  },
+  {
+    "id": "suctioncups",
+    "name": "Suction Cups",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4693
+      }
+    ]
+  },
+  {
+    "id": "superluck",
+    "name": "Super Luck",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "critical-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4704
+      }
+    ]
+  },
+  {
+    "id": "supersweetsyrup",
+    "name": "Supersweet Syrup",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks",
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4713
+      }
+    ]
+  },
+  {
+    "id": "supremeoverlord",
+    "name": "Supreme Overlord",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "fainted-allies"
+      ],
+      "requiredInputIds": [
+        "alliesFainted"
+      ],
+      "existingContextSignals": [
+        "party"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "counterSemantics": "Faint count is captured on entry, capped at 5; Last Respects reads cumulative faints. Same UI quantity does not imply identical timing semantics.",
+      "mechanicInputIds": [
+        "alliesFainted"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "alliesFainted"
+      ],
+      "productRuleIds": [
+        "fainted-allies-ability"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "alliesFainted": 0
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4731
+      }
+    ]
+  },
+  {
+    "id": "surgesurfer",
+    "name": "Surge Surfer",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4757
+      }
+    ]
+  },
+  {
+    "id": "swarm",
+    "name": "Swarm",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "low-hp-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "knownEngineGap": "Engine checks actual HP; an activation-only adapter is needed to preserve the app full-HP assumption.",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4768
+      }
+    ]
+  },
+  {
+    "id": "sweetveil",
+    "name": "Sweet Veil",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4788
+      }
+    ]
+  },
+  {
+    "id": "swiftswim",
+    "name": "Swift Swim",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "field"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4810
+      }
+    ]
+  },
+  {
+    "id": "symbiosis",
+    "name": "Symbiosis",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only",
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "item-transfer-ability-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4839
+      }
+    ]
+  },
+  {
+    "id": "synchronize",
+    "name": "Synchronize",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4859
+      }
+    ]
+  },
+  {
+    "id": "tangledfeet",
+    "name": "Tangled Feet",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "accuracy-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "volatileState"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4892
+      }
+    ]
+  },
+  {
+    "id": "technician",
+    "name": "Technician",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4918
+      }
+    ]
+  },
+  {
+    "id": "telepathy",
+    "name": "Telepathy",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ally-only"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4933
+      }
+    ]
+  },
+  {
+    "id": "thermalexchange",
+    "name": "Thermal Exchange",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status",
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 4992
+      }
+    ]
+  },
+  {
+    "id": "thickfat",
+    "name": "Thick Fat",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5016
+      }
+    ]
+  },
+  {
+    "id": "torrent",
+    "name": "Torrent",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "low-hp-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "hp"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "knownEngineGap": "Engine checks actual HP; an activation-only adapter is needed to preserve the app full-HP assumption.",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5048
+      }
+    ]
+  },
+  {
+    "id": "toughclaws",
+    "name": "Tough Claws",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5068
+      }
+    ]
+  },
+  {
+    "id": "toxicdebris",
+    "name": "Toxic Debris",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5106
+      }
+    ]
+  },
+  {
+    "id": "trace",
+    "name": "Trace",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "copied-ability"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "item",
+        "ability"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [
+        "copiedAbilityId"
+      ],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "copied-ability"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "ability-change-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5120
+      }
+    ]
+  },
+  {
+    "id": "unaware",
+    "name": "Unaware",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5216
+      }
+    ]
+  },
+  {
+    "id": "unburden",
+    "name": "Unburden",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "ability-activation"
+      ],
+      "requiredInputIds": [
+        "abilityActive"
+      ],
+      "existingContextSignals": [
+        "item"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicNote": "Selecting Unburden disables item input and starts calculations without a held item.",
+      "mechanicInputIds": [
+        "abilityActive"
+      ],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [
+        "abilityActive"
+      ],
+      "productRuleIds": [
+        "activation-default-on",
+        "unburden-no-item"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {
+          "abilityActive": true
+        }
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5237
+      }
+    ]
+  },
+  {
+    "id": "unnerve",
+    "name": "Unnerve",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5260
+      }
+    ]
+  },
+  {
+    "id": "unseenfist",
+    "name": "Unseen Fist",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5278
+      },
+      {
+        "path": "data/mods/champions/abilities.ts",
+        "line": 91
+      }
+    ]
+  },
+  {
+    "id": "vitalspirit",
+    "name": "Vital Spirit",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5317
+      }
+    ]
+  },
+  {
+    "id": "voltabsorb",
+    "name": "Volt Absorb",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5342
+      }
+    ]
+  },
+  {
+    "id": "wanderingspirit",
+    "name": "Wandering Spirit",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "repeat-state-change"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "repeat-state-change"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "ability-change-excluded"
+      ],
+      "productPolicy": {
+        "selection": "excluded",
+        "implementation": "planned",
+        "maximumUses": 0,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5356
+      }
+    ]
+  },
+  {
+    "id": "waterabsorb",
+    "name": "Water Absorb",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context",
+        "residual-effects"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5365
+      }
+    ]
+  },
+  {
+    "id": "waterbubble",
+    "name": "Water Bubble",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "status"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5379
+      }
+    ]
+  },
+  {
+    "id": "weakarmor",
+    "name": "Weak Armor",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "final-ranks"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [
+        "ranks"
+      ],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5450
+      }
+    ]
+  },
+  {
+    "id": "whitesmoke",
+    "name": "White Smoke",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "existing-context"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": false,
+      "mechanicReviewRuleIds": [],
+      "definitionInputIds": [],
+      "productRuleIds": [],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5475
+      }
+    ]
+  },
+  {
+    "id": "zerotohero",
+    "name": "Zero to Hero",
+    "sourceNonstandard": null,
+    "engineDataPresent": true,
+    "classification": {
+      "ruleIds": [
+        "transformation"
+      ],
+      "requiredInputIds": [],
+      "existingContextSignals": [],
+      "reviewRequired": false,
+      "unresolvedRuleIds": [],
+      "calculationVerification": "not-verified-by-catalog-extraction",
+      "mechanicInputIds": [],
+      "mechanicReviewRequired": true,
+      "mechanicReviewRuleIds": [
+        "transformation"
+      ],
+      "definitionInputIds": [],
+      "productRuleIds": [
+        "fixed-form"
+      ],
+      "productPolicy": {
+        "selection": "damage-or-speed-only",
+        "implementation": "planned",
+        "maximumUses": null,
+        "defaults": {}
+      }
+    },
+    "source": [
+      {
+        "path": "data/abilities.ts",
+        "line": 5628
+      }
+    ]
+  }
+]

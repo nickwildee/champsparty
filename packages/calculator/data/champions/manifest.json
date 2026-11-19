@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-17",
+  "showdown": {
+    "repository": "https://github.com/smogon/pokemon-showdown",
+    "commit": "f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
+    "committedAt": "2026-11-16T10:46:26Z",
+    "archiveUrl": "https://codeload.github.com/smogon/pokemon-showdown/tar.gz/f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
+    "archiveSha256": "61ad7f166ccf62594f1931c8bc65a2eeaabcfcb5f1a2aecd92ea734296467456",
+    "mod": "champions",
+    "license": "MIT",
+    "licensePath": "LICENSE"
+  },
+  "engine": {
+    "package": "@smogon/calc",
+    "version": "0.12.0"
+  },
+  "rosterRule": "Showdown champions: exists && num > 0 && !isNonstandard; battle-only forms require an available battleOnly prerequisite; preserve cosmetic forms; no OU/Uber tier filtering",
+  "officialGameRosterVerified": false,
+  "extraction": {
+    "speciesApi": "Dex.mod('champions').species.all()",
+    "movePoolApi": "Dex.mod('champions').species.getMovePool(id, false)",
+    "preserveRawMovePool": "Reconstruct as the sorted union of moveIds and excludedMoveIds.",
+    "availabilityFilter": "exists && num > 0 && !isNonstandard; battle-only forms also need at least one available battleOnly prerequisite",
+    "legalityScope": "Data availability and one-move learnability only; not full team/event/ability combination validation or official game audit.",
+    "baseCalculationData": "Not duplicated into catalog: keep @smogon/calc as calculation source."
+  },
+  "sourceFileSha256": {
+    "config/formats.ts": "25297f666d3b738d6326e449b94e7991bd2e5065daa6bc20b9aee3b9331e3460",
+    "data/abilities.ts": "e942ef6a75cdd50095f6b68c27e772ea91f2202714a30b04539ff17b7b93c065",
+    "data/aliases.ts": "c988274f3b02b260d2a2f3dfcc6b948c44f45ad642cc85a212520747839086f4",
+    "data/conditions.ts": "58dbc48efbf3630e74a4ddb0aef19ab3128e1644fed893e7d6885328cb235e85",
+    "data/formats-data.ts": "3e0b75701b4723e57d7557aaa50b13e0c05cf80bf586d18d20608b3214fa161a",
+    "data/items.ts": "6a9c7eeb9cfda861d9fb22084b10af46d03da4729981424ff155399907b66ed4",
+    "data/learnsets.ts": "cdab542e58b6d276122cce4ee2ff5597123f773cd1d053ecbfd4b81a54d1bafb",
+    "data/mods/champions/abilities.ts": "0c3a61bc77552f87fbbe73a7cd3fd9fae8fec7da374e1159a23b6891bd155708",
+    "data/mods/champions/conditions.ts": "42f814656a23a386398fc66f20915f9d4df1dd9f23c5ad0071dc50a799faa738",
+    "data/mods/champions/formats-data.ts": "1bce50ce8bfe8c227cf1b4183ed3dca3dd4844eb43e543d6ae8f3714a8a9c871",
+    "data/mods/champions/items.ts": "2bdaa053fe617ee859767bc4744cd1e00cddb994d7d9229bfb92d409c928c190",
+    "data/mods/champions/learnsets.ts": "826d302703358260a1c4967e2bf8edd15f1fe7e0f664c8ab14aff734906cc9d0",
+    "data/mods/champions/moves.ts": "bcd4263a7c72e8c1d9ec0e4ffb9f1b63e6d936994c79acfc0a33f2dcc3ab2f04",
+    "data/mods/champions/rulesets.ts": "1184015414d7464a37d39db0bdde59ee68de0c60209e58fa13575b2530b9970e",
+    "data/mods/champions/scripts.ts": "b8c0005064c70d5066f807ad07e9959dd79ac2146d7ea5c4a92808df336b0df8",
+    "data/moves.ts": "19d96eac13d7d89f13b42a975672ee75b8ad4dac011c66898ea811f2e3ef7681",
+    "data/natures.ts": "5cfefee4c23dd19f629deb9a67f75361226bd24fe34cefe9a13d30d985428416",
+    "data/pokedex.ts": "5e572601f4700f99835845eee5cd3e53362e43d885e2753fcc32418f636b83ed",
+    "data/pokemongo.ts": "182ba1083390e7c6627f1bbfe5a68173623d3c68f75f04ca2adeb72460675e78",
+    "data/rulesets.ts": "75422eecf4489e7a23ccdf161c2af8caaee1a22bb2736957413de46335e34d6e",
+    "data/scripts.ts": "54c7522b3d5d05f6a020d78b129589e7b2e57fbb9d095800c78c33a64a8ff383",
+    "data/tags.ts": "2b9e5a34b3c2fe9db90cf3b89e5fbfe2ac4633477fa9a4827cf3316a7fe3bc24",
+    "data/typechart.ts": "7b0eae126bdcf98edfd71cbe75af00b763f5f0d5db36024b6f3e7c5e4aea95ac",
+    "lib/utils.ts": "b4a8ff445c043c97dfcbe85cfdf3b39c298ffb186ed3bec9bd86324d962b0978",
+    "sim/dex-abilities.ts": "9ec7acb30cef3c2681977ab833931b2a89e7bb48a884ae7f959981bc93797d3f",
+    "sim/dex-conditions.ts": "a44e4031c54b2fd70e9123956c8a741f855b385716fa726bd504aa9aa9f09f95",
+    "sim/dex-data.ts": "6721e00d27766f1f981bd8c67a119cb838a5cd52de54520b807ac3e78eb80b6b",
+    "sim/dex-formats.ts": "d2297e9e0a320ac536ed62f85008e5f093e2a5cbf89dbf9a4a5e5bc82fbcd5ad",
+    "sim/dex-items.ts": "2b1034b79b4c365fa05ff8c5cf6d4acb0bb82a406752451e4635f64d58e1fc4a",
+    "sim/dex-moves.ts": "5c15a78ff4a491c1eecbda909c63535924589aba7e15b73a895d41e6b504f02f",
+    "sim/dex-species.ts": "5f47308e655371968c3b4ddc6680cf0da1c92022c330625ca5cce71e3f0e43ce",
+    "sim/dex-text.ts": "7c8413625c9195774af6a0e6c78f8902dcdd4d7e6d1c6369a261c914751fc917",
+    "sim/dex.ts": "e4541bdef8f8256e045549969b6b20a27083fd7078af91f59ac378335efee2b5"
+  },
+  "generatorFileSha256": {
+    "extract-champions.mjs": "7818099d073a176a163692139da70f46ca8b57e49587ed1a5e31f15aca8b3d60",
+    "showdown-source.mjs": "4b4170f5e35690c421d74c98b1c612b6d467f6ef9c6ae735490e35f424b7efe8",
+    "champions-conditions.mjs": "e867c6aa19d5817e0ca8e75ea832dd0dc3e1da5234d7ecae7e109c65ec6d8923",
+    "champions-product-rules.mjs": "85d686a16b4a01046c23f76adada45809c83f68b5af085bd2793d561e73536b8"
+  },
+  "artifactSha256": {
+    "pokemon.json": "011e45252e309e9e9716477aca9566623b45da5c608550a0ed4910e3ee5bc87a",
+    "moves.json": "b909aeefff8000e7b643a36c237a87035a1534397953feec13f8ea235557be0e",
+    "abilities.json": "866cc573d5c6592896648418171d3dcf6df3c870d8582846910e893b41a90f26",
+    "conditions.json": "b1e69591f4a51bcf6c6c0cdaae6982fa3545ffe1f542a338ffb909f627f5f9d4",
+    "engine-diff.json": "7d09fd78dd7c995aec28d2e25000f0e7dd4197baffa748a054d27f4aa969e585"
+  }
+}

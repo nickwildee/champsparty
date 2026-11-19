@@ -1,0 +1,3205 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "rawSourceCandidateForms": 392,
+    "excludedUnavailableBattleForms": 10,
+    "sourcePokemonForms": 382,
+    "sourceAvailableMoves": 515,
+    "sourceReferencedMoves": 515,
+    "usedAbilities": 216,
+    "enginePokemonForms": 359,
+    "engineMoves": 526,
+    "learnsetEdges": 23176,
+    "mappedCosmeticOrNamingAliases": 25,
+    "missingSpeciesAfterMapping": 0,
+    "additionalAbilityOptions": 269,
+    "unavailableLearnsetReferences": 0
+  },
+  "speciesMissingAfterMapping": [],
+  "excludedBattleOnlyForms": [
+    {
+      "id": "cramorantgorging",
+      "name": "Cramorant-Gorging",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "cramorant",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "cramorantgulping",
+      "name": "Cramorant-Gulping",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "cramorant",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "eiscuenoice",
+      "name": "Eiscue-Noice",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "eiscue",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "meloettapirouette",
+      "name": "Meloetta-Pirouette",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "meloetta",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "miniormeteor",
+      "name": "Minior-Meteor",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "minior",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "ogerponcornerstonetera",
+      "name": "Ogerpon-Cornerstone-Tera",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "ogerponcornerstone",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "ogerponhearthflametera",
+      "name": "Ogerpon-Hearthflame-Tera",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "ogerponhearthflame",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "ogerpontealtera",
+      "name": "Ogerpon-Teal-Tera",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "ogerpon",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "ogerponwellspringtera",
+      "name": "Ogerpon-Wellspring-Tera",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "ogerponwellspring",
+          "nonstandard": "Past"
+        }
+      ]
+    },
+    {
+      "id": "terapagosterastal",
+      "name": "Terapagos-Terastal",
+      "reason": "all-transformation-prerequisites-unavailable",
+      "prerequisites": [
+        {
+          "id": "terapagos",
+          "nonstandard": "Past"
+        }
+      ]
+    }
+  ],
+  "speciesMappings": [
+    {
+      "speciesId": "aegislash",
+      "engineId": "aegislashshield",
+      "reason": "shield-form-naming"
+    },
+    {
+      "speciesId": "alcremiecaramelswirl",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremielemoncream",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremiematchacream",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremiemintcream",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremierainbowswirl",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremierubycream",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "alcremierubyswirl",
+      "engineId": "alcremie",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonarchipelago",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivilloncontinental",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonelegant",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillongarden",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonhighplains",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonicysnow",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonjungle",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonmarine",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonmodern",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonmonsoon",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonocean",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonpolar",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonriver",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonsandstorm",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonsavanna",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillonsun",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    },
+    {
+      "speciesId": "vivillontundra",
+      "engineId": "vivillon",
+      "reason": "cosmetic-form-same-calculation-data"
+    }
+  ],
+  "engineOnlySpecies": [
+    {
+      "id": "aegislashboth",
+      "name": "Aegislash-Both",
+      "showdownNonstandard": "Custom"
+    },
+    {
+      "id": "aegislashshield",
+      "name": "Aegislash-Shield",
+      "showdownNonstandard": null
+    }
+  ],
+  "speciesStatDifferences": [],
+  "speciesTypeDifferences": [],
+  "speciesWeightDifferences": [],
+  "defaultAbilityDifferences": [
+    {
+      "speciesId": "hawluchamega",
+      "engineId": "hawluchamega",
+      "showdown": "No Guard",
+      "engine": "Limber"
+    },
+    {
+      "speciesId": "skarmorymega",
+      "engineId": "skarmorymega",
+      "showdown": "Stalwart",
+      "engine": "Keen Eye"
+    }
+  ],
+  "additionalAbilityOptions": [
+    {
+      "speciesId": "abomasnow",
+      "abilities": [
+        "soundproof"
+      ]
+    },
+    {
+      "speciesId": "absol",
+      "abilities": [
+        "superluck",
+        "justified"
+      ]
+    },
+    {
+      "speciesId": "aerodactyl",
+      "abilities": [
+        "pressure",
+        "unnerve"
+      ]
+    },
+    {
+      "speciesId": "aggron",
+      "abilities": [
+        "rockhead",
+        "heavymetal"
+      ]
+    },
+    {
+      "speciesId": "alakazam",
+      "abilities": [
+        "innerfocus",
+        "magicguard"
+      ]
+    },
+    {
+      "speciesId": "alcremie",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremiecaramelswirl",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremielemoncream",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremiematchacream",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremiemintcream",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremierainbowswirl",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremierubycream",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "alcremierubyswirl",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "altaria",
+      "abilities": [
+        "cloudnine"
+      ]
+    },
+    {
+      "speciesId": "ampharos",
+      "abilities": [
+        "plus"
+      ]
+    },
+    {
+      "speciesId": "annihilape",
+      "abilities": [
+        "innerfocus",
+        "defiant"
+      ]
+    },
+    {
+      "speciesId": "appletun",
+      "abilities": [
+        "gluttony",
+        "thickfat"
+      ]
+    },
+    {
+      "speciesId": "araquanid",
+      "abilities": [
+        "waterabsorb"
+      ]
+    },
+    {
+      "speciesId": "arbok",
+      "abilities": [
+        "shedskin",
+        "unnerve"
+      ]
+    },
+    {
+      "speciesId": "arboliva",
+      "abilities": [
+        "harvest"
+      ]
+    },
+    {
+      "speciesId": "arcanine",
+      "abilities": [
+        "flashfire",
+        "justified"
+      ]
+    },
+    {
+      "speciesId": "arcaninehisui",
+      "abilities": [
+        "flashfire",
+        "rockhead"
+      ]
+    },
+    {
+      "speciesId": "archaludon",
+      "abilities": [
+        "sturdy",
+        "stalwart"
+      ]
+    },
+    {
+      "speciesId": "ariados",
+      "abilities": [
+        "insomnia",
+        "sniper"
+      ]
+    },
+    {
+      "speciesId": "armarouge",
+      "abilities": [
+        "weakarmor"
+      ]
+    },
+    {
+      "speciesId": "aromatisse",
+      "abilities": [
+        "aromaveil"
+      ]
+    },
+    {
+      "speciesId": "audino",
+      "abilities": [
+        "regenerator",
+        "klutz"
+      ]
+    },
+    {
+      "speciesId": "aurorus",
+      "abilities": [
+        "snowwarning"
+      ]
+    },
+    {
+      "speciesId": "avalugg",
+      "abilities": [
+        "icebody",
+        "sturdy"
+      ]
+    },
+    {
+      "speciesId": "avalugghisui",
+      "abilities": [
+        "icebody",
+        "sturdy"
+      ]
+    },
+    {
+      "speciesId": "azumarill",
+      "abilities": [
+        "hugepower",
+        "sapsipper"
+      ]
+    },
+    {
+      "speciesId": "banette",
+      "abilities": [
+        "frisk",
+        "cursedbody"
+      ]
+    },
+    {
+      "speciesId": "barbaracle",
+      "abilities": [
+        "sniper",
+        "pickpocket"
+      ]
+    },
+    {
+      "speciesId": "basculegion",
+      "abilities": [
+        "adaptability",
+        "moldbreaker"
+      ]
+    },
+    {
+      "speciesId": "basculegionf",
+      "abilities": [
+        "adaptability",
+        "moldbreaker"
+      ]
+    },
+    {
+      "speciesId": "bastiodon",
+      "abilities": [
+        "soundproof"
+      ]
+    },
+    {
+      "speciesId": "baxcalibur",
+      "abilities": [
+        "icebody"
+      ]
+    },
+    {
+      "speciesId": "beartic",
+      "abilities": [
+        "slushrush",
+        "swiftswim"
+      ]
+    },
+    {
+      "speciesId": "beedrill",
+      "abilities": [
+        "sniper"
+      ]
+    },
+    {
+      "speciesId": "bellibolt",
+      "abilities": [
+        "static",
+        "damp"
+      ]
+    },
+    {
+      "speciesId": "blastoise",
+      "abilities": [
+        "raindish"
+      ]
+    },
+    {
+      "speciesId": "blaziken",
+      "abilities": [
+        "speedboost"
+      ]
+    },
+    {
+      "speciesId": "camerupt",
+      "abilities": [
+        "solidrock",
+        "angerpoint"
+      ]
+    },
+    {
+      "speciesId": "ceruledge",
+      "abilities": [
+        "weakarmor"
+      ]
+    },
+    {
+      "speciesId": "chandelure",
+      "abilities": [
+        "flamebody",
+        "infiltrator"
+      ]
+    },
+    {
+      "speciesId": "charizard",
+      "abilities": [
+        "solarpower"
+      ]
+    },
+    {
+      "speciesId": "chesnaught",
+      "abilities": [
+        "bulletproof"
+      ]
+    },
+    {
+      "speciesId": "cinderace",
+      "abilities": [
+        "libero"
+      ]
+    },
+    {
+      "speciesId": "clefable",
+      "abilities": [
+        "magicguard",
+        "unaware"
+      ]
+    },
+    {
+      "speciesId": "conkeldurr",
+      "abilities": [
+        "sheerforce",
+        "ironfist"
+      ]
+    },
+    {
+      "speciesId": "corviknight",
+      "abilities": [
+        "unnerve",
+        "mirrorarmor"
+      ]
+    },
+    {
+      "speciesId": "crabominable",
+      "abilities": [
+        "ironfist",
+        "angerpoint"
+      ]
+    },
+    {
+      "speciesId": "decidueye",
+      "abilities": [
+        "longreach"
+      ]
+    },
+    {
+      "speciesId": "decidueyehisui",
+      "abilities": [
+        "scrappy"
+      ]
+    },
+    {
+      "speciesId": "dedenne",
+      "abilities": [
+        "pickup",
+        "plus"
+      ]
+    },
+    {
+      "speciesId": "delphox",
+      "abilities": [
+        "magician"
+      ]
+    },
+    {
+      "speciesId": "diggersby",
+      "abilities": [
+        "cheekpouch",
+        "hugepower"
+      ]
+    },
+    {
+      "speciesId": "ditto",
+      "abilities": [
+        "imposter"
+      ]
+    },
+    {
+      "speciesId": "dragalge",
+      "abilities": [
+        "poisontouch",
+        "adaptability"
+      ]
+    },
+    {
+      "speciesId": "dragapult",
+      "abilities": [
+        "infiltrator",
+        "cursedbody"
+      ]
+    },
+    {
+      "speciesId": "dragonite",
+      "abilities": [
+        "multiscale"
+      ]
+    },
+    {
+      "speciesId": "drampa",
+      "abilities": [
+        "sapsipper",
+        "cloudnine"
+      ]
+    },
+    {
+      "speciesId": "emboar",
+      "abilities": [
+        "reckless"
+      ]
+    },
+    {
+      "speciesId": "emolga",
+      "abilities": [
+        "motordrive"
+      ]
+    },
+    {
+      "speciesId": "empoleon",
+      "abilities": [
+        "competitive"
+      ]
+    },
+    {
+      "speciesId": "espathra",
+      "abilities": [
+        "frisk",
+        "speedboost"
+      ]
+    },
+    {
+      "speciesId": "espeon",
+      "abilities": [
+        "magicbounce"
+      ]
+    },
+    {
+      "speciesId": "excadrill",
+      "abilities": [
+        "sandforce",
+        "moldbreaker"
+      ]
+    },
+    {
+      "speciesId": "falinks",
+      "abilities": [
+        "defiant"
+      ]
+    },
+    {
+      "speciesId": "farfetchd",
+      "abilities": [
+        "innerfocus",
+        "defiant"
+      ]
+    },
+    {
+      "speciesId": "farigiraf",
+      "abilities": [
+        "armortail",
+        "sapsipper"
+      ]
+    },
+    {
+      "speciesId": "feraligatr",
+      "abilities": [
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "flapple",
+      "abilities": [
+        "gluttony",
+        "hustle"
+      ]
+    },
+    {
+      "speciesId": "flareon",
+      "abilities": [
+        "guts"
+      ]
+    },
+    {
+      "speciesId": "floetteeternal",
+      "abilities": [
+        "symbiosis"
+      ]
+    },
+    {
+      "speciesId": "florges",
+      "abilities": [
+        "symbiosis"
+      ]
+    },
+    {
+      "speciesId": "forretress",
+      "abilities": [
+        "overcoat"
+      ]
+    },
+    {
+      "speciesId": "froslass",
+      "abilities": [
+        "cursedbody"
+      ]
+    },
+    {
+      "speciesId": "gallade",
+      "abilities": [
+        "sharpness",
+        "justified"
+      ]
+    },
+    {
+      "speciesId": "garbodor",
+      "abilities": [
+        "weakarmor",
+        "aftermath"
+      ]
+    },
+    {
+      "speciesId": "garchomp",
+      "abilities": [
+        "roughskin"
+      ]
+    },
+    {
+      "speciesId": "gardevoir",
+      "abilities": [
+        "trace",
+        "telepathy"
+      ]
+    },
+    {
+      "speciesId": "garganacl",
+      "abilities": [
+        "sturdy",
+        "clearbody"
+      ]
+    },
+    {
+      "speciesId": "glaceon",
+      "abilities": [
+        "icebody"
+      ]
+    },
+    {
+      "speciesId": "glalie",
+      "abilities": [
+        "icebody",
+        "moody"
+      ]
+    },
+    {
+      "speciesId": "glimmora",
+      "abilities": [
+        "corrosion"
+      ]
+    },
+    {
+      "speciesId": "gliscor",
+      "abilities": [
+        "sandveil",
+        "poisonheal"
+      ]
+    },
+    {
+      "speciesId": "gogoat",
+      "abilities": [
+        "grasspelt"
+      ]
+    },
+    {
+      "speciesId": "golurk",
+      "abilities": [
+        "klutz",
+        "noguard"
+      ]
+    },
+    {
+      "speciesId": "goodra",
+      "abilities": [
+        "hydration",
+        "gooey"
+      ]
+    },
+    {
+      "speciesId": "goodrahisui",
+      "abilities": [
+        "shellarmor",
+        "gooey"
+      ]
+    },
+    {
+      "speciesId": "gourgeist",
+      "abilities": [
+        "frisk",
+        "insomnia"
+      ]
+    },
+    {
+      "speciesId": "gourgeistlarge",
+      "abilities": [
+        "frisk",
+        "insomnia"
+      ]
+    },
+    {
+      "speciesId": "gourgeistsmall",
+      "abilities": [
+        "frisk",
+        "insomnia"
+      ]
+    },
+    {
+      "speciesId": "gourgeistsuper",
+      "abilities": [
+        "frisk",
+        "insomnia"
+      ]
+    },
+    {
+      "speciesId": "grapploct",
+      "abilities": [
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "greninja",
+      "abilities": [
+        "protean",
+        "battlebond"
+      ]
+    },
+    {
+      "speciesId": "grimmsnarl",
+      "abilities": [
+        "frisk",
+        "pickpocket"
+      ]
+    },
+    {
+      "speciesId": "gyarados",
+      "abilities": [
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "hatterene",
+      "abilities": [
+        "anticipation",
+        "magicbounce"
+      ]
+    },
+    {
+      "speciesId": "hawlucha",
+      "abilities": [
+        "unburden",
+        "moldbreaker"
+      ]
+    },
+    {
+      "speciesId": "hawluchamega",
+      "abilities": [
+        "noguard"
+      ]
+    },
+    {
+      "speciesId": "heliolisk",
+      "abilities": [
+        "sandveil",
+        "solarpower"
+      ]
+    },
+    {
+      "speciesId": "heracross",
+      "abilities": [
+        "guts",
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "hippowdon",
+      "abilities": [
+        "sandforce"
+      ]
+    },
+    {
+      "speciesId": "houndoom",
+      "abilities": [
+        "flashfire",
+        "unnerve"
+      ]
+    },
+    {
+      "speciesId": "houndstone",
+      "abilities": [
+        "fluffy"
+      ]
+    },
+    {
+      "speciesId": "hydrapple",
+      "abilities": [
+        "regenerator",
+        "stickyhold"
+      ]
+    },
+    {
+      "speciesId": "incineroar",
+      "abilities": [
+        "intimidate"
+      ]
+    },
+    {
+      "speciesId": "indeedee",
+      "abilities": [
+        "synchronize",
+        "psychicsurge"
+      ]
+    },
+    {
+      "speciesId": "indeedeef",
+      "abilities": [
+        "synchronize",
+        "psychicsurge"
+      ]
+    },
+    {
+      "speciesId": "infernape",
+      "abilities": [
+        "ironfist"
+      ]
+    },
+    {
+      "speciesId": "inteleon",
+      "abilities": [
+        "sniper"
+      ]
+    },
+    {
+      "speciesId": "jolteon",
+      "abilities": [
+        "quickfeet"
+      ]
+    },
+    {
+      "speciesId": "kangaskhan",
+      "abilities": [
+        "scrappy",
+        "innerfocus"
+      ]
+    },
+    {
+      "speciesId": "kingambit",
+      "abilities": [
+        "supremeoverlord",
+        "pressure"
+      ]
+    },
+    {
+      "speciesId": "kleavor",
+      "abilities": [
+        "sheerforce",
+        "sharpness"
+      ]
+    },
+    {
+      "speciesId": "klefki",
+      "abilities": [
+        "magician"
+      ]
+    },
+    {
+      "speciesId": "kommoo",
+      "abilities": [
+        "soundproof",
+        "overcoat"
+      ]
+    },
+    {
+      "speciesId": "krookodile",
+      "abilities": [
+        "moxie",
+        "angerpoint"
+      ]
+    },
+    {
+      "speciesId": "leafeon",
+      "abilities": [
+        "chlorophyll"
+      ]
+    },
+    {
+      "speciesId": "liepard",
+      "abilities": [
+        "unburden",
+        "prankster"
+      ]
+    },
+    {
+      "speciesId": "lopunny",
+      "abilities": [
+        "klutz",
+        "limber"
+      ]
+    },
+    {
+      "speciesId": "lucario",
+      "abilities": [
+        "innerfocus",
+        "justified"
+      ]
+    },
+    {
+      "speciesId": "luxray",
+      "abilities": [
+        "intimidate",
+        "guts"
+      ]
+    },
+    {
+      "speciesId": "lycanroc",
+      "abilities": [
+        "sandrush",
+        "steadfast"
+      ]
+    },
+    {
+      "speciesId": "lycanrocmidnight",
+      "abilities": [
+        "vitalspirit",
+        "noguard"
+      ]
+    },
+    {
+      "speciesId": "mabosstiff",
+      "abilities": [
+        "guarddog",
+        "stakeout"
+      ]
+    },
+    {
+      "speciesId": "machamp",
+      "abilities": [
+        "noguard",
+        "steadfast"
+      ]
+    },
+    {
+      "speciesId": "malamar",
+      "abilities": [
+        "suctioncups",
+        "infiltrator"
+      ]
+    },
+    {
+      "speciesId": "mamoswine",
+      "abilities": [
+        "snowcloak",
+        "thickfat"
+      ]
+    },
+    {
+      "speciesId": "manectric",
+      "abilities": [
+        "lightningrod",
+        "minus"
+      ]
+    },
+    {
+      "speciesId": "maushold",
+      "abilities": [
+        "cheekpouch",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "mausholdfour",
+      "abilities": [
+        "cheekpouch",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "mawile",
+      "abilities": [
+        "intimidate",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "medicham",
+      "abilities": [
+        "telepathy"
+      ]
+    },
+    {
+      "speciesId": "meganium",
+      "abilities": [
+        "leafguard"
+      ]
+    },
+    {
+      "speciesId": "meowscarada",
+      "abilities": [
+        "protean"
+      ]
+    },
+    {
+      "speciesId": "meowstic",
+      "abilities": [
+        "infiltrator",
+        "prankster"
+      ]
+    },
+    {
+      "speciesId": "meowsticf",
+      "abilities": [
+        "infiltrator",
+        "competitive"
+      ]
+    },
+    {
+      "speciesId": "metagross",
+      "abilities": [
+        "lightmetal"
+      ]
+    },
+    {
+      "speciesId": "milotic",
+      "abilities": [
+        "competitive",
+        "cutecharm"
+      ]
+    },
+    {
+      "speciesId": "mrmime",
+      "abilities": [
+        "filter",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "mrrime",
+      "abilities": [
+        "screencleaner",
+        "icebody"
+      ]
+    },
+    {
+      "speciesId": "mudsdale",
+      "abilities": [
+        "stamina",
+        "innerfocus"
+      ]
+    },
+    {
+      "speciesId": "musharna",
+      "abilities": [
+        "synchronize",
+        "telepathy"
+      ]
+    },
+    {
+      "speciesId": "ninetales",
+      "abilities": [
+        "drought"
+      ]
+    },
+    {
+      "speciesId": "ninetalesalola",
+      "abilities": [
+        "snowwarning"
+      ]
+    },
+    {
+      "speciesId": "noivern",
+      "abilities": [
+        "infiltrator",
+        "telepathy"
+      ]
+    },
+    {
+      "speciesId": "oranguru",
+      "abilities": [
+        "telepathy",
+        "symbiosis"
+      ]
+    },
+    {
+      "speciesId": "orthworm",
+      "abilities": [
+        "sandveil"
+      ]
+    },
+    {
+      "speciesId": "overqwil",
+      "abilities": [
+        "swiftswim",
+        "intimidate"
+      ]
+    },
+    {
+      "speciesId": "pangoro",
+      "abilities": [
+        "moldbreaker",
+        "scrappy"
+      ]
+    },
+    {
+      "speciesId": "passimian",
+      "abilities": [
+        "defiant"
+      ]
+    },
+    {
+      "speciesId": "pawmot",
+      "abilities": [
+        "naturalcure",
+        "ironfist"
+      ]
+    },
+    {
+      "speciesId": "pelipper",
+      "abilities": [
+        "drizzle",
+        "raindish"
+      ]
+    },
+    {
+      "speciesId": "perrserker",
+      "abilities": [
+        "toughclaws",
+        "steelyspirit"
+      ]
+    },
+    {
+      "speciesId": "persian",
+      "abilities": [
+        "technician",
+        "unnerve"
+      ]
+    },
+    {
+      "speciesId": "persianalola",
+      "abilities": [
+        "technician",
+        "rattled"
+      ]
+    },
+    {
+      "speciesId": "pidgeot",
+      "abilities": [
+        "tangledfeet",
+        "bigpecks"
+      ]
+    },
+    {
+      "speciesId": "pikachu",
+      "abilities": [
+        "lightningrod"
+      ]
+    },
+    {
+      "speciesId": "pincurchin",
+      "abilities": [
+        "electricsurge"
+      ]
+    },
+    {
+      "speciesId": "pinsir",
+      "abilities": [
+        "moldbreaker",
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "politoed",
+      "abilities": [
+        "damp",
+        "drizzle"
+      ]
+    },
+    {
+      "speciesId": "polteageist",
+      "abilities": [
+        "cursedbody"
+      ]
+    },
+    {
+      "speciesId": "polteageistantique",
+      "abilities": [
+        "cursedbody"
+      ]
+    },
+    {
+      "speciesId": "primarina",
+      "abilities": [
+        "liquidvoice"
+      ]
+    },
+    {
+      "speciesId": "pyroar",
+      "abilities": [
+        "unnerve",
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "quaquaval",
+      "abilities": [
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "qwilfish",
+      "abilities": [
+        "swiftswim",
+        "intimidate"
+      ]
+    },
+    {
+      "speciesId": "raichu",
+      "abilities": [
+        "lightningrod"
+      ]
+    },
+    {
+      "speciesId": "rampardos",
+      "abilities": [
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "reuniclus",
+      "abilities": [
+        "magicguard",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "rhyperior",
+      "abilities": [
+        "solidrock",
+        "reckless"
+      ]
+    },
+    {
+      "speciesId": "rillaboom",
+      "abilities": [
+        "grassysurge"
+      ]
+    },
+    {
+      "speciesId": "roserade",
+      "abilities": [
+        "poisonpoint",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "sableye",
+      "abilities": [
+        "stall",
+        "prankster"
+      ]
+    },
+    {
+      "speciesId": "salamence",
+      "abilities": [
+        "moxie"
+      ]
+    },
+    {
+      "speciesId": "salazzle",
+      "abilities": [
+        "oblivious"
+      ]
+    },
+    {
+      "speciesId": "samurott",
+      "abilities": [
+        "shellarmor"
+      ]
+    },
+    {
+      "speciesId": "samurotthisui",
+      "abilities": [
+        "sharpness"
+      ]
+    },
+    {
+      "speciesId": "sandaconda",
+      "abilities": [
+        "shedskin",
+        "sandveil"
+      ]
+    },
+    {
+      "speciesId": "sceptile",
+      "abilities": [
+        "unburden"
+      ]
+    },
+    {
+      "speciesId": "scizor",
+      "abilities": [
+        "technician",
+        "lightmetal"
+      ]
+    },
+    {
+      "speciesId": "scolipede",
+      "abilities": [
+        "swarm",
+        "speedboost"
+      ]
+    },
+    {
+      "speciesId": "scovillain",
+      "abilities": [
+        "insomnia",
+        "moody"
+      ]
+    },
+    {
+      "speciesId": "scrafty",
+      "abilities": [
+        "moxie",
+        "intimidate"
+      ]
+    },
+    {
+      "speciesId": "serperior",
+      "abilities": [
+        "contrary"
+      ]
+    },
+    {
+      "speciesId": "sharpedo",
+      "abilities": [
+        "speedboost"
+      ]
+    },
+    {
+      "speciesId": "simipour",
+      "abilities": [
+        "torrent"
+      ]
+    },
+    {
+      "speciesId": "simisage",
+      "abilities": [
+        "overgrow"
+      ]
+    },
+    {
+      "speciesId": "simisear",
+      "abilities": [
+        "blaze"
+      ]
+    },
+    {
+      "speciesId": "sinistcha",
+      "abilities": [
+        "heatproof"
+      ]
+    },
+    {
+      "speciesId": "sinistchamasterpiece",
+      "abilities": [
+        "heatproof"
+      ]
+    },
+    {
+      "speciesId": "sirfetchd",
+      "abilities": [
+        "scrappy"
+      ]
+    },
+    {
+      "speciesId": "skarmory",
+      "abilities": [
+        "sturdy",
+        "weakarmor"
+      ]
+    },
+    {
+      "speciesId": "skarmorymega",
+      "abilities": [
+        "stalwart"
+      ]
+    },
+    {
+      "speciesId": "skeledirge",
+      "abilities": [
+        "unaware"
+      ]
+    },
+    {
+      "speciesId": "slowbro",
+      "abilities": [
+        "owntempo",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "slowbrogalar",
+      "abilities": [
+        "owntempo",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "slowking",
+      "abilities": [
+        "owntempo",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "slowkinggalar",
+      "abilities": [
+        "owntempo",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "slurpuff",
+      "abilities": [
+        "unburden"
+      ]
+    },
+    {
+      "speciesId": "sneasler",
+      "abilities": [
+        "unburden",
+        "poisontouch"
+      ]
+    },
+    {
+      "speciesId": "snorlax",
+      "abilities": [
+        "thickfat",
+        "gluttony"
+      ]
+    },
+    {
+      "speciesId": "spiritomb",
+      "abilities": [
+        "infiltrator"
+      ]
+    },
+    {
+      "speciesId": "squawkabilly",
+      "abilities": [
+        "hustle",
+        "guts"
+      ]
+    },
+    {
+      "speciesId": "squawkabillyblue",
+      "abilities": [
+        "hustle",
+        "guts"
+      ]
+    },
+    {
+      "speciesId": "squawkabillywhite",
+      "abilities": [
+        "hustle",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "squawkabillyyellow",
+      "abilities": [
+        "hustle",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "staraptor",
+      "abilities": [
+        "reckless"
+      ]
+    },
+    {
+      "speciesId": "starmie",
+      "abilities": [
+        "naturalcure",
+        "analytic"
+      ]
+    },
+    {
+      "speciesId": "steelix",
+      "abilities": [
+        "sturdy",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "stunfisk",
+      "abilities": [
+        "limber",
+        "sandveil"
+      ]
+    },
+    {
+      "speciesId": "swalot",
+      "abilities": [
+        "stickyhold",
+        "gluttony"
+      ]
+    },
+    {
+      "speciesId": "swampert",
+      "abilities": [
+        "damp"
+      ]
+    },
+    {
+      "speciesId": "sylveon",
+      "abilities": [
+        "pixilate"
+      ]
+    },
+    {
+      "speciesId": "talonflame",
+      "abilities": [
+        "galewings"
+      ]
+    },
+    {
+      "speciesId": "tauros",
+      "abilities": [
+        "angerpoint",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "taurospaldeaaqua",
+      "abilities": [
+        "angerpoint",
+        "cudchew"
+      ]
+    },
+    {
+      "speciesId": "taurospaldeablaze",
+      "abilities": [
+        "angerpoint",
+        "cudchew"
+      ]
+    },
+    {
+      "speciesId": "taurospaldeacombat",
+      "abilities": [
+        "angerpoint",
+        "cudchew"
+      ]
+    },
+    {
+      "speciesId": "thievul",
+      "abilities": [
+        "unburden",
+        "stakeout"
+      ]
+    },
+    {
+      "speciesId": "tinkaton",
+      "abilities": [
+        "owntempo",
+        "pickpocket"
+      ]
+    },
+    {
+      "speciesId": "torkoal",
+      "abilities": [
+        "drought",
+        "shellarmor"
+      ]
+    },
+    {
+      "speciesId": "torterra",
+      "abilities": [
+        "shellarmor"
+      ]
+    },
+    {
+      "speciesId": "toucannon",
+      "abilities": [
+        "skilllink",
+        "sheerforce"
+      ]
+    },
+    {
+      "speciesId": "toxapex",
+      "abilities": [
+        "limber",
+        "regenerator"
+      ]
+    },
+    {
+      "speciesId": "toxicroak",
+      "abilities": [
+        "dryskin",
+        "poisontouch"
+      ]
+    },
+    {
+      "speciesId": "toxtricity",
+      "abilities": [
+        "plus",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "toxtricitylowkey",
+      "abilities": [
+        "minus",
+        "technician"
+      ]
+    },
+    {
+      "speciesId": "trevenant",
+      "abilities": [
+        "frisk",
+        "harvest"
+      ]
+    },
+    {
+      "speciesId": "tsareena",
+      "abilities": [
+        "queenlymajesty",
+        "sweetveil"
+      ]
+    },
+    {
+      "speciesId": "typhlosion",
+      "abilities": [
+        "flashfire"
+      ]
+    },
+    {
+      "speciesId": "typhlosionhisui",
+      "abilities": [
+        "frisk"
+      ]
+    },
+    {
+      "speciesId": "tyranitar",
+      "abilities": [
+        "unnerve"
+      ]
+    },
+    {
+      "speciesId": "tyrantrum",
+      "abilities": [
+        "rockhead"
+      ]
+    },
+    {
+      "speciesId": "umbreon",
+      "abilities": [
+        "innerfocus"
+      ]
+    },
+    {
+      "speciesId": "vanilluxe",
+      "abilities": [
+        "snowwarning",
+        "weakarmor"
+      ]
+    },
+    {
+      "speciesId": "vaporeon",
+      "abilities": [
+        "hydration"
+      ]
+    },
+    {
+      "speciesId": "venusaur",
+      "abilities": [
+        "chlorophyll"
+      ]
+    },
+    {
+      "speciesId": "victreebel",
+      "abilities": [
+        "gluttony"
+      ]
+    },
+    {
+      "speciesId": "vileplume",
+      "abilities": [
+        "effectspore"
+      ]
+    },
+    {
+      "speciesId": "vivillon",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonarchipelago",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivilloncontinental",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonelegant",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonfancy",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillongarden",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonhighplains",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonicysnow",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonjungle",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonmarine",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonmodern",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonmonsoon",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonocean",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonpokeball",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonpolar",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonriver",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonsandstorm",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonsavanna",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillonsun",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "vivillontundra",
+      "abilities": [
+        "compoundeyes",
+        "friendguard"
+      ]
+    },
+    {
+      "speciesId": "volcarona",
+      "abilities": [
+        "swarm"
+      ]
+    },
+    {
+      "speciesId": "watchog",
+      "abilities": [
+        "keeneye",
+        "analytic"
+      ]
+    },
+    {
+      "speciesId": "weavile",
+      "abilities": [
+        "pickpocket"
+      ]
+    },
+    {
+      "speciesId": "whimsicott",
+      "abilities": [
+        "infiltrator",
+        "chlorophyll"
+      ]
+    },
+    {
+      "speciesId": "wigglytuff",
+      "abilities": [
+        "competitive",
+        "frisk"
+      ]
+    },
+    {
+      "speciesId": "wyrdeer",
+      "abilities": [
+        "frisk",
+        "sapsipper"
+      ]
+    }
+  ],
+  "movesMissingFromEngine": [
+    {
+      "id": "pound",
+      "name": "Pound",
+      "learners": []
+    }
+  ],
+  "engineOnlyMoves": [
+    {
+      "id": "nomove",
+      "name": "(No Move)",
+      "showdownNonstandard": null
+    },
+    {
+      "id": "anchorshot",
+      "name": "Anchor Shot",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "astralbarrage",
+      "name": "Astral Barrage",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "bloodmoon",
+      "name": "Blood Moon",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "boltbeak",
+      "name": "Bolt Beak",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "dragonhammer",
+      "name": "Dragon Hammer",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "fishiousrend",
+      "name": "Fishious Rend",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "geargrind",
+      "name": "Gear Grind",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "hyperdrill",
+      "name": "Hyper Drill",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "metalclaw",
+      "name": "Metal Claw",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "revelationdance",
+      "name": "Revelation Dance",
+      "showdownNonstandard": "Past"
+    },
+    {
+      "id": "tripledive",
+      "name": "Triple Dive",
+      "showdownNonstandard": "Past"
+    }
+  ],
+  "moveDataDifferences": [
+    {
+      "moveId": "beakblast",
+      "field": "priority",
+      "showdown": -3,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "growth",
+      "field": "type",
+      "showdown": "Grass",
+      "engine": "Normal",
+      "interpretation": "metadata-difference-on-status-move"
+    },
+    {
+      "moveId": "avalanche",
+      "field": "priority",
+      "showdown": -4,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "circlethrow",
+      "field": "priority",
+      "showdown": -6,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "counter",
+      "field": "priority",
+      "showdown": -5,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "dragontail",
+      "field": "priority",
+      "showdown": -6,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "focuspunch",
+      "field": "priority",
+      "showdown": -3,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "mirrorcoat",
+      "field": "priority",
+      "showdown": -5,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "roar",
+      "field": "priority",
+      "showdown": -6,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "trickroom",
+      "field": "priority",
+      "showdown": -7,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    },
+    {
+      "moveId": "whirlwind",
+      "field": "priority",
+      "showdown": -6,
+      "engine": 0,
+      "interpretation": "engine-normalization-negative-priority-not-modeled"
+    }
+  ],
+  "missingAbilityData": [
+    "battlebond"
+  ],
+  "unavailableLearnsetReferences": [],
+  "sourceAbilityAvailabilityConflicts": [],
+  "extractionErrors": [],
+  "classificationReviewRequired": {
+    "moves": [],
+    "abilities": []
+  },
+  "conditionInputIndex": {
+    "availableMoves": [
+      {
+        "id": "acidspray",
+        "name": "Acid Spray",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "appleacid",
+        "name": "Apple Acid",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "aquastep",
+        "name": "Aqua Step",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "armorcannon",
+        "name": "Armor Cannon",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "assurance",
+        "name": "Assurance",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "aurawheel",
+        "name": "Aura Wheel",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "existing-context",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "avalanche",
+        "name": "Avalanche",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "barbbarrage",
+        "name": "Barb Barrage",
+        "inputs": [
+          "targetStatus"
+        ],
+        "rules": [
+          "existing-context",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "bittermalice",
+        "name": "Bitter Malice",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "bonerush",
+        "name": "Bone Rush",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "breakingswipe",
+        "name": "Breaking Swipe",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "bulldoze",
+        "name": "Bulldoze",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "bulletseed",
+        "name": "Bullet Seed",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "chillingwater",
+        "name": "Chilling Water",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "clangingscales",
+        "name": "Clanging Scales",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "clearsmog",
+        "name": "Clear Smog",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "closecombat",
+        "name": "Close Combat",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "comeuppance",
+        "name": "Comeuppance",
+        "inputs": [
+          "opponentMoveId"
+        ],
+        "rules": [
+          "custom-damage",
+          "incoming-damage"
+        ]
+      },
+      {
+        "id": "counter",
+        "name": "Counter",
+        "inputs": [
+          "opponentMoveId"
+        ],
+        "rules": [
+          "custom-damage",
+          "incoming-damage"
+        ]
+      },
+      {
+        "id": "dracometeor",
+        "name": "Draco Meteor",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "drumbeating",
+        "name": "Drum Beating",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "electroshot",
+        "name": "Electro Shot",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "final-ranks",
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "electroweb",
+        "name": "Electroweb",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "facade",
+        "name": "Facade",
+        "inputs": [
+          "status"
+        ],
+        "rules": [
+          "existing-context"
+        ]
+      },
+      {
+        "id": "ficklebeam",
+        "name": "Fickle Beam",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "random-power"
+        ]
+      },
+      {
+        "id": "firelash",
+        "name": "Fire Lash",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "flamecharge",
+        "name": "Flame Charge",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "gravapple",
+        "name": "Grav Apple",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "existing-context",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "hammerarm",
+        "name": "Hammer Arm",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "headlongrush",
+        "name": "Headlong Rush",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "hex",
+        "name": "Hex",
+        "inputs": [
+          "targetStatus"
+        ],
+        "rules": [
+          "existing-context"
+        ]
+      },
+      {
+        "id": "icehammer",
+        "name": "Ice Hammer",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "iciclespear",
+        "name": "Icicle Spear",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "icywind",
+        "name": "Icy Wind",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "infernalparade",
+        "name": "Infernal Parade",
+        "inputs": [
+          "targetStatus"
+        ],
+        "rules": [
+          "existing-context",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "lashout",
+        "name": "Lash Out",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "lastrespects",
+        "name": "Last Respects",
+        "inputs": [
+          "alliesFainted"
+        ],
+        "rules": [
+          "fainted-allies"
+        ]
+      },
+      {
+        "id": "leafstorm",
+        "name": "Leaf Storm",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "lowsweep",
+        "name": "Low Sweep",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "luminacrash",
+        "name": "Lumina Crash",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "lunge",
+        "name": "Lunge",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "makeitrain",
+        "name": "Make It Rain",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "metalburst",
+        "name": "Metal Burst",
+        "inputs": [
+          "opponentMoveId"
+        ],
+        "rules": [
+          "custom-damage",
+          "incoming-damage"
+        ]
+      },
+      {
+        "id": "meteorbeam",
+        "name": "Meteor Beam",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "final-ranks",
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "mirrorcoat",
+        "name": "Mirror Coat",
+        "inputs": [
+          "opponentMoveId"
+        ],
+        "rules": [
+          "custom-damage",
+          "incoming-damage"
+        ]
+      },
+      {
+        "id": "mudshot",
+        "name": "Mud Shot",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "mudslap",
+        "name": "Mud-Slap",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "mysticalfire",
+        "name": "Mystical Fire",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "overheat",
+        "name": "Overheat",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "payback",
+        "name": "Payback",
+        "inputs": [
+          "moveConditionSatisfied"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "pinmissile",
+        "name": "Pin Missile",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "populationbomb",
+        "name": "Population Bomb",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "pounce",
+        "name": "Pounce",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "psyshieldbash",
+        "name": "Psyshield Bash",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "ragefist",
+        "name": "Rage Fist",
+        "inputs": [
+          "hitsTaken"
+        ],
+        "rules": [
+          "hits-taken"
+        ]
+      },
+      {
+        "id": "rapidspin",
+        "name": "Rapid Spin",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "rockblast",
+        "name": "Rock Blast",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "rocktomb",
+        "name": "Rock Tomb",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "round",
+        "name": "Round",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "existing-context",
+          "turn-history"
+        ]
+      },
+      {
+        "id": "scaleshot",
+        "name": "Scale Shot",
+        "inputs": [
+          "hitCount",
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "skittersmack",
+        "name": "Skitter Smack",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "snarl",
+        "name": "Snarl",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "spiritbreak",
+        "name": "Spirit Break",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "spitup",
+        "name": "Spit Up",
+        "inputs": [
+          "stockpileCount"
+        ],
+        "rules": [
+          "stockpile-count"
+        ]
+      },
+      {
+        "id": "stompingtantrum",
+        "name": "Stomping Tantrum",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "strugglebug",
+        "name": "Struggle Bug",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "superpower",
+        "name": "Superpower",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change"
+        ]
+      },
+      {
+        "id": "tailslap",
+        "name": "Tail Slap",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "temperflare",
+        "name": "Temper Flare",
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "rules": [
+          "turn-history"
+        ]
+      },
+      {
+        "id": "torchsong",
+        "name": "Torch Song",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "trailblaze",
+        "name": "Trailblaze",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "tripleaxel",
+        "name": "Triple Axel",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      },
+      {
+        "id": "tropkick",
+        "name": "Trop Kick",
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "rules": [
+          "secondary-effects"
+        ]
+      },
+      {
+        "id": "venoshock",
+        "name": "Venoshock",
+        "inputs": [
+          "targetStatus"
+        ],
+        "rules": [
+          "existing-context"
+        ]
+      },
+      {
+        "id": "watershuriken",
+        "name": "Water Shuriken",
+        "inputs": [
+          "hitCount"
+        ],
+        "rules": [
+          "variable-hit-count"
+        ]
+      }
+    ],
+    "unavailableReferencedMoves": [],
+    "abilities": [
+      {
+        "id": "analytic",
+        "name": "Analytic",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "ability-activation"
+        ]
+      },
+      {
+        "id": "blaze",
+        "name": "Blaze",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "low-hp-activation"
+        ]
+      },
+      {
+        "id": "disguise",
+        "name": "Disguise",
+        "inputs": [
+          "disguiseIntact"
+        ],
+        "rules": [
+          "repeat-state-change",
+          "transformation"
+        ]
+      },
+      {
+        "id": "electromorphosis",
+        "name": "Electromorphosis",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "ability-activation"
+        ]
+      },
+      {
+        "id": "flashfire",
+        "name": "Flash Fire",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "ability-activation",
+          "existing-context"
+        ]
+      },
+      {
+        "id": "guts",
+        "name": "Guts",
+        "inputs": [
+          "status"
+        ],
+        "rules": [
+          "status-trigger"
+        ]
+      },
+      {
+        "id": "libero",
+        "name": "Libero",
+        "inputs": [
+          "abilityActive",
+          "moveId"
+        ],
+        "rules": [
+          "transformation"
+        ]
+      },
+      {
+        "id": "marvelscale",
+        "name": "Marvel Scale",
+        "inputs": [
+          "status"
+        ],
+        "rules": [
+          "status-trigger"
+        ]
+      },
+      {
+        "id": "overgrow",
+        "name": "Overgrow",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "low-hp-activation"
+        ]
+      },
+      {
+        "id": "poisonheal",
+        "name": "Poison Heal",
+        "inputs": [
+          "status"
+        ],
+        "rules": [
+          "existing-context",
+          "residual-effects",
+          "status-trigger"
+        ]
+      },
+      {
+        "id": "protean",
+        "name": "Protean",
+        "inputs": [
+          "abilityActive",
+          "moveId"
+        ],
+        "rules": [
+          "transformation"
+        ]
+      },
+      {
+        "id": "quickfeet",
+        "name": "Quick Feet",
+        "inputs": [
+          "status"
+        ],
+        "rules": [
+          "status-trigger"
+        ]
+      },
+      {
+        "id": "rivalry",
+        "name": "Rivalry",
+        "inputs": [
+          "rivalrySameGender"
+        ],
+        "rules": [
+          "gender-condition"
+        ]
+      },
+      {
+        "id": "stakeout",
+        "name": "Stakeout",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "ability-activation"
+        ]
+      },
+      {
+        "id": "supremeoverlord",
+        "name": "Supreme Overlord",
+        "inputs": [
+          "alliesFainted"
+        ],
+        "rules": [
+          "fainted-allies"
+        ]
+      },
+      {
+        "id": "swarm",
+        "name": "Swarm",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "low-hp-activation"
+        ]
+      },
+      {
+        "id": "torrent",
+        "name": "Torrent",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "low-hp-activation"
+        ]
+      },
+      {
+        "id": "unburden",
+        "name": "Unburden",
+        "inputs": [
+          "abilityActive"
+        ],
+        "rules": [
+          "ability-activation"
+        ]
+      }
+    ]
+  },
+  "mechanicProbes": [
+    {
+      "id": "lastrespects-fainted-allies",
+      "alliesFainted": 0,
+      "range": [
+        42,
+        50
+      ],
+      "kind": "engine-behavior-probe-not-game-reference"
+    },
+    {
+      "id": "lastrespects-fainted-allies",
+      "alliesFainted": 2,
+      "range": [
+        42,
+        50
+      ],
+      "kind": "engine-behavior-probe-not-game-reference"
+    }
+  ]
+}

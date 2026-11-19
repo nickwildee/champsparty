@@ -8,6 +8,7 @@
     "./verification": "./src/verification.ts"
   },
   "scripts": {
+    "catalog:extract": "node scripts/extract-champions.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0"
   },
