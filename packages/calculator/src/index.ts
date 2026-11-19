@@ -153,7 +153,7 @@ export function calculateChampionsDamage(
   const damage =
     result.damage === 0 ? Array<number>(16).fill(0) : result.damage;
   if (!isDamageRolls(damage)) {
-    throw new Error('현재 지원하지 않는 대미지 결과 형식입니다.');
+    throw new Error('현재 지원하지 않는 데미지 결과 형식입니다.');
   }
   const damageRange = result.range();
   const hp = result.defender.maxHP();

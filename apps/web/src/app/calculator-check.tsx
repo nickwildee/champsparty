@@ -36,7 +36,7 @@ const controlClass =
   'mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-base text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700';
 
 function koSummary(ko: ChampionsDamageResult['ko']): string {
-  if (ko.status === 'immune') return '대미지 무효 · KO 불가';
+  if (ko.status === 'immune') return '데미지 무효 · KO 불가';
   if (ko.status === 'out-of-range')
     return 'KO 타수 미산출 · 엔진의 9타 범위 초과';
   const prefix = ko.approximate ? '근사값 · ' : '';
@@ -273,10 +273,10 @@ export function CalculatorCheck() {
               id="damage-title"
               className="text-sm font-medium text-slate-300"
             >
-              현재 조건의 대미지
+              현재 조건의 데미지
             </h3>
             <output
-              aria-label="대미지 범위"
+              aria-label="데미지 범위"
               className="block text-4xl font-bold tabular-nums"
             >
               {result.damageRange[0]}~{result.damageRange[1]}
@@ -297,7 +297,7 @@ export function CalculatorCheck() {
             </p>
             <details className="border-t border-slate-700 pt-4">
               <summary className="cursor-pointer text-sm font-medium">
-                난수별 대미지 16개
+                난수별 데미지 16개
               </summary>
               <ol className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-8">
                 {result.damageRolls.map((damage, index) => (
@@ -317,9 +317,9 @@ export function CalculatorCheck() {
         )}
       </div>
       <p className="text-sm leading-6 text-slate-600">
-        KO 확률은 동일 기술이 모두 명중하고 현재 조건이 유지될 때의 대미지 난수
-        기준입니다. 회복·턴 종료 대미지·생명의구슬 반동에 따른 공격자 기절은
-        계산하지 않습니다. 그래스필드의 지진 약화는 반영합니다. 대미지 비율은
+        KO 확률은 동일 기술이 모두 명중하고 현재 조건이 유지될 때의 데미지 난수
+        기준입니다. 회복·턴 종료 데미지·생명의구슬 반동에 따른 공격자 기절은
+        계산하지 않습니다. 그래스필드의 지진 약화는 반영합니다. 데미지 비율은
         소수 첫째 자리까지, KO 확률은 소수 둘째 자리까지 반올림합니다.
       </p>
     </section>

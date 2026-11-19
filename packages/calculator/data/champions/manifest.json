@@ -63,14 +63,14 @@
   "generatorFileSha256": {
     "extract-champions.mjs": "7818099d073a176a163692139da70f46ca8b57e49587ed1a5e31f15aca8b3d60",
     "showdown-source.mjs": "4b4170f5e35690c421d74c98b1c612b6d467f6ef9c6ae735490e35f424b7efe8",
-    "champions-conditions.mjs": "e867c6aa19d5817e0ca8e75ea832dd0dc3e1da5234d7ecae7e109c65ec6d8923",
+    "champions-conditions.mjs": "11e6b76efd3b3982aa3dd1a899436b5828d8a5a9142ef333a20698fcdb3fb19a",
     "champions-product-rules.mjs": "85d686a16b4a01046c23f76adada45809c83f68b5af085bd2793d561e73536b8"
   },
   "artifactSha256": {
     "pokemon.json": "011e45252e309e9e9716477aca9566623b45da5c608550a0ed4910e3ee5bc87a",
     "moves.json": "b909aeefff8000e7b643a36c237a87035a1534397953feec13f8ea235557be0e",
     "abilities.json": "866cc573d5c6592896648418171d3dcf6df3c870d8582846910e893b41a90f26",
-    "conditions.json": "b1e69591f4a51bcf6c6c0cdaae6982fa3545ffe1f542a338ffb909f627f5f9d4",
+    "conditions.json": "34842f3b12cbd281f19616d6db1781bc92caf063238fc2567ff18284c7adb40f",
     "engine-diff.json": "7d09fd78dd7c995aec28d2e25000f0e7dd4197baffa748a054d27f4aa969e585"
   }
 }

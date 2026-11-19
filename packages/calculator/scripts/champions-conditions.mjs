@@ -101,7 +101,7 @@ const mechanicConditionDefinitions = {
     note: 'Each entry lists its exact history dependency; one generic boolean is not an approved UI.',
   },
   'incoming-damage': {
-    label: '직전에 받은 대미지와 공격 종류',
+    label: '직전에 받은 데미지와 공격 종류',
     inputs: ['damageTaken', 'incomingMoveCategory'],
     policy: 'requires-decision',
   },
@@ -181,7 +181,7 @@ const mechanicConditionDefinitions = {
     note: 'Apply only to strictly ally-only effects, not all hooks whose name contains Ally.',
   },
   'custom-damage': {
-    label: '일반 위력식이 아닌 대미지',
+    label: '일반 위력식이 아닌 데미지',
     inputs: [],
     policy: 'mechanic-review',
     note: 'Fixed damage, HP fractions and OHKO moves need separate result-shape/KO validation.',

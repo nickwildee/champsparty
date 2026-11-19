@@ -134,7 +134,7 @@
       "note": "Per-move product rules distinguish default-OFF power toggles, assumed success and single-use results. No general battle-history input."
     },
     "incoming-damage": {
-      "label": "직전에 받은 대미지와 공격 종류",
+      "label": "직전에 받은 데미지와 공격 종류",
       "inputs": [
         "opponentMoveId"
       ],
@@ -222,7 +222,7 @@
       "note": "Apply only to strictly ally-only effects, not all hooks whose name contains Ally."
     },
     "custom-damage": {
-      "label": "일반 위력식이 아닌 대미지",
+      "label": "일반 위력식이 아닌 데미지",
       "inputs": [],
       "policy": "approved-scoped",
       "note": "Native fixed-damage moves use engine data; linked reflection is single-use. OHKO moves and the three HP-manipulation exclusions are not selectable."
