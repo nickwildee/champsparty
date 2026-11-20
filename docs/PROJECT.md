@@ -1,9 +1,9 @@
 # 포켓몬 챔피언스 능력치 세부 조정 계산기
 
 - 정식 프로젝트명: 미정
-- 인계 문서 버전: 0.14
+- 인계 문서 버전: 0.15
 - 기준일: 2026-11-20
-- 상태: 챔피언스 싱글 1회 데미지 CLI·기술 카탈로그·로컬 PostgreSQL 및 pg/Drizzle 연결 구현. 반복 KO·웹 계산 화면·인증은 후속 작업
+- 상태: 챔피언스 싱글 1회 데미지 CLI·기술 카탈로그와 로컬 PostgreSQL·pg/Drizzle·Better Auth 인증 서버 구현. 반복 KO·웹 계산 화면·네이버 연동은 후속 작업
 - 협업 원칙: [AGENTS.md](../AGENTS.md)
 - 선택 이유와 변경 이력: [DECISIONS.md](DECISIONS.md)
 
@@ -134,17 +134,17 @@
 | 계산 결과        | 현재 입력에서 파생                                               |
 | 서버 저장 데이터 | TanStack Query로 조회·갱신 상태 관리                             |
 | 저장소 DB        | 로컬 PostgreSQL 18.7·pg/Drizzle 공통 연결 구현·검증 완료         |
-| 인증             | 네이버 로그인, Better Auth 연동 방향                             |
+| 인증             | Better Auth 기본 연동 완료, 네이버 로그인 연동 예정              |
 | 스타일링         | Tailwind CSS, PostCSS 연동 완료                                  |
 | 기본 검사        | TypeScript 타입 검사, ESLint, Prettier 구성 완료                 |
 
 - 별도 API 서버는 초기 구성에 두지 않는다. 분리할 구체적인 필요가 생겼을 때 검토한다.
 - Node.js `26.13.1`(26 LTS), pnpm `12.19.0`, Node.js 버전 관리 도구 fnm을 사용한다. `.node-version`과 루트 `package.json`에 버전을 기록했고, 새 로그인·대화형 zsh에서 자동 전환과 워크스페이스 인식을 확인했다.
 - 실행 환경의 실제 설치 버전은 Next.js `16.4.6`, React·React DOM `19.3.0`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, ESLint `10.15.0`, Prettier `3.10.1`, 데미지 엔진 `@smogon/calc` `0.12.0`이다. 재설치 기준은 루트 `pnpm-lock.yaml`이다.
-- 로컬 PostgreSQL의 직접 접속·인증·권한은 검증했다. 앱의 pg·Drizzle 공통 연결도 검증했다. Better Auth 실제 로그인·세션 흐름은 아직 구현·실행 검증하지 않았다.
+- 로컬 PostgreSQL의 접속·권한, 앱의 pg·Drizzle 공통 연결과 Better Auth의 비로그인 API 응답을 검증했다. 실제 네이버 로그인·브라우저 세션 검증은 후속 작업이다.
 - App Router, `src/`, 웹 내부 별칭 `@/*`, Turbopack을 사용한다. React Compiler와 Cache Components는 이번 단계에서 활성화하지 않았다. 기존 루트 협업 지침을 사용하도록 Next.js의 지침 파일 자동 생성은 껐다.
 - 계산 패키지는 TypeScript 원본을 공개하고 웹이 `workspace:*` 의존성으로 가져온다. Next.js가 코드를 변환하므로 계산 패키지의 별도 빌드는 두지 않는다. 자세한 이유와 호환성 보정은 DECISIONS.md의 D14에 기록했다.
-- DB 접속 환경변수는 아래 로컬 구성에 기록했다. 인증용 환경변수와 상세 테이블 구조는 후속 기능 설계에서 확정한다.
+- DB 접속·인증 환경변수와 인증 테이블은 아래 실행 구성에 기록했다. 추가 기술의 입력과 서비스 데이터 테이블은 후속 기능 설계에서 확정한다.
 
 ## 9. MVP 확인 기준
 
@@ -189,8 +189,8 @@
 - DB 이름은 `champsparty`이고 소유자는 `champsparty_migrator`다. `champsparty_app`은 실행 중인 앱용, `champsparty_migrator`는 테이블 구조 변경용이다. 두 역할 모두 슈퍼유저·DB 생성·역할 생성 권한이 없다.
 - `public`에는 서비스 테이블을, `drizzle`에는 후속 마이그레이션 이력을 둔다. 두 스키마의 소유자는 migrator다. 앱은 DB 접속과 `public` 사용만 허용하며, migrator가 `public`에 만드는 테이블에는 조회·추가·수정·삭제 권한을 자동 부여한다. 앱의 테이블·스키마·임시 테이블 생성, 구조 변경·삭제, `drizzle` 접근과 migrator 역할 전환은 허용하지 않는다.
 - 두 프로젝트 역할에는 IPv4·IPv6·Unix 소켓 모두 `scram-sha-256` 인증을 적용했다. DB 이름을 바꿔 인증 규칙을 우회하지 못하도록 모든 DB에 같은 규칙을 적용한다. 기존 `heoknoh` 관리 접속의 `trust` 규칙은 보존했다. 원본 설정은 `/opt/homebrew/var/postgresql@18/pg_hba.conf.champsparty-before-scram`에 보관한다.
-- 서로 다른 64자 무작위 비밀번호를 사용한다. 앱의 `DATABASE_URL`은 `apps/web/.env.local`, migrator의 `MIGRATION_DATABASE_URL`은 `apps/web/.env.migrations.local`에 저장했다. 두 파일은 권한 `0600`이고 Git에서 제외된다. Next.js는 `.env.local`을 읽지만 마이그레이션 전용 파일의 로딩은 후속 작업에서 별도로 구성한다. 비밀값은 문서·이슈에 기록하지 않는다.
-- 직접 검증 40개 항목이 통과했다. 두 역할 × 세 접속 경로에서 정상·오류·누락 비밀번호의 18개 경우, 다른 DB 이름을 통한 우회 거부 2개, 앱 권한 거부 9개, 자동 데이터 권한·migrator의 구조 변경 등을 확인했다. 검증용 테이블은 제거했으며 실제 인증·이력 테이블은 아직 없다.
+- 서로 다른 64자 무작위 비밀번호를 사용한다. 앱의 `DATABASE_URL`은 `apps/web/.env.local`, migrator의 `MIGRATION_DATABASE_URL`은 `apps/web/.env.migrations.local`에 저장했다. 두 파일은 권한 `0600`이고 Git에서 제외된다. 마이그레이션 전용 파일은 아래 #10에서 연결한 `pnpm db:migrate`가 읽는다. 비밀값은 문서·이슈에 기록하지 않는다.
+- #8에서 직접 검증 40개 항목이 통과했다. 두 역할 × 세 접속 경로에서 정상·오류·누락 비밀번호의 18개 경우, 다른 DB 이름을 통한 우회 거부 2개, 앱 권한 거부 9개, 자동 데이터 권한·migrator의 구조 변경 등을 확인했다. 검증용 테이블은 #8에서 제거했고 실제 인증·이력 테이블은 #10에서 적용했다.
 - 서버 중지 후 수동 재실행, 두 역할의 재접속과 잘못된 비밀번호 거부를 확인했다. 최종 상태는 실행 중이며 자동 실행 미등록, HBA 구문 오류 0개다. 이 단계에서 앱 의존성은 추가하지 않았으며 Drizzle 마이그레이션과 실제 네이버 로그인은 검증 범위가 아니다. 선택 이유와 제약은 [D17](DECISIONS.md#d17-로컬-postgresql과-서비스마이그레이션-역할-분리)에 기록했다.
 
 | 명령                                                                                                      | 용도                                                             |
@@ -202,7 +202,7 @@
 | `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_app -d champsparty -W`      | 앱 역할로 접속. 비밀번호는 명령 인자가 아닌 숨겨진 입력으로 전달 |
 | `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_migrator -d champsparty -W` | 구조 변경 역할로 접속                                            |
 
-접속 후 `SELECT current_database(), current_user, version();`과 `SELECT 1;`로 대상 DB·역할·버전과 쿼리 실행을 확인할 수 있다. 앱 연결과 검증은 아래 #9 단계에서 완료했다. 다음 인증 작업은 [#10](https://github.com/nickwildee/champsparty/issues/10)의 Better Auth·인증 스키마 구성이다.
+접속 후 `SELECT current_database(), current_user, version();`과 `SELECT 1;`로 대상 DB·역할·버전과 쿼리 실행을 확인할 수 있다. 앱 연결은 아래 #9, Better Auth와 인증 테이블은 [#10](https://github.com/nickwildee/champsparty/issues/10)에 정리했다.
 
 ### pg·Drizzle 연결 — #9, 구현·검증 완료
 
@@ -210,10 +210,25 @@
 - 개발 모드의 `globalThis`에 풀을 보관한다. DB 접속 정보·풀 설정을 바꾸면 개발 서버를 재시작한다. DB 모듈은 `server-only`로 표시한다.
 - `DATABASE_URL` 누락은 DB 기능을 처음 사용할 때 검사한다. DB 오류는 호출부에 전달하고 공통 코드에서 Next.js를 강제 종료하거나 작업을 자동 재시도하지 않는다. 유휴 연결 오류도 처리하며 실제 URL·비밀번호는 로그에 넣지 않는다.
 - 터미널 명령은 `@next/env`로 개발 환경 파일을 읽고 앱과 같은 연결 코드를 사용한다. 읽기 쿼리로 `SELECT 1`, DB `champsparty`·역할 `champsparty_app`을 확인한다. 확인용 공개 API나 테이블은 만들지 않는다.
-- 설치 버전은 `pg 8.23.1`, `drizzle-orm 0.45.4`, `server-only 0.0.1`, `@types/pg 8.23.1`, `@next/env 16.4.6`, `tsx 4.23.15`다. `esbuild@0.28.2`의 설치 후 스크립트만 `allowBuilds`로 허용한다. 전체 허용 정책은 사용하지 않는다.
-- 루트 `pnpm db:check`로 앱 역할의 접속·대상 DB를 확인하고 풀을 닫는다. 성공·실패 종료 코드는 0·1이다. PostgreSQL은 실행 중이어야 하며 Next.js 개발 서버는 필요하지 않다. 실제 환경 파일은 Git에서 제외하고 `.env.example`에는 값 없이 변수 이름만 둔다.
+- 설치 버전은 `pg 8.23.1`, `drizzle-orm 0.45.4`, `server-only 0.0.1`, `@types/pg 8.23.1`, `@next/env 16.4.6`, `tsx 4.23.15`다. #9에서는 `esbuild@0.28.2`의 설치 후 스크립트를 `allowBuilds`로 허용했다. #10에서 추가한 허용 버전은 D20에 기록했다.
+- 루트 `pnpm db:check`로 앱 역할의 접속·대상 DB를 확인하고 풀을 닫는다. 성공·실패 종료 코드는 0·1이다. PostgreSQL은 실행 중이어야 하며 Next.js 개발 서버는 필요하지 않다. 실제 환경 파일은 Git에서 제외하고 `.env.example`의 `DATABASE_URL`은 비워 둔다.
 - 정상·실패 접속과 대상 역할 거부, 서버 전용 import, 설정 검사·풀 재사용·오류 전달·재시도 미사용·종료를 7개 임시 시나리오로 확인했다. 실제 Next.js 서버에서 정상 DB 요청 200, 잘못된 비밀번호·누락 설정의 요청 500 이후 일반 페이지 200을 확인했다. 클라이언트의 DB import는 빌드에서 거부됐고 검증용 페이지·서버는 제거했다.
 - Node.js `26.13.1`·pnpm `12.19.0`에서 일반 frozen-lockfile 설치·타입·린트·peer 검사와 임시 페이지 제거 후 최종 프로덕션 빌드를 통과했다. 서식·문서 링크·공백 검사도 통과했다. 배포 환경·실제 편집 이벤트 전체·인증 테이블·마이그레이션·로그인은 검증 범위가 아니다. 상세 선택과 한계는 [D18](DECISIONS.md#d18-앱-db-연결과-검증-방식)에 기록했다.
+
+### Better Auth와 인증 테이블 — #10
+
+- `better-auth 1.7.26`을 런타임에, `auth 1.7.26`과 `drizzle-kit 0.31.11`을 생성·마이그레이션에 사용한다. `auth-schema.config.ts`와 `drizzle.config.ts`에서 생성한 스키마·SQL·이력을 저장소에 유지한다. 초기 SQL은 `user`, `account`, `session`, `verification`을 만든다.
+- `pnpm db:migrate`는 앱 디렉터리의 `.env.migrations.local`에서 `MIGRATION_DATABASE_URL`을 읽고, 로컬 `champsparty` DB의 `champsparty_migrator`로 적용한다. 서비스 테이블은 `public`, 적용 이력은 `drizzle.__drizzle_migrations`에 저장된다.
+- 웹 서버는 `apps/web/.env.local`의 앱 역할 `DATABASE_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`을 쓴다. `BETTER_AUTH_URL`에는 `http://localhost:3000`처럼 프로토콜과 호스트, 필요하면 포트까지 적는다. 비밀값은 무작위 32바이트를 Base64로 인코딩해 준비한다. 실제 환경 파일과 비밀값은 Git에서 제외한다.
+- 세션은 DB에 저장하고 만료 7일·갱신 간격 1일을 적용한다. 쿠키 캐시와 이메일·비밀번호 로그인을 비활성화했다. 세션 생성 시 Better Auth가 제공받은 IP와 `User-Agent`를 기본 필드에 저장한다. 공개 배포 환경의 IP 확인과 반복 요청 제한은 [#21](https://github.com/nickwildee/champsparty/issues/21)에서 검토한다.
+- 개발 서버에서 쿠키 없는 `GET /api/auth/get-session`은 `200`과 `null`, `POST /api/auth/sign-out`은 `200`과 성공 응답을 반환했다. 로컬 PostgreSQL에서 앱 역할로 네 인증 테이블 조회, 키·권한, 마이그레이션 재실행 후 같은 SQL의 이력 1건을 확인했다. 선택 이유와 검증 범위는 [D20](DECISIONS.md#d20-better-auth-기반-인증-테이블과-세션-설정)에 기록했다.
+
+기본 인증 스키마를 다시 생성해야 할 때는 저장소 루트에서 아래 명령을 쓴다. 첫 명령은 TypeScript 스키마를 생성하며, 두 번째 명령은 이전 스냅샷과 차이가 있을 때 마이그레이션 SQL을 만든다. 생성 후 파일 차이를 검토하고 `pnpm db:migrate`로 로컬 DB에 반영한다.
+
+```sh
+pnpm --filter @champsparty/web exec auth generate --config auth-schema.config.ts --adapter drizzle --dialect postgresql --output src/server/auth-schema.ts
+pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config.ts
+```
 
 ### 챔피언스 싱글 지진 검증 기록
 
@@ -239,14 +254,17 @@
 
 ### 코드 위치와 실행 방법
 
-| 위치                                 | 역할                                                |
-| ------------------------------------ | --------------------------------------------------- |
-| `apps/web/src/app`                   | 페이지와 공통 레이아웃                              |
-| `packages/calculator/src/index.ts`   | 계산 패키지의 진입 파일                             |
-| `packages/calculator/data/champions` | 챔피언스 카탈로그·한글명·조건부 규칙과 조사 기록    |
-| `apps/web/src/server/db.ts`          | 서버 전용 공통 DB 연결과 명령 종료용 풀 정리        |
-| `apps/web/scripts/db-check.ts`       | 개발 환경 로딩과 읽기 쿼리·DB/역할 검증             |
-| 루트 `package.json`                  | 패키지별 작업 명령 실행과 저장소 전체 Prettier 관리 |
+| 위치                                          | 역할                                                |
+| --------------------------------------------- | --------------------------------------------------- |
+| `apps/web/src/app`                            | 페이지와 공통 레이아웃                              |
+| `packages/calculator/src/index.ts`            | 계산 패키지의 진입 파일                             |
+| `packages/calculator/data/champions`          | 챔피언스 카탈로그·한글명·조건부 규칙과 조사 기록    |
+| `apps/web/src/server/db.ts`                   | 서버 전용 공통 DB 연결과 명령 종료용 풀 정리        |
+| `apps/web/src/server/auth.ts`                 | Better Auth의 서버 설정, Drizzle 연결과 세션 정책   |
+| `apps/web/src/app/api/auth/[...all]/route.ts` | Next.js의 인증 요청을 Better Auth에 전달            |
+| `apps/web/drizzle/`                           | 인증 테이블의 마이그레이션 SQL과 Drizzle 메타데이터 |
+| `apps/web/scripts/db-check.ts`                | 개발 환경 로딩과 읽기 쿼리·DB/역할 검증             |
+| 루트 `package.json`                           | 패키지별 작업 명령 실행과 저장소 전체 Prettier 관리 |
 
 프로젝트 폴더에서 fnm이 `.node-version`에 맞는 Node.js를 선택한 뒤 아래 명령을 실행한다. 새 환경에는 먼저 해당 Node.js·pnpm 도구를 준비해야 한다.
 
@@ -256,6 +274,7 @@
 | `pnpm calc:check packages/calculator/fixtures/champions-damage-input.json` | 양쪽 세팅과 기술 하나로 1회 데미지·난수 출력                                |
 | `pnpm --filter @champsparty/calculator test`                               | 이름·HP·입력 오류·우선도 차단·조건 분류와 원본 검증 회귀 검사               |
 | `pnpm db:check`                                                            | 로컬 DB 접속·DB 이름·앱 역할 확인 후 연결 정리 (macOS 셸 기준)              |
+| `pnpm db:migrate`                                                          | 마이그레이션 전용 계정으로 로컬 DB에 SQL 적용                               |
 | `pnpm dev`                                                                 | 개발 서버 실행, 기본 주소 `http://localhost:3000`                           |
 | `pnpm typecheck`                                                           | 계산 패키지와 웹의 타입 검사. 웹은 먼저 `next typegen`으로 라우트 타입 생성 |
 | `pnpm lint`                                                                | 두 패키지의 ESLint 검사, 경고도 실패로 처리                                 |
@@ -277,7 +296,7 @@
 
 ### 다음 순서
 
-인증 작업은 `#8 → #9 → #10 → #11 → #12 → #13` 순서로 나눴다. 로컬 DB 구성·검증인 #8과 앱 연결·검증인 #9를 마쳤다. 다음은 #10에서 Better Auth의 버전·서버 구성·기본 인증 스키마·마이그레이션 방법 중 남은 선택을 정한 뒤 구현하는 것이다. 아래 계산기 확장 계획은 별도 작업으로 유지한다.
+인증 작업은 `#8 → #9 → #10 → #11 → #12 → #13` 순서로 진행한다. #10에서 기본 인증 서버·DB·API를 검증했다. 다음은 #11의 네이버 앱과 인증 제공자 설정이다. #12에서 로그인 UI를 연결하고 #13에서 실제 계정으로 통합 검증한다. 아래 계산기 확장 계획은 별도 작업으로 유지한다.
 
 1. 양쪽 세팅·기술 하나·배틀 조건으로 1회 데미지를 계산하는 공통 함수와 CLI를 구현했다. 기본 데미지, 날씨, 필드·접지·중력을 검증했다. 필드가 없는 아이언롤러와 중력 중 사용할 수 없는 공격은 데미지 0과 사유를 반환한다.
 2. 다음 CLI 검수는 양쪽 벽이다. 이후 포켓몬 상태·능력치·폼, 특성·도구, 기술 전용 입력·예외, 스피드 비교를 확인한다.
@@ -291,7 +310,7 @@
 | 계산 결과          | 결정력·내구 공식, 대표 타수 선택과 KO 확률 표시 정밀도, 지원 조건과 예외 표시 |
 | 엔진 호환성        | 지진 외 기술의 제품 입력 연결, 반감열매 등 상태 변화와 반복 공격 처리         |
 | 화면               | Tailwind를 사용하는 구체적인 화면·컴포넌트 구성                               |
-| 계정 저장과 배포   | 인증·세션 설정, 저장 데이터 스키마, 배포용 DB 서비스와 플랫폼                 |
+| 계정 저장과 배포   | 네이버 앱·로그인 검증, 저장 데이터 스키마, 배포용 DB 서비스와 플랫폼          |
 
 ## 11. 문서 유지
 
@@ -304,6 +323,7 @@
 - 버전 0.12에서는 챔피언스 싱글 검증 화면, 카탈로그·한글명·조건부 기술 조사, 통합 상대 목록과 PC 화면 방향을 반영했다.
 - 버전 0.13에서는 일회성 검증 코드 제거와 CLI 우선 진행 순서를 반영했다.
 - 버전 0.14에서는 현재 CLI의 실행 방법·시작 HP·이름 해석과 과거 검증 기록의 범위를 구분했다.
+- 버전 0.15에서는 Better Auth 서버·인증 테이블·세션 정책과 비로그인 API 검증 결과를 계산기 인계 현황에 통합했다.
 - 기능 범위나 현재 상태가 바뀌면 승인된 범위에서 이 문서를 갱신한다.
 - 중요한 이유와 대안은 DECISIONS.md에 남긴다.
 - 현재 기획과 이전 아이디어가 다르면 최신 합의를 적용한다. 과거의 모바일 우선, 상대 10마리, 파티 취약점 보고서 등의 아이디어로 현재 범위를 바꾸지 않는다.
