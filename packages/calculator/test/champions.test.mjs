@@ -74,10 +74,12 @@ test('missing abilities suppress the species default and unknown names give inpu
       ChampionsInputError,
     );
   }
-  assert.throws(
-    () => calculate(attacker, defender, 'unknown-name'),
-    ChampionsInputError,
-  );
+  for (const name of ['unknown-name', 'constructor']) {
+    assert.throws(
+      () => calculate(attacker, defender, name),
+      ChampionsInputError,
+    );
+  }
 });
 
 test('displayed HP selects the upper compatible value independently for each side', () => {

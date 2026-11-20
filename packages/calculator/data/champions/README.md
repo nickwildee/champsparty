@@ -145,7 +145,7 @@ pnpm catalog:extract --archive /tmp/champsparty-showdown.tar.gz
 pnpm catalog:extract --archive /tmp/champsparty-showdown.tar.gz --check
 ```
 
-추출기는 아카이브 SHA-256·엔진 버전을 먼저 검사한다. 고정 원본을 임시 디렉터리에 풀고, 이미 설치한 TypeScript로 원본 Dex를 읽은 뒤 자체 임시 디렉터리만 제거한다. Showdown 서버 패키지를 설치하거나 웹 번들에 포함하지 않는다. 생성 JSON은 추출기가 서식을 관리하므로 손으로 수정하지 않는다. 분류를 바꾸려면 `scripts/champions-conditions.mjs`를 수정하고 다시 추출한다.
+추출기는 아카이브 SHA-256·엔진 버전을 먼저 검사한다. 고정 원본을 임시 디렉터리에 풀고, 이미 설치한 TypeScript로 원본 Dex를 읽은 뒤 자체 임시 디렉터리만 제거한다. Showdown 서버 패키지를 설치하거나 웹 번들에 포함하지 않는다. 생성 JSON은 추출기가 서식을 관리하므로 손으로 수정하지 않는다. 기전 분류는 `scripts/champions-conditions.mjs`, 제품의 입력·처리 결정은 `scripts/champions-product-rules.mjs`에서 수정한 뒤 다시 추출한다.
 
 당시 회귀 검사는 원본·생성 파일 해시, ID 중복·정렬, 전체 특성·기술 참조, 출처 줄, 엔진 연결·버전, 분류의 입력 일관성, 전투 중 폼의 제외, 일반·메가 한카리아스의 특성·기술 상속을 다룬다. `--check`는 원본에서 다시 생성한 폼 별칭을 포함한 일곱 JSON의 바이트 일치를 검사한다. 이 검증은 공식 게임 데이터 전수 확인이나 각 기술의 독립 데미지 검증을 대신하지 않는다.
 

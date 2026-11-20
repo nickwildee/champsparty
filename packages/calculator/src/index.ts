@@ -67,7 +67,9 @@ const champions = Generations.get(0);
 const speciesEngineIds = new Map(Object.entries(speciesAliases));
 
 function engineName(
-  table: { get(id: ReturnType<typeof toID>): { name: string } | undefined },
+  table: {
+    get(id: ReturnType<typeof toID>): { id: string; name: string } | undefined;
+  },
   value: string,
   label: string,
   aliases?: ReadonlyMap<string, string>,
@@ -75,7 +77,7 @@ function engineName(
   const id = typeof value === 'string' ? toID(value) : '';
   const key = toID(aliases?.get(id) ?? id);
   const entry = key && table.get(key);
-  if (!entry || !entry.name)
+  if (!entry || entry.id !== key || !entry.name)
     throw new ChampionsInputError(
       `${label}을(를) 엔진에서 찾을 수 없습니다: ${value}`,
     );
