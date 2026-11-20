@@ -1,6 +1,6 @@
 # 주요 논의와 결정 기록
 
-- 인계 문서 버전: 0.12
+- 인계 문서 버전: 0.13
 - 기준일: 2026-11-20
 - 프로젝트: 포켓몬 챔피언스 능력치 세부 조정 계산기, 정식 명칭 미정
 - 현재 요구사항: [PROJECT.md](PROJECT.md)
@@ -210,6 +210,15 @@
 - 로컬 PostgreSQL에서 마이그레이션 재실행 후 같은 SQL의 적용 이력이 1건임을 확인했다. 인증 테이블의 기본 키·외래 키·고유 제약과 앱 역할의 행 권한을 확인했고, 앱 역할에는 테이블 생성 및 이력 스키마 접근 권한이 없음을 확인했다. 앱의 Better Auth 어댑터로 네 테이블을 조회했다.
 - 실제 Next.js 개발 서버에서 쿠키 없는 세션 조회는 `200`과 `null`, 로그아웃 요청은 `200`과 성공 응답을 반환했다. 세션의 최초 만료일·하루 전후의 갱신·만료 세션 거부와 IP·`User-Agent` 기록은 별도의 메모리 저장소로 검증했다. 인증 URL·비밀값·DB URL을 비운 프로덕션 빌드도 통과했다. 네이버 앱·제공자 연결은 #11, 실제 계정과 쿠키·DB를 포함한 통합 검증은 #13 범위다.
 - [Better Auth 기본 스키마](https://better-auth.com/docs/concepts/database#core-schema), [세션 관리](https://better-auth.com/docs/concepts/session-management), [Next.js 연동](https://better-auth.com/docs/integrations/next#create-api-route), [Drizzle Kit 마이그레이션](https://orm.drizzle.team/docs/drizzle-kit-migrate)
+
+## D22. GitHub Actions 기본 검사
+
+- [#14](https://github.com/nickwildee/champsparty/issues/14)에서는 GitHub 호스팅 Ubuntu의 `verify` 작업 하나에서 기존 루트 명령을 순서대로 실행한다. 여러 작업으로 나누면 동시에 검사할 수 있지만 각 작업에서 실행 환경을 준비해야 한다. 한 번 설치하고 처음 실패한 단계를 PR에 표시하는 구성을 선택했다.
+- Node.js는 `.node-version`, pnpm은 루트 `package.json`의 `packageManager`를 따른다. 루트 lockfile을 기준으로 pnpm 저장소 캐시를 재사용하고 매번 고정 lockfile 설치를 실행한다. 두 외부 액션은 커밋 SHA로 고정했다. 워크플로 토큰 권한은 `contents: read`이며 checkout 후 Git 자격 증명을 보관하지 않는다.
+- 같은 PR 또는 `main`에서 새 실행이 시작되면 진행 중인 이전 실행을 취소한다. PR 대상을 나중에 `main`으로 바꾸는 경우도 검사하도록 `edited`를 포함했다. 이 선택으로 제목이나 본문만 편집해도 검사가 다시 실행된다.
+- [성공 실행](https://github.com/nickwildee/champsparty/actions/runs/44733946241)에서 Node.js `26.13.1`·pnpm `12.19.0`, 캐시 복원, 고정 설치, 서식, 두 패키지의 린트·타입 검사와 웹 프로덕션 빌드를 확인했다. 앱 인증 비밀값과 DB 연결은 사용하지 않았다.
+- [실패 실행](https://github.com/nickwildee/champsparty/actions/runs/44733820876)에서는 임시 `package.json` 서식 오류로 해당 단계가 종료 코드 1을 반환했고 린트·타입·빌드는 건너뛰었다. 검증용 변경은 원복했다. 같은 PR에 새 커밋을 푸시한 뒤 [이전 실행의 취소](https://github.com/nickwildee/champsparty/actions/runs/44733772159)도 확인했다.
+- PR 검증 당시 `main`의 [`protect-main` 규칙](https://github.com/nickwildee/champsparty/rules/27372815)에는 필수 상태 검사가 없었다. 병합 후 `main` 푸시 실행을 확인하고 `verify`를 필수 검사로 연결한 결과는 [#14](https://github.com/nickwildee/champsparty/issues/14)에서 추적한다.
 
 ## 앞으로 결정 기록을 갱신할 때
 
