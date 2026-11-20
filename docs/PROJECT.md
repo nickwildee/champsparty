@@ -1,7 +1,7 @@
 # 포켓몬 챔피언스 능력치 세부 조정 계산기
 
 - 정식 프로젝트명: 미정
-- 인계 문서 버전: 0.12
+- 인계 문서 버전: 0.13
 - 기준일: 2026-11-20
 - 상태: 로컬 PostgreSQL과 Better Auth 서버·인증 API 기본 연결 검증 완료, 네이버 연동 전
 - 협업 원칙: [AGENTS.md](../AGENTS.md)
@@ -268,6 +268,18 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 - 샌드박스 안의 첫 빌드는 Turbopack의 내부 포트 사용이 막혀 실패했다. 실패 때의 `.next` 캐시를 지우고 권한 제한 밖에서 같은 `pnpm build`를 실행하자 통과했다. 이 실행 환경의 제약과 앱 오류를 구분한다.
 - 연결 확인용 `add` 함수와 페이지는 실제 포켓몬 계산 계약·성능·게임 규칙 검증을 대신하지 않는다.
 
+### GitHub Actions 기본 검사
+
+[`CI` 워크플로](../.github/workflows/ci.yml)의 `verify` 작업은 `main` 대상 PR과 `main` 푸시에서 실행된다. Ubuntu에서 저장소의 Node.js·pnpm 버전을 사용해 아래 명령을 순서대로 실행한다.
+
+1. `pnpm install --frozen-lockfile`
+2. `pnpm format:check`
+3. `pnpm lint`
+4. `pnpm typecheck`
+5. `pnpm build`
+
+[PR #25](https://github.com/nickwildee/champsparty/pull/25)에서 다섯 단계 통과, 임시 서식 오류 감지, 새 커밋에 의한 이전 실행 취소를 확인했다. DB 마이그레이션·로그인·기능 테스트는 이 작업의 검증 범위 밖이다. 실행 근거와 병합 후 확인 항목은 [D22](DECISIONS.md#d22-github-actions-기본-검사)에 기록했다.
+
 ### 다음 순서
 
 인증 작업은 `#8 → #9 → #10 → #11 → #12 → #13` 순서로 진행한다. #10의 기본 인증 서버·DB·API가 반영되면 #11에서 네이버 앱과 인증 제공자를 설정한다. #12에서 로그인 UI를 연결하고 #13에서 실제 계정으로 통합 검증한다. 아래 계산기 확장 계획은 별도 작업으로 유지한다.
@@ -294,6 +306,7 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 - 버전 0.10에서는 로컬 PostgreSQL의 설치·수동 실행, 두 역할·스키마·자동 권한, SCRAM 인증·비밀값 보관과 실제 검증 결과를 반영했다. 앱 연결·마이그레이션·로그인은 후속 작업이다.
 - 버전 0.11에서는 pg·Drizzle 설치·공통 연결·환경변수 검사·터미널 명령, 특정 esbuild 버전 설치 스크립트 허용과 실제 DB·Next.js 오류 처리 검증을 반영했다.
 - 버전 0.12에서는 Better Auth 서버 설정, 인증 테이블 마이그레이션과 세션 정책, 비로그인 API 검증 결과를 반영했다.
+- 버전 0.13에서는 GitHub Actions 기본 검사와 PR 검증 결과를 반영했다.
 - 기능 범위나 현재 상태가 바뀌면 승인된 범위에서 이 문서를 갱신한다.
 - 중요한 이유와 대안은 DECISIONS.md에 남긴다.
 - 현재 기획과 이전 아이디어가 다르면 최신 합의를 적용한다. 과거의 모바일 우선, 상대 10마리, 파티 취약점 보고서 등의 아이디어로 현재 범위를 바꾸지 않는다.
