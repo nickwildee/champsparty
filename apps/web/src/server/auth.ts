@@ -4,6 +4,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import * as schema from './auth-schema';
 import { getDb } from './db';
+import { createNaverProviderOptions } from './naver';
 
 const dayInSeconds = 24 * 60 * 60;
 
@@ -22,10 +23,19 @@ function createAuth() {
     throw new Error('BETTER_AUTH_SECRET에 32자 이상의 비밀값이 필요합니다.');
   }
 
+  const naverClientId = process.env.NAVER_CLIENT_ID?.trim();
+  const naverClientSecret = process.env.NAVER_CLIENT_SECRET?.trim();
+
   return betterAuth({
     baseURL,
     secret,
     database: drizzleAdapter(getDb(), { provider: 'pg', schema }),
+    socialProviders: {
+      naver:
+        naverClientId && naverClientSecret
+          ? createNaverProviderOptions(naverClientId, naverClientSecret)
+          : undefined,
+    },
     emailAndPassword: { enabled: false },
     session: {
       expiresIn: 7 * dayInSeconds,
