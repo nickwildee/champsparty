@@ -501,6 +501,17 @@
         "processing": "Use item-dependent power and validate throwability; no after-hit item effects or item reacquisition."
       },
       {
+        "id": "sleep-required",
+        "kind": "move",
+        "ids": [
+          "snore"
+        ],
+        "inputs": [],
+        "scope": "pokemon",
+        "requiredUserStatus": "slp",
+        "processing": "Read the current user status without changing it on move selection. Calculate while asleep; otherwise show the move as unavailable."
+      },
+      {
         "id": "status-from-user",
         "kind": "move",
         "ids": [
@@ -526,6 +537,15 @@
         ],
         "scope": "opponent",
         "processing": "Derive activation from the target Pokemon status; poison-specific moves require poison/toxic poison."
+      },
+      {
+        "id": "accuracy-drop-excluded",
+        "kind": "move",
+        "ids": [
+          "mudslap"
+        ],
+        "inputs": [],
+        "processing": "Calculate direct damage; ignore the accuracy drop and omit the rank toggle."
       },
       {
         "id": "guaranteed-rank-change",
@@ -616,17 +636,14 @@
         "ids": [
           "guts",
           "marvelscale",
-          "quickfeet",
-          "flareboost",
-          "toxicboost",
-          "poisonheal"
+          "quickfeet"
         ],
         "inputs": [
           "status"
         ],
         "scope": "pokemon",
         "defaults": {
-          "status": "burn; poison for poison-specific abilities"
+          "status": "brn"
         },
         "processing": "Selecting the ability sets its default status; allow explicit changes/clearing. No status damage or healing."
       },
@@ -795,6 +812,7 @@
           "harvest",
           "raindish",
           "icebody",
+          "poisonheal",
           "regenerator",
           "healer",
           "hospitality",

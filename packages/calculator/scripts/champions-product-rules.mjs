@@ -163,6 +163,13 @@ export const productRules = {
       processing:
         'Use item-dependent power and validate throwability; no after-hit item effects or item reacquisition.',
     }),
+    move('sleep-required', 'snore', {
+      inputs: [],
+      scope: 'pokemon',
+      requiredUserStatus: 'slp',
+      processing:
+        'Read the current user status without changing it on move selection. Calculate while asleep; otherwise show the move as unavailable.',
+    }),
     move('status-from-user', 'facade', {
       inputs: ['status'],
       scope: 'pokemon',
@@ -174,6 +181,11 @@ export const productRules = {
       scope: 'opponent',
       processing:
         'Derive activation from the target Pokemon status; poison-specific moves require poison/toxic poison.',
+    }),
+    move('accuracy-drop-excluded', 'mudslap', {
+      inputs: [],
+      processing:
+        'Calculate direct damage; ignore the accuracy drop and omit the rank toggle.',
     }),
     {
       id: 'guaranteed-rank-change',
@@ -217,17 +229,13 @@ export const productRules = {
       processing:
         'Keep direct damage and the selected status; do not apply status changes, PP changes or turn/action locks.',
     }),
-    ability(
-      'status-trigger',
-      'guts marvelscale quickfeet flareboost toxicboost poisonheal',
-      {
-        inputs: ['status'],
-        scope: 'pokemon',
-        defaults: { status: 'burn; poison for poison-specific abilities' },
-        processing:
-          'Selecting the ability sets its default status; allow explicit changes/clearing. No status damage or healing.',
-      },
-    ),
+    ability('status-trigger', 'guts marvelscale quickfeet', {
+      inputs: ['status'],
+      scope: 'pokemon',
+      defaults: { status: 'brn' },
+      processing:
+        'Selecting the ability sets its default status; allow explicit changes/clearing. No status damage or healing.',
+    }),
     ability(
       'activation-default-on',
       'overgrow blaze torrent swarm flashfire electromorphosis stakeout unburden',
@@ -296,23 +304,24 @@ export const productRules = {
     }),
     ability(
       'residual-only-excluded',
-      'roughskin ironbarbs aftermath cheekpouch cudchew harvest raindish icebody regenerator healer hospitality shedskin',
+      'roughskin ironbarbs aftermath cheekpouch cudchew harvest raindish icebody poisonheal regenerator healer hospitality shedskin',
       { selection: 'excluded', inputs: [] },
     ),
   ],
 };
 
 function guaranteedRankChange(raw) {
-  const boosts = (value) => value && Object.keys(value).length > 0;
+  const hasSupportedBoost = (value) =>
+    value && ['atk', 'def', 'spa', 'spd', 'spe'].some((stat) => value[stat]);
   return !!(
-    boosts(raw?.self?.boosts) ||
-    boosts(raw?.selfBoost?.boosts) ||
+    hasSupportedBoost(raw?.self?.boosts) ||
+    hasSupportedBoost(raw?.selfBoost?.boosts) ||
     raw?.id === 'clearsmog' ||
     [raw?.secondary, ...(raw?.secondaries ?? [])].some(
       (s) =>
         s &&
         (s.chance ?? 100) === 100 &&
-        (boosts(s.boosts) || boosts(s.self?.boosts)),
+        (hasSupportedBoost(s.boosts) || hasSupportedBoost(s.self?.boosts)),
     )
   );
 }

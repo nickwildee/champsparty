@@ -11196,9 +11196,7 @@
       "ruleIds": [
         "secondary-effects"
       ],
-      "requiredInputIds": [
-        "rankChangesEnabled"
-      ],
+      "requiredInputIds": [],
       "existingContextSignals": [],
       "reviewRequired": false,
       "unresolvedRuleIds": [],
@@ -11209,15 +11207,13 @@
       "mechanicReviewRuleIds": [],
       "definitionInputIds": [],
       "productRuleIds": [
-        "guaranteed-rank-change"
+        "accuracy-drop-excluded"
       ],
       "productPolicy": {
         "selection": "included",
         "implementation": "planned",
         "maximumUses": null,
-        "defaults": {
-          "rankChangesEnabled": true
-        }
+        "defaults": {}
       }
     },
     "source": [
@@ -15683,7 +15679,9 @@
       "mechanicReviewRequired": false,
       "mechanicReviewRuleIds": [],
       "definitionInputIds": [],
-      "productRuleIds": [],
+      "productRuleIds": [
+        "sleep-required"
+      ],
       "productPolicy": {
         "selection": "included",
         "implementation": "planned",

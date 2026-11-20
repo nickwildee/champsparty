@@ -9,6 +9,7 @@ import {
   type State,
   type StatsTable,
 } from '@smogon/calc';
+import { checkItem, isGrounded } from '@smogon/calc/dist/mechanics/util.js';
 import speciesAliases from '../data/champions/species-aliases.json' with { type: 'json' };
 
 export interface ChampionsPokemonInput {
@@ -30,8 +31,12 @@ interface ChampionsFieldSideInput {
   auroraVeil?: boolean;
 }
 
+const weatherOptions = ['Sun', 'Rain', 'Sand', 'Snow'] as const;
+const terrainOptions = ['Electric', 'Grassy', 'Psychic', 'Misty'] as const;
+const statusOptions = ['', 'slp', 'psn', 'brn', 'frz', 'par', 'tox'] as const;
+
 export interface ChampionsFieldInput {
-  weather?: State.Field['weather'];
+  weather?: (typeof weatherOptions)[number];
   terrain?: State.Field['terrain'];
   gravity?: boolean;
   attackerSide?: ChampionsFieldSideInput;
@@ -66,46 +71,121 @@ const champions = Generations.get(0);
 
 const speciesEngineIds = new Map(Object.entries(speciesAliases));
 
-function engineName(
-  table: {
-    get(id: ReturnType<typeof toID>): { id: string; name: string } | undefined;
-  },
+function engineEntry<T extends { id: string; name: string }>(
+  table: { get(id: ReturnType<typeof toID>): T | undefined },
   value: string,
   label: string,
   aliases?: ReadonlyMap<string, string>,
-): string {
-  const id = typeof value === 'string' ? toID(value) : '';
+): T {
+  if (typeof value !== 'string')
+    throw new ChampionsInputError(
+      `${label}: 이름 또는 ID 문자열이 필요합니다.`,
+    );
+  const id = toID(value);
   const key = toID(aliases?.get(id) ?? id);
   const entry = key && table.get(key);
   if (!entry || entry.id !== key || !entry.name)
     throw new ChampionsInputError(
-      `${label}을(를) 엔진에서 찾을 수 없습니다: ${value}`,
+      `${label}: 엔진에서 찾을 수 없는 이름입니다 (${value}).`,
     );
-  return entry.name;
+  return entry;
 }
 
-function createPokemon(input: ChampionsPokemonInput): Pokemon {
-  const hpPercent = input.hpPercent ?? 100;
+function requireObject(value: unknown, path: string): asserts value is object {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) {
+    throw new ChampionsInputError(`${path}: 객체가 필요합니다.`);
+  }
+}
+
+function checkOption(
+  value: unknown,
+  options: readonly string[],
+  path: string,
+): void {
+  if (
+    value !== undefined &&
+    (typeof value !== 'string' || !options.includes(value))
+  ) {
+    throw new ChampionsInputError(
+      `${path}: 허용된 값은 ${options.filter(Boolean).join(', ')}입니다.`,
+    );
+  }
+}
+
+function checkBoolean(value: unknown, path: string): void {
+  if (value !== undefined && typeof value !== 'boolean') {
+    throw new ChampionsInputError(`${path}: true 또는 false가 필요합니다.`);
+  }
+}
+
+function checkStats(
+  input: ChampionsPokemonInput,
+  side: string,
+  key: 'statPoints' | 'boosts',
+): void {
+  const stats = input[key];
+  if (key === 'boosts' && stats === undefined) return;
+  const path = `${side}.${key}`;
+  const ranks = key === 'boosts';
+  requireObject(stats, path);
+  for (const [stat, value] of Object.entries(stats)) {
+    if (
+      !['atk', 'def', 'spa', 'spd', 'spe'].includes(stat) &&
+      !(stat === 'hp' && !ranks)
+    ) {
+      throw new ChampionsInputError(
+        `${path}.${stat}: 지원하지 않는 능력치입니다.`,
+      );
+    }
+    if (
+      typeof value !== 'number' ||
+      !Number.isSafeInteger(value) ||
+      (ranks ? value < -6 || value > 6 : value < 0)
+    ) {
+      const range = ranks ? '-6~6 사이의 정수' : '0 이상의 정수';
+      throw new ChampionsInputError(`${path}.${stat}: ${range}가 필요합니다.`);
+    }
+  }
+}
+
+function createPokemon(
+  input: ChampionsPokemonInput,
+  side: 'attacker' | 'defender',
+): Pokemon {
+  requireObject(input, side);
+  checkStats(input, side, 'statPoints');
+  checkStats(input, side, 'boosts');
+  checkOption(input.status, statusOptions, `${side}.status`);
+  const hpPercent = input.hpPercent === undefined ? 100 : input.hpPercent;
   if (!Number.isInteger(hpPercent) || hpPercent < 1 || hpPercent > 100) {
-    throw new ChampionsInputError('HP 비율은 1~100 사이의 정수여야 합니다.');
+    throw new ChampionsInputError(
+      `${side}.hpPercent: HP 비율은 1~100 사이의 정수여야 합니다.`,
+    );
   }
 
   const pokemon = new Pokemon(
     champions,
-    engineName(champions.species, input.species, '포켓몬', speciesEngineIds),
+    engineEntry(
+      champions.species,
+      input.species,
+      `${side}.species`,
+      speciesEngineIds,
+    ).name,
     {
-      nature: engineName(champions.natures, input.nature, '성격'),
+      nature: engineEntry(champions.natures, input.nature, `${side}.nature`)
+        .name,
       ability:
         input.ability == null ||
         (typeof input.ability === 'string' &&
           (!input.ability.trim() || toID(input.ability) === 'noability'))
           ? 'No Ability'
-          : engineName(champions.abilities, input.ability, '특성'),
+          : engineEntry(champions.abilities, input.ability, `${side}.ability`)
+              .name,
       item:
         input.item == null ||
         (typeof input.item === 'string' && !input.item.trim())
           ? undefined
-          : engineName(champions.items, input.item, '도구'),
+          : engineEntry(champions.items, input.item, `${side}.item`).name,
       // Champions uses stat points directly and defaults omitted points to 0.
       evs: { ...input.statPoints },
       boosts: { ...input.boosts },
@@ -122,12 +202,47 @@ function createPokemon(input: ChampionsPokemonInput): Pokemon {
   return pokemon;
 }
 
-function toEngineSide(side?: ChampionsFieldSideInput): State.Side {
+function toEngineSide(
+  side: ChampionsFieldSideInput | undefined,
+  path: string,
+): State.Side {
+  if (side !== undefined) {
+    requireObject(side, path);
+    for (const flag of ['reflect', 'lightScreen', 'auroraVeil'] as const) {
+      checkBoolean(side[flag], `${path}.${flag}`);
+    }
+  }
   return {
     isReflect: side?.reflect,
     isLightScreen: side?.lightScreen,
     isAuroraVeil: side?.auroraVeil,
   };
+}
+
+function createMove(name: string, attacker: Pokemon, field: Field): Move {
+  const data = engineEntry(champions.moves, name, 'move');
+  let priorityBoosted = false;
+  if (data.name === 'Grassy Glide' && field.hasTerrain('Grassy')) {
+    // The engine checks held-item suppression before determining groundedness.
+    const holder = attacker.clone();
+    checkItem(holder, field.isMagicRoom);
+    priorityBoosted = isGrounded(holder, field);
+  } else if (
+    data.type === 'Flying' &&
+    data.category !== 'Status' &&
+    attacker.hasAbility('Gale Wings') &&
+    attacker.curHP() === attacker.maxHP()
+  ) {
+    priorityBoosted = true;
+  }
+  return new Move(champions, data.name, {
+    ability: attacker.ability,
+    item: attacker.item,
+    // calculate() clones the move. Constructor overrides survive that clone.
+    overrides: priorityBoosted
+      ? { priority: (data.priority ?? 0) + 1 }
+      : undefined,
+  });
 }
 
 function unavailableMoveReason(move: Move, field: Field): string | undefined {
@@ -145,25 +260,25 @@ function unavailableMoveReason(move: Move, field: Field): string | undefined {
 export function calculateChampionsDamage(
   input: ChampionsDamageInput,
 ): ChampionsDamageResult {
-  const attacker = createPokemon(input.attacker);
-  const defender = createPokemon(input.defender);
-  const move = new Move(
-    champions,
-    engineName(champions.moves, input.move, '기술'),
-    {
-      ability: attacker.ability,
-      item: attacker.item,
-    },
-  );
+  requireObject(input, 'input');
+  const attacker = createPokemon(input.attacker, 'attacker');
+  const defender = createPokemon(input.defender, 'defender');
+  if (input.field !== undefined) {
+    requireObject(input.field, 'field');
+    checkOption(input.field.weather, weatherOptions, 'field.weather');
+    checkOption(input.field.terrain, terrainOptions, 'field.terrain');
+    checkBoolean(input.field.gravity, 'field.gravity');
+  }
   const field = new Field({
     gameType: 'Singles',
     weather: input.field?.weather,
     terrain: input.field?.terrain,
     isGravity: input.field?.gravity,
-    attackerSide: toEngineSide(input.field?.attackerSide),
-    defenderSide: toEngineSide(input.field?.defenderSide),
+    attackerSide: toEngineSide(input.field?.attackerSide, 'field.attackerSide'),
+    defenderSide: toEngineSide(input.field?.defenderSide, 'field.defenderSide'),
   });
 
+  const move = createMove(input.move, attacker, field);
   const unavailableReason = unavailableMoveReason(move, field);
   if (unavailableReason) {
     const result = new Result(champions, attacker, defender, move, field, 0, {
@@ -183,10 +298,13 @@ export function calculateChampionsDamage(
     result.defender.hasAbility('Levitate', 'Eelevate') &&
     result.rawDesc.defenderAbility === result.defender.ability
   ) {
-    const groundedDefender = createPokemon({
-      ...input.defender,
-      ability: 'No Ability',
-    });
+    const groundedDefender = createPokemon(
+      {
+        ...input.defender,
+        ability: 'No Ability',
+      },
+      'defender',
+    );
     const groundedResult = calculate(
       champions,
       attacker,

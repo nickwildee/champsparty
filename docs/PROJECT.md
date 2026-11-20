@@ -254,7 +254,7 @@
 | -------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `pnpm install --frozen-lockfile`                                           | 기록된 lockfile을 변경하지 않고 의존성 설치                                 |
 | `pnpm calc:check packages/calculator/fixtures/champions-damage-input.json` | 양쪽 세팅과 기술 하나로 1회 데미지·난수 출력                                |
-| `pnpm --filter @champsparty/calculator test`                               | 현재 계산기의 이름 해석·HP 및 원본 검증 회귀 검사                           |
+| `pnpm --filter @champsparty/calculator test`                               | 이름·HP·입력 오류·우선도 차단·조건 분류와 원본 검증 회귀 검사               |
 | `pnpm db:check`                                                            | 로컬 DB 접속·DB 이름·앱 역할 확인 후 연결 정리 (macOS 셸 기준)              |
 | `pnpm dev`                                                                 | 개발 서버 실행, 기본 주소 `http://localhost:3000`                           |
 | `pnpm typecheck`                                                           | 계산 패키지와 웹의 타입 검사. 웹은 먼저 `next typegen`으로 라우트 타입 생성 |

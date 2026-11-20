@@ -569,7 +569,7 @@ export function classifyAbility(ability, raw) {
       'Selecting Unburden disables item input and starts calculations without a held item.';
   if (ability.id === 'poisonheal')
     extras.mechanicNote =
-      'Use poison for the status toggle. The status can affect moves such as Facade, but Poison Heal recovery stays outside the current KO contract.';
+      'Poison and toxic poison are diagnostic inputs for the original ability. Its end-of-turn recovery is excluded from the product; no selectable ability or automatic poison status.';
   if (
     ['disguise', 'iceface', 'multiscale', 'sturdy', 'terashell'].includes(
       ability.id,

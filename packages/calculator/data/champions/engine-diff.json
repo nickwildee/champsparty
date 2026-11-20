@@ -2696,16 +2696,6 @@
         ]
       },
       {
-        "id": "mudslap",
-        "name": "Mud-Slap",
-        "inputs": [
-          "rankChangesEnabled"
-        ],
-        "rules": [
-          "secondary-effects"
-        ]
-      },
-      {
         "id": "mysticalfire",
         "name": "Mystical Fire",
         "inputs": [
@@ -3085,18 +3075,6 @@
         ],
         "rules": [
           "low-hp-activation"
-        ]
-      },
-      {
-        "id": "poisonheal",
-        "name": "Poison Heal",
-        "inputs": [
-          "status"
-        ],
-        "rules": [
-          "existing-context",
-          "residual-effects",
-          "status-trigger"
         ]
       },
       {

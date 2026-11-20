@@ -2176,7 +2176,7 @@
         "implementation": "planned",
         "maximumUses": null,
         "defaults": {
-          "status": "burn; poison for poison-specific abilities"
+          "status": "brn"
         }
       }
     },
@@ -3520,7 +3520,7 @@
         "implementation": "planned",
         "maximumUses": null,
         "defaults": {
-          "status": "burn; poison for poison-specific abilities"
+          "status": "brn"
         }
       }
     },
@@ -4442,15 +4442,13 @@
         "residual-effects",
         "status-trigger"
       ],
-      "requiredInputIds": [
-        "status"
-      ],
+      "requiredInputIds": [],
       "existingContextSignals": [],
       "reviewRequired": false,
       "unresolvedRuleIds": [],
       "calculationVerification": "not-verified-by-catalog-extraction",
       "defaultStatus": "psn",
-      "mechanicNote": "Use poison for the status toggle. The status can affect moves such as Facade, but Poison Heal recovery stays outside the current KO contract.",
+      "mechanicNote": "Poison and toxic poison are diagnostic inputs for the original ability. Its end-of-turn recovery is excluded from the product; no selectable ability or automatic poison status.",
       "mechanicInputIds": [
         "statusEnabled"
       ],
@@ -4460,15 +4458,13 @@
         "status"
       ],
       "productRuleIds": [
-        "status-trigger"
+        "residual-only-excluded"
       ],
       "productPolicy": {
-        "selection": "damage-or-speed-only",
+        "selection": "excluded",
         "implementation": "planned",
-        "maximumUses": null,
-        "defaults": {
-          "status": "burn; poison for poison-specific abilities"
-        }
+        "maximumUses": 0,
+        "defaults": {}
       }
     },
     "source": [
@@ -4896,7 +4892,7 @@
         "implementation": "planned",
         "maximumUses": null,
         "defaults": {
-          "status": "burn; poison for poison-specific abilities"
+          "status": "brn"
         }
       }
     },
