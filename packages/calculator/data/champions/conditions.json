@@ -1,0 +1,827 @@
+{
+  "schemaVersion": 2,
+  "definitions": {
+    "unresolved-context": {
+      "label": "원본 문맥 참조",
+      "inputs": [],
+      "policy": "automatic",
+      "note": "Source-context evidence is retained for engine diagnostics; use productRules for the current processing scope."
+    },
+    "variable-hit-count": {
+      "label": "가변 연속기 타격 횟수",
+      "inputs": [
+        "hitCount"
+      ],
+      "policy": "approved",
+      "bounds": "Use the move-specific multihit range; ability/item exceptions also need validation.",
+      "defaults": {
+        "hitCount": "move-maximum"
+      },
+      "note": "Select an integer within the move-specific range; fixed-count and Skill Link restrictions apply."
+    },
+    "fixed-hit-count": {
+      "label": "고정 연속기",
+      "inputs": [],
+      "policy": "automatic",
+      "note": "Keep per-hit mechanics; a fixed hit count is not the number of move uses."
+    },
+    "fainted-allies": {
+      "label": "쓰러진 아군 수",
+      "inputs": [
+        "alliesFainted"
+      ],
+      "policy": "approved",
+      "bounds": {
+        "min": 0,
+        "max": 5
+      },
+      "mechanicCaps": {
+        "supremeoverlord": 5,
+        "lastrespects": 100
+      },
+      "defaultValue": 0,
+      "note": "Product input is 0–5 for both moves/abilities; the source Last Respects mechanic cap remains 100."
+    },
+    "status-trigger": {
+      "label": "상태이상 선택",
+      "inputs": [
+        "status"
+      ],
+      "policy": "approved",
+      "defaultEnabled": true,
+      "defaultStatus": "none",
+      "note": "One status per Pokemon. A selected status-trigger ability assigns its required/default status; users may change or clear it. No status damage/healing or action-failure probability."
+    },
+    "ability-activation": {
+      "label": "특성 발동 토글",
+      "inputs": [
+        "abilityActive"
+      ],
+      "policy": "approved",
+      "note": "Default ON for the agreed activation abilities; Analytic defaults OFF. Unburden disables item input. See per-ability product rules.",
+      "defaultEnabled": true
+    },
+    "low-hp-activation": {
+      "label": "HP 조건 특성 발동 토글",
+      "inputs": [
+        "abilityActive"
+      ],
+      "policy": "approved",
+      "note": "Default ON on ability selection; force only the activation effect while preserving the supplied initial HP.",
+      "defaultEnabled": true
+    },
+    "existing-context": {
+      "label": "기존 입력·종 데이터로 결정",
+      "inputs": [],
+      "policy": "automatic"
+    },
+    "final-ranks": {
+      "label": "랭크 변화는 최종 랭크에 포함",
+      "inputs": [],
+      "policy": "approved",
+      "note": "Do not reapply entry/event rank changes on top of the supplied final ranks. Preserve unrelated effects of the ability."
+    },
+    "field-setting": {
+      "label": "날씨·필드 생성 효과",
+      "inputs": [],
+      "policy": "excluded-from-selector",
+      "note": "Field-setting abilities are not selected; use the opponent-local shared field inputs without simulating entry/hit events."
+    },
+    "gender-condition": {
+      "label": "투쟁심 상대 관계",
+      "inputs": [
+        "rivalrySameGender"
+      ],
+      "policy": "approved",
+      "note": "Manual same/different toggle; no gender inputs or automatic neutral-gender override. Leave ability blank for no modifier."
+    },
+    "hits-taken": {
+      "label": "공격받은 누적 횟수",
+      "inputs": [
+        "hitsTaken"
+      ],
+      "policy": "approved",
+      "bounds": {
+        "min": 0,
+        "max": 6
+      },
+      "defaultValue": 0,
+      "note": "Six hits already reaches the power cap."
+    },
+    "stockpile-count": {
+      "label": "비축 횟수",
+      "inputs": [
+        "stockpileCount"
+      ],
+      "policy": "approved",
+      "bounds": {
+        "min": 0,
+        "max": 3
+      },
+      "defaultValue": 0,
+      "note": "Zero is unusable. One-use result only; final ranks are entered separately."
+    },
+    "party-composition": {
+      "label": "아군별 참여 조건·종족값",
+      "inputs": [],
+      "policy": "excluded",
+      "note": "Beat Up is excluded from the calculation selector."
+    },
+    "turn-history": {
+      "label": "현재 턴·이전 행동의 조건",
+      "inputs": [],
+      "policy": "approved",
+      "note": "Per-move product rules distinguish default-OFF power toggles, assumed success and single-use results. No general battle-history input."
+    },
+    "incoming-damage": {
+      "label": "직전에 받은 데미지와 공격 종류",
+      "inputs": [
+        "opponentMoveId"
+      ],
+      "policy": "approved-derived",
+      "note": "Derive incoming damage from the linked opponent build and move. Prompt for a missing move; do not require defense comparison. Reflection results are single-use only."
+    },
+    "random-power": {
+      "label": "기술 자체의 위력 분기",
+      "inputs": [
+        "powerBoostEnabled"
+      ],
+      "policy": "approved",
+      "note": "Choose the strengthened branch manually and keep it on repeated uses; do not aggregate its activation probability.",
+      "defaultEnabled": false
+    },
+    "copied-ability": {
+      "label": "복사한 특성",
+      "inputs": [],
+      "policy": "excluded",
+      "note": "Ability copying/exchanging/replacement is excluded."
+    },
+    "transformation": {
+      "label": "변신·폼 변화",
+      "inputs": [],
+      "policy": "approved-scoped",
+      "note": "Keep selected calculation forms fixed. Protean/Libero use a default-ON move-type toggle; Disguise has an intact toggle. Transform/Imposter are excluded."
+    },
+    "repeat-state-change": {
+      "label": "반복 사용 중 상태 변화",
+      "inputs": [],
+      "policy": "approved-scoped",
+      "note": "Apply supported HP, item, screen/terrain and guaranteed-rank changes at their actual timing. Rank changes default ON. Exclude probabilistic rank/status changes, ability changes, item transfers and berry-eating effects; respect single-use limits."
+    },
+    "repeated-use-power": {
+      "label": "연속 사용 위력 변화",
+      "inputs": [],
+      "policy": "approved-in-principle",
+      "note": "Track successive uses internally. Only implement for moves actually available in Champions."
+    },
+    "delegated-move": {
+      "label": "다른 기술을 호출",
+      "inputs": [],
+      "policy": "excluded",
+      "note": "Copycat/Sleep Talk are excluded; choose the actual damaging move."
+    },
+    "hp-dependent": {
+      "label": "현재 HP 의존",
+      "inputs": [],
+      "policy": "approved-scoped",
+      "note": "Start at the supplied HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only."
+    },
+    "status-move": {
+      "label": "변화기",
+      "inputs": [],
+      "policy": "outside-current-direct-damage-contract",
+      "note": "Keep in the full learnset. Exclusion from the damage selector is separate from game availability."
+    },
+    "secondary-effects": {
+      "label": "확률 부가효과",
+      "inputs": [],
+      "policy": "probability-excluded",
+      "note": "Keep deterministic first-hit damage modifiers; do not combine secondary-effect chances with KO damage randomness."
+    },
+    "residual-effects": {
+      "label": "회복·턴 종료·반동 효과",
+      "inputs": [],
+      "policy": "excluded-from-current-ko-contract",
+      "note": "This tag does not discard other damage/stat effects of the same ability or move."
+    },
+    "accuracy-effects": {
+      "label": "명중률·행동 가능성 효과",
+      "inputs": [],
+      "policy": "accuracy-input-excluded"
+    },
+    "critical-effects": {
+      "label": "급소 관련 효과",
+      "inputs": [],
+      "policy": "critical-input-excluded",
+      "note": "No user critical toggle or probability aggregation; preserve intrinsic move mechanics supplied by the engine."
+    },
+    "ally-only": {
+      "label": "아군을 요구하는 효과",
+      "inputs": [],
+      "policy": "outside-singles-context",
+      "note": "Apply only to strictly ally-only effects, not all hooks whose name contains Ally."
+    },
+    "custom-damage": {
+      "label": "일반 위력식이 아닌 데미지",
+      "inputs": [],
+      "policy": "approved-scoped",
+      "note": "Native fixed-damage moves use engine data; linked reflection is single-use. OHKO moves and the three HP-manipulation exclusions are not selectable."
+    }
+  },
+  "productRules": {
+    "updatedOn": "2026-11-20",
+    "implementation": "planned",
+    "common": {
+      "game": "Champions",
+      "battle": "Singles",
+      "initialHpPercent": 100,
+      "initialHpPercentRange": [
+        1,
+        100
+      ],
+      "moveCountPerPokemon": 1,
+      "ownStateScope": "Shared across opponents.",
+      "opponentStateScope": "Local to one opponent; shared by its attack, defense and speed comparisons.",
+      "fieldScope": "Per opponent; shared by its comparisons.",
+      "abilityOptional": true,
+      "emptyAbility": "No Ability",
+      "abilitySelection": "Only effects relevant to supported direct damage or Speed; field-setting abilities use field inputs instead.",
+      "status": "One selected status per Pokemon; preserve it during repeated KO calculation.",
+      "automaticMoveStatusChanges": false,
+      "rankChangesDefaultEnabled": true,
+      "probabilisticRankChanges": false,
+      "endOfTurnDamage": false,
+      "healing": false,
+      "recoilKo": false,
+      "accuracyProbability": false,
+      "criticalProbability": false,
+      "terrainGravityCoexist": true,
+      "gravity": {
+        "scope": "opponent",
+        "placement": "additional-field",
+        "defaultEnabled": false
+      },
+      "itemTransfer": false,
+      "berries": "One generic resist-berry option; no healing/stat-raising berries or separate stolen-berry eating effects.",
+      "consumption": "Resist berries affect one qualifying hit; Normal Gem affects the whole first qualifying use; White Herb restores negative ranks once.",
+      "hpAndProtection": "Update remaining HP and supported protection/consumption state after each hit, preserving outcome probabilities."
+    },
+    "rules": [
+      {
+        "id": "status-move-excluded",
+        "kind": "move",
+        "category": "Status",
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "ohko-excluded",
+        "kind": "move",
+        "ids": [
+          "fissure",
+          "guillotine",
+          "horndrill",
+          "sheercold"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "hp-manipulation-excluded",
+        "kind": "move",
+        "ids": [
+          "superfang",
+          "painsplit",
+          "endeavor"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "party-attack-excluded",
+        "kind": "move",
+        "ids": [
+          "beatup"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "delegated-move-excluded",
+        "kind": "move",
+        "ids": [
+          "copycat",
+          "sleeptalk",
+          "transform"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "hit-count",
+        "kind": "move",
+        "sourceRule": "variable-hit-count",
+        "inputs": [
+          "hitCount"
+        ],
+        "defaults": {
+          "hitCount": "move-maximum"
+        },
+        "processing": "Integer within each move range; fixed-count/Skill Link conditions constrain it; reuse the selected count per use, without accuracy aggregation."
+      },
+      {
+        "id": "fainted-allies",
+        "kind": "move",
+        "ids": [
+          "lastrespects"
+        ],
+        "inputs": [
+          "alliesFainted"
+        ],
+        "bounds": {
+          "min": 0,
+          "max": 5
+        },
+        "defaults": {
+          "alliesFainted": 0
+        }
+      },
+      {
+        "id": "fainted-allies-ability",
+        "kind": "ability",
+        "ids": [
+          "supremeoverlord"
+        ],
+        "inputs": [
+          "alliesFainted"
+        ],
+        "bounds": {
+          "min": 0,
+          "max": 5
+        },
+        "defaults": {
+          "alliesFainted": 0
+        },
+        "processing": "Use the faint count captured at entry, rather than reapplying an entry event."
+      },
+      {
+        "id": "hits-taken",
+        "kind": "move",
+        "ids": [
+          "ragefist"
+        ],
+        "inputs": [
+          "hitsTaken"
+        ],
+        "bounds": {
+          "min": 0,
+          "max": 6
+        },
+        "defaults": {
+          "hitsTaken": 0
+        }
+      },
+      {
+        "id": "stockpile-count",
+        "kind": "move",
+        "ids": [
+          "spitup"
+        ],
+        "inputs": [
+          "stockpileCount"
+        ],
+        "bounds": {
+          "min": 0,
+          "max": 3
+        },
+        "defaults": {
+          "stockpileCount": 0
+        },
+        "processing": "Zero is unusable; starting final Defense/Special Defense ranks are separate and not boosted again."
+      },
+      {
+        "id": "power-boost-toggle",
+        "kind": "move",
+        "ids": [
+          "assurance",
+          "avalanche",
+          "lashout",
+          "stompingtantrum",
+          "temperflare",
+          "round",
+          "ficklebeam"
+        ],
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "defaults": {
+          "powerBoostEnabled": false
+        },
+        "scope": "Own-history conditions are Pokemon state; target-relative conditions are opponent-local.",
+        "processing": "Keep the selected power branch for every use; do not aggregate its activation probability."
+      },
+      {
+        "id": "payback-toggle",
+        "kind": "move",
+        "ids": [
+          "payback"
+        ],
+        "inputs": [
+          "moveConditionSatisfied"
+        ],
+        "defaults": {
+          "moveConditionSatisfied": false
+        },
+        "scope": "opponent",
+        "processing": "Manual activation; do not infer from Speed. Keep the selected state on repeated uses."
+      },
+      {
+        "id": "success-assumed",
+        "kind": "move",
+        "ids": [
+          "belch",
+          "lastresort",
+          "focuspunch",
+          "suckerpunch",
+          "upperhand"
+        ],
+        "inputs": [],
+        "processing": "Assume the move success prerequisites; no history or failure toggle."
+      },
+      {
+        "id": "linked-reflection",
+        "kind": "move",
+        "ids": [
+          "counter",
+          "mirrorcoat",
+          "metalburst",
+          "comeuppance"
+        ],
+        "inputs": [
+          "opponentMoveId"
+        ],
+        "maximumUses": 1,
+        "processing": "Calculate incoming damage using the linked opponent build and move, then reflect it. Prompt when that move is missing; do not require a defense-comparison checkbox or simulate exchanged attacks."
+      },
+      {
+        "id": "single-use",
+        "kind": "move",
+        "ids": [
+          "fakeout",
+          "firstimpression",
+          "fling",
+          "selfdestruct",
+          "explosion",
+          "mistyexplosion",
+          "finalgambit",
+          "gigatonhammer",
+          "spitup",
+          "burnup",
+          "doubleshock",
+          "steelroller"
+        ],
+        "maximumUses": 1,
+        "processing": "Show one-use damage, rolls and OHKO probability only."
+      },
+      {
+        "id": "steel-roller-exception",
+        "kind": "move",
+        "ids": [
+          "steelroller"
+        ],
+        "requiresTerrain": true,
+        "processing": "Return zero damage without terrain. With terrain, calculate one use with the selected battle conditions."
+      },
+      {
+        "id": "fling",
+        "kind": "move",
+        "ids": [
+          "fling"
+        ],
+        "processing": "Use item-dependent power and validate throwability; no after-hit item effects or item reacquisition."
+      },
+      {
+        "id": "sleep-required",
+        "kind": "move",
+        "ids": [
+          "snore"
+        ],
+        "inputs": [],
+        "scope": "pokemon",
+        "requiredUserStatus": "slp",
+        "processing": "Read the current user status without changing it on move selection. Calculate while asleep; otherwise show the move as unavailable."
+      },
+      {
+        "id": "status-from-user",
+        "kind": "move",
+        "ids": [
+          "facade"
+        ],
+        "inputs": [
+          "status"
+        ],
+        "scope": "pokemon",
+        "processing": "Derive activation from the same selected status used by abilities and Speed."
+      },
+      {
+        "id": "status-from-target",
+        "kind": "move",
+        "ids": [
+          "hex",
+          "infernalparade",
+          "venoshock",
+          "barbbarrage"
+        ],
+        "inputs": [
+          "targetStatus"
+        ],
+        "scope": "opponent",
+        "processing": "Derive activation from the target Pokemon status; poison-specific moves require poison/toxic poison."
+      },
+      {
+        "id": "accuracy-drop-excluded",
+        "kind": "move",
+        "ids": [
+          "mudslap"
+        ],
+        "inputs": [],
+        "processing": "Calculate direct damage; ignore the accuracy drop and omit the rank toggle."
+      },
+      {
+        "id": "guaranteed-rank-change",
+        "kind": "move",
+        "guaranteedRankChange": true,
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "defaults": {
+          "rankChangesEnabled": true
+        },
+        "processing": "Respect the actual before/after-hit timing and caps. OFF freezes supplied initial final ranks. Exclude probabilistic changes. Clear Smog resets only after its first successful damage calculation."
+      },
+      {
+        "id": "pre-attack-rank-change",
+        "kind": "move",
+        "ids": [
+          "electroshot",
+          "meteorbeam"
+        ],
+        "inputs": [
+          "rankChangesEnabled"
+        ],
+        "defaults": {
+          "rankChangesEnabled": true
+        },
+        "processing": "Apply the guaranteed pre-attack Special Attack increase at its original timing, including the first attack; do not double-count it as an entry boost."
+      },
+      {
+        "id": "screen-terrain-removal",
+        "kind": "move",
+        "ids": [
+          "brickbreak",
+          "psychicfangs",
+          "ragingbull",
+          "icespinner",
+          "steelroller"
+        ],
+        "processing": "Remove supported screens/terrain at the move-specific timing; recalculate affected later damage."
+      },
+      {
+        "id": "item-removal",
+        "kind": "move",
+        "ids": [
+          "knockoff"
+        ],
+        "processing": "Apply the eligible first-use power bonus; remove the item after the hit and recalculate later damage, respecting removal restrictions."
+      },
+      {
+        "id": "item-transfer-excluded",
+        "kind": "move",
+        "ids": [
+          "thief",
+          "covet"
+        ],
+        "processing": "Calculate ordinary damage without transferring held items."
+      },
+      {
+        "id": "berry-eating-effects-excluded",
+        "kind": "move",
+        "ids": [
+          "bugbite",
+          "pluck"
+        ],
+        "processing": "Only the supported resist-berry reduction/consumption applies; no separate stolen-berry eating effects."
+      },
+      {
+        "id": "smack-down-grounding-excluded",
+        "kind": "move",
+        "ids": [
+          "smackdown"
+        ],
+        "processing": "Keep ordinary move damage; do not change groundedness after hitting."
+      },
+      {
+        "id": "move-status-changes-excluded",
+        "kind": "move",
+        "ids": [
+          "mortalspin",
+          "sparklingaria",
+          "uproar"
+        ],
+        "processing": "Keep direct damage and the selected status; do not apply status changes, PP changes or turn/action locks."
+      },
+      {
+        "id": "status-trigger",
+        "kind": "ability",
+        "ids": [
+          "guts",
+          "marvelscale",
+          "quickfeet"
+        ],
+        "inputs": [
+          "status"
+        ],
+        "scope": "pokemon",
+        "defaults": {
+          "status": "brn"
+        },
+        "processing": "Selecting the ability sets its default status; allow explicit changes/clearing. No status damage or healing."
+      },
+      {
+        "id": "activation-default-on",
+        "kind": "ability",
+        "ids": [
+          "overgrow",
+          "blaze",
+          "torrent",
+          "swarm",
+          "flashfire",
+          "electromorphosis",
+          "stakeout",
+          "unburden"
+        ],
+        "inputs": [
+          "abilityActive"
+        ],
+        "defaults": {
+          "abilityActive": true
+        },
+        "processing": "Keep the chosen activation during repeated uses; OFF retains passive effects. Low-HP toggles do not change actual HP. Stakeout is opponent-local."
+      },
+      {
+        "id": "analytic-toggle",
+        "kind": "ability",
+        "ids": [
+          "analytic"
+        ],
+        "inputs": [
+          "abilityActive"
+        ],
+        "defaults": {
+          "abilityActive": false
+        },
+        "scope": "opponent",
+        "processing": "Manual activation; do not infer from Speed."
+      },
+      {
+        "id": "unburden-no-item",
+        "kind": "ability",
+        "ids": [
+          "unburden"
+        ],
+        "processing": "Disable item input and calculate without a held item."
+      },
+      {
+        "id": "rivalry-toggle",
+        "kind": "ability",
+        "ids": [
+          "rivalry"
+        ],
+        "inputs": [
+          "rivalrySameGender"
+        ],
+        "scope": "opponent",
+        "processing": "Same/different relation selects the modifier; do not request genders. Leave the ability blank for a neutral comparison."
+      },
+      {
+        "id": "move-type-change",
+        "kind": "ability",
+        "ids": [
+          "protean",
+          "libero"
+        ],
+        "inputs": [
+          "abilityActive",
+          "moveId"
+        ],
+        "defaults": {
+          "abilityActive": true
+        },
+        "processing": "ON uses the selected move type as current Pokemon type for attack/defense; OFF uses original types. Prompt for a missing move."
+      },
+      {
+        "id": "fixed-form",
+        "kind": "ability",
+        "ids": [
+          "stancechange",
+          "hungerswitch",
+          "zerotohero"
+        ],
+        "inputs": [],
+        "processing": "Select the calculation form directly and keep it during repeated KO; no turn/switch history."
+      },
+      {
+        "id": "disguise",
+        "kind": "ability",
+        "ids": [
+          "disguise"
+        ],
+        "inputs": [
+          "disguiseIntact"
+        ],
+        "defaults": {
+          "disguiseIntact": true
+        },
+        "processing": "Absorb the first qualifying hit, apply the break HP loss, then process remaining hits with broken Disguise; preserve ability-bypass rules."
+      },
+      {
+        "id": "hp-protection",
+        "kind": "ability",
+        "ids": [
+          "multiscale",
+          "sturdy",
+          "terashell",
+          "shadowshield"
+        ],
+        "inputs": [],
+        "processing": "Use the current HP for supported protection; update HP between hits. Sturdy survival affects KO, not the raw move damage rolls."
+      },
+      {
+        "id": "field-setter-excluded",
+        "kind": "ability",
+        "ids": [
+          "drizzle",
+          "drought",
+          "sandstream",
+          "snowwarning",
+          "sandspit",
+          "electricsurge",
+          "grassysurge",
+          "mistysurge",
+          "psychicsurge",
+          "seedsower"
+        ],
+        "selection": "excluded",
+        "inputs": [],
+        "processing": "Select the current field directly; do not simulate field-setting events."
+      },
+      {
+        "id": "ability-change-excluded",
+        "kind": "ability",
+        "ids": [
+          "trace",
+          "receiver",
+          "powerofalchemy",
+          "imposter",
+          "mummy",
+          "wanderingspirit"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "item-transfer-ability-excluded",
+        "kind": "ability",
+        "ids": [
+          "magician",
+          "pickpocket",
+          "symbiosis"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "residual-only-excluded",
+        "kind": "ability",
+        "ids": [
+          "roughskin",
+          "ironbarbs",
+          "aftermath",
+          "cheekpouch",
+          "cudchew",
+          "harvest",
+          "raindish",
+          "icebody",
+          "poisonheal",
+          "regenerator",
+          "healer",
+          "hospitality",
+          "shedskin"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      }
+    ]
+  },
+  "note": "Product inputs and processing are planned, not implemented. mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope; requiredInputIds/productRuleIds describe current product decisions."
+}

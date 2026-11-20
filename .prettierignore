@@ -3,3 +3,15 @@
 next-env.d.ts
 *.tsbuildinfo
 pnpm-lock.yaml
+
+# Deterministic catalog JSON is formatted and hashed by its extractor.
+packages/calculator/data/champions/pokemon.json
+packages/calculator/data/champions/moves.json
+packages/calculator/data/champions/abilities.json
+packages/calculator/data/champions/conditions.json
+packages/calculator/data/champions/engine-diff.json
+packages/calculator/data/champions/manifest.json
+packages/calculator/data/champions/conditional-audit.json
+packages/calculator/data/champions/CONDITIONAL-AUDIT.md
+packages/calculator/data/champions/move-names.ko.json
+packages/calculator/data/champions/smartnuo-comparison.json
