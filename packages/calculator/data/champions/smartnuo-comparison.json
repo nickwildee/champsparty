@@ -41513,7 +41513,7 @@
       ],
       "steelRoller": {
         "move": "steelroller",
-        "requiresTerrain": false,
+        "requiresTerrain": true,
         "otherFieldModifiers": "Apply the selected field modifiers normally."
       },
       "previouslyDecidedMoves": [

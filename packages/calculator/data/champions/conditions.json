@@ -82,7 +82,7 @@
       "note": "Do not reapply entry/event rank changes on top of the supplied final ranks. Preserve unrelated effects of the ability."
     },
     "field-setting": {
-      "label": "날씨·지형 생성 효과",
+      "label": "날씨·필드 생성 효과",
       "inputs": [],
       "policy": "excluded-from-selector",
       "note": "Field-setting abilities are not selected; use the opponent-local shared field inputs without simulating entry/hit events."
@@ -229,7 +229,7 @@
     }
   },
   "productRules": {
-    "updatedOn": "2026-11-19",
+    "updatedOn": "2026-11-20",
     "implementation": "planned",
     "common": {
       "game": "Champions",
@@ -485,8 +485,8 @@
         "ids": [
           "steelroller"
         ],
-        "requiresTerrain": false,
-        "processing": "Do not block the one-use calculation for missing terrain; retain other field modifiers."
+        "requiresTerrain": true,
+        "processing": "Return zero damage without terrain. With terrain, calculate one use with the selected battle conditions."
       },
       {
         "id": "fling",

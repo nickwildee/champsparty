@@ -15,7 +15,7 @@ const ability = (id, abilities, options) => ({
 });
 
 export const productRules = {
-  updatedOn: '2026-11-19',
+  updatedOn: '2026-11-20',
   implementation: 'planned',
   common: {
     game: 'Champions',
@@ -154,9 +154,9 @@ export const productRules = {
       },
     ),
     move('steel-roller-exception', 'steelroller', {
-      requiresTerrain: false,
+      requiresTerrain: true,
       processing:
-        'Do not block the one-use calculation for missing terrain; retain other field modifiers.',
+        'Return zero damage without terrain. With terrain, calculate one use with the selected battle conditions.',
     }),
     move('fling', 'fling', {
       processing:

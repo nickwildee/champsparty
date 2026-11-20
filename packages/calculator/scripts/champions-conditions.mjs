@@ -65,7 +65,7 @@ const mechanicConditionDefinitions = {
     note: 'Do not reapply entry/event rank changes on top of the supplied final ranks. Preserve unrelated effects of the ability.',
   },
   'field-setting': {
-    label: '날씨·지형 생성 효과',
+    label: '날씨·필드 생성 효과',
     inputs: [],
     policy: 'requires-decision',
     note: 'Field inputs already exist, but the precedence between a selected field and an ability-created field is not decided.',
