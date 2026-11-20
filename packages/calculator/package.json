@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./verification": "./src/verification.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "catalog:extract": "node scripts/extract-champions.mjs",
