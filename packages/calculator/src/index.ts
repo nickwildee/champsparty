@@ -5,9 +5,11 @@ import {
   Move,
   Pokemon,
   Result,
+  toID,
   type State,
   type StatsTable,
 } from '@smogon/calc';
+import speciesAliases from '../data/champions/species-aliases.json' with { type: 'json' };
 
 export interface ChampionsPokemonInput {
   species: string;
@@ -62,21 +64,52 @@ export class ChampionsInputError extends RangeError {}
 
 const champions = Generations.get(0);
 
+const speciesEngineIds = new Map(Object.entries(speciesAliases));
+
+function engineName(
+  table: { get(id: ReturnType<typeof toID>): { name: string } | undefined },
+  value: string,
+  label: string,
+  aliases?: ReadonlyMap<string, string>,
+): string {
+  const id = typeof value === 'string' ? toID(value) : '';
+  const key = toID(aliases?.get(id) ?? id);
+  const entry = key && table.get(key);
+  if (!entry || !entry.name)
+    throw new ChampionsInputError(
+      `${label}을(를) 엔진에서 찾을 수 없습니다: ${value}`,
+    );
+  return entry.name;
+}
+
 function createPokemon(input: ChampionsPokemonInput): Pokemon {
   const hpPercent = input.hpPercent ?? 100;
   if (!Number.isInteger(hpPercent) || hpPercent < 1 || hpPercent > 100) {
     throw new ChampionsInputError('HP 비율은 1~100 사이의 정수여야 합니다.');
   }
 
-  const pokemon = new Pokemon(champions, input.species, {
-    nature: input.nature,
-    ability: input.ability || 'No Ability',
-    item: input.item,
-    // Champions uses stat points directly and defaults omitted points to 0.
-    evs: { ...input.statPoints },
-    boosts: { ...input.boosts },
-    status: input.status,
-  });
+  const pokemon = new Pokemon(
+    champions,
+    engineName(champions.species, input.species, '포켓몬', speciesEngineIds),
+    {
+      nature: engineName(champions.natures, input.nature, '성격'),
+      ability:
+        input.ability == null ||
+        (typeof input.ability === 'string' &&
+          (!input.ability.trim() || toID(input.ability) === 'noability'))
+          ? 'No Ability'
+          : engineName(champions.abilities, input.ability, '특성'),
+      item:
+        input.item == null ||
+        (typeof input.item === 'string' && !input.item.trim())
+          ? undefined
+          : engineName(champions.items, input.item, '도구'),
+      // Champions uses stat points directly and defaults omitted points to 0.
+      evs: { ...input.statPoints },
+      boosts: { ...input.boosts },
+      status: input.status,
+    },
+  );
 
   if (hpPercent < 100) {
     // The game floors the displayed percentage. Stay below the next percent.
@@ -112,10 +145,14 @@ export function calculateChampionsDamage(
 ): ChampionsDamageResult {
   const attacker = createPokemon(input.attacker);
   const defender = createPokemon(input.defender);
-  const move = new Move(champions, input.move, {
-    ability: attacker.ability,
-    item: attacker.item,
-  });
+  const move = new Move(
+    champions,
+    engineName(champions.moves, input.move, '기술'),
+    {
+      ability: attacker.ability,
+      item: attacker.item,
+    },
+  );
   const field = new Field({
     gameType: 'Singles',
     weather: input.field?.weather,

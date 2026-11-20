@@ -1,10 +1,8 @@
-import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
-import { tmpdir } from 'node:os';
 import process from 'node:process';
 import console from 'node:console';
 import {
@@ -15,7 +13,7 @@ import {
   calculate,
   toID,
 } from '@smogon/calc';
-import { loadShowdownSource, sourceEntryIndex } from './showdown-source.mjs';
+import { withPinnedShowdown, sourceEntryIndex } from './showdown-source.mjs';
 import {
   classifyMove,
   classifyAbility,
@@ -37,35 +35,17 @@ if (archiveIndex < 0 || !args[archiveIndex + 1]) {
   );
 }
 const archive = resolve(args[archiveIndex + 1]);
-const archiveHash = createHash('sha256')
-  .update(readFileSync(archive))
-  .digest('hex');
-if (archiveHash !== pin.showdown.archiveSha256)
-  throw new Error('Archive SHA-256 does not match the pinned source.');
 const check = args.includes('--check');
 const engineVersion = require('@smogon/calc/package.json').version;
 if (engineVersion !== pin.engine.version)
   throw new Error('Engine version differs from source-pin.json.');
-const temporaryRoot = mkdtempSync(join(tmpdir(), 'champsparty-showdown-'));
-const sourceRoot = join(
-  temporaryRoot,
-  `pokemon-showdown-${pin.showdown.commit}`,
-);
-let loaded;
-try {
-  execFileSync('tar', ['-xzf', archive, '-C', temporaryRoot]);
-  loaded = loadShowdownSource(sourceRoot);
-  extract(loaded.dex);
-} finally {
-  loaded?.restore();
-  rmSync(temporaryRoot, { recursive: true, force: true });
-}
+withPinnedShowdown(archive, pin.showdown, extract);
 
 function sorted(values) {
   return [...new Set(values)].sort();
 }
 
-function extract(dex) {
+function extract({ dex, root: sourceRoot, sourceHashes }) {
   const engine = Generations.get(0);
   const engineSpecies = new Map([...engine.species].map((s) => [s.id, s]));
   const engineMoves = new Map([...engine.moves].map((m) => [m.id, m]));
@@ -424,9 +404,7 @@ function extract(dex) {
         'Not duplicated into catalog: keep @smogon/calc as calculation source.',
     },
     sourceFileSha256: Object.fromEntries(
-      [...loaded.sourceHashes.entries()].sort(([a], [b]) =>
-        a.localeCompare(b, 'en'),
-      ),
+      [...sourceHashes.entries()].sort(([a], [b]) => a.localeCompare(b, 'en')),
     ),
     generatorFileSha256: Object.fromEntries(
       [
@@ -447,6 +425,9 @@ function extract(dex) {
   };
   for (const [file, content] of Object.entries({
     'pokemon.json': pokemon,
+    'species-aliases.json': Object.fromEntries(
+      aliases.map(({ speciesId, engineId }) => [speciesId, engineId]),
+    ),
     'moves.json': moves,
     'abilities.json': abilities,
     'conditions.json': conditions,

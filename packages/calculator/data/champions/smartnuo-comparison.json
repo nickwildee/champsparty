@@ -7,7 +7,7 @@
     "https://smartnuo.com/speed"
   ],
   "scope": "Calculations use only Pokemon/forms, learnable moves and abilities in the pinned Champions catalog. Lists outside this intersection are not imported. Catalog presence does not establish mechanics support.",
-  "ourImplementation": "Only the existing singles Earthquake check is implemented; expanded conditional inputs and state-transition rules are design decisions or proposals.",
+  "ourImplementation": "At the time of this comparison only the singles Earthquake check was implemented; expanded conditional inputs and state-transition rules are design decisions or proposals.",
   "summary": {
     "uiObservations": 82,
     "moveCatalogCount": 515,

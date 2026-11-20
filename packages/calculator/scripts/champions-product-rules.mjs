@@ -21,6 +21,7 @@ export const productRules = {
     game: 'Champions',
     battle: 'Singles',
     initialHpPercent: 100,
+    initialHpPercentRange: [1, 100],
     moveCountPerPokemon: 1,
     ownStateScope: 'Shared across opponents.',
     opponentStateScope:

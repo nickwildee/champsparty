@@ -51,7 +51,7 @@ const mechanicConditionDefinitions = {
     label: 'HP 조건 특성 발동 토글',
     inputs: ['abilityActive'],
     policy: 'approved',
-    note: 'HP remains fixed at 100% in the input contract. Forcing only the activation effect requires a verified adapter.',
+    note: 'Initial HP is selectable from 1 to 100 percent and defaults to 100. Forcing only the activation effect requires a verified adapter.',
   },
   'existing-context': {
     label: '기존 입력·종 데이터로 결정',
@@ -143,7 +143,7 @@ const mechanicConditionDefinitions = {
     label: '현재 HP 의존',
     inputs: [],
     policy: 'fixed-hp-context',
-    note: 'Initial HP is 100%; target-HP-dependent damage can still change during repeated attacks.',
+    note: 'Initial HP is the supplied percentage (default 100); target-HP-dependent damage can still change during repeated attacks.',
   },
   'status-move': {
     label: '변화기',
@@ -218,7 +218,7 @@ const updates = {
   },
   'low-hp-activation': {
     defaultEnabled: true,
-    note: 'Default ON on ability selection; force only the activation effect while preserving actual initial HP at 100%.',
+    note: 'Default ON on ability selection; force only the activation effect while preserving the supplied initial HP.',
   },
   'field-setting': {
     policy: 'excluded-from-selector',
@@ -281,7 +281,7 @@ const updates = {
   },
   'hp-dependent': {
     policy: 'approved-scoped',
-    note: 'Start at full HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only.',
+    note: 'Start at the supplied HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only.',
   },
   'critical-effects': {
     note: 'No user critical toggle or probability aggregation; preserve intrinsic move mechanics supplied by the engine.',
@@ -539,7 +539,7 @@ export function classifyMove(move, raw) {
       'The move-power random branch is separate from the 16 damage random rolls.';
   if (['hardpress', 'superfang', 'endeavor'].includes(move.id))
     extras.mechanicNote =
-      'Recompute using remaining HP for repeated attacks; do not repeat the initial full-HP damage array.';
+      'Recompute using remaining HP for repeated attacks; do not repeat the initial damage array.';
   return applyProductRules(
     'move',
     move.id,
@@ -560,7 +560,7 @@ export function classifyAbility(ability, raw) {
       : 'brn';
   if (rules.has('low-hp-activation'))
     extras.knownEngineGap =
-      'Engine checks actual HP; an activation-only adapter is needed to preserve the app full-HP assumption.';
+      'Engine checks actual HP; an activation-only adapter is needed to preserve the supplied HP.';
   if (ability.id === 'supremeoverlord')
     extras.counterSemantics =
       'Faint count is captured on entry, capped at 5; Last Respects reads cumulative faints. Same UI quantity does not imply identical timing semantics.';

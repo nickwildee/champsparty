@@ -67,7 +67,7 @@
         "abilityActive"
       ],
       "policy": "approved",
-      "note": "Default ON on ability selection; force only the activation effect while preserving actual initial HP at 100%.",
+      "note": "Default ON on ability selection; force only the activation effect while preserving the supplied initial HP.",
       "defaultEnabled": true
     },
     "existing-context": {
@@ -184,7 +184,7 @@
       "label": "현재 HP 의존",
       "inputs": [],
       "policy": "approved-scoped",
-      "note": "Start at full HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only."
+      "note": "Start at the supplied HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only."
     },
     "status-move": {
       "label": "변화기",
@@ -235,6 +235,10 @@
       "game": "Champions",
       "battle": "Singles",
       "initialHpPercent": 100,
+      "initialHpPercentRange": [
+        1,
+        100
+      ],
       "moveCountPerPokemon": 1,
       "ownStateScope": "Shared across opponents.",
       "opponentStateScope": "Local to one opponent; shared by its attack, defense and speed comparisons.",

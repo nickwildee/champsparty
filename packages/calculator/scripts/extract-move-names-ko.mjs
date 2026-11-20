@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import console from 'node:console';
 import process from 'node:process';
-import { loadShowdownSource } from './showdown-source.mjs';
+import { withPinnedShowdown } from './showdown-source.mjs';
 
 // Display names only. Availability and learnsets stay in the Champions catalog.
 const source = {
@@ -18,6 +18,8 @@ const dataDir = resolve(
   '../data/champions',
 );
 const args = process.argv.slice(2);
+if (args.includes('--source-root'))
+  throw new Error('Use --archive with the pinned Showdown archive.');
 const flag = (name) => {
   const index = args.indexOf(name);
   if (index < 0 || !args[index + 1]) throw new Error(`Missing ${name}`);
@@ -34,21 +36,17 @@ const names = text
 const catalogText = readFileSync(join(dataDir, 'moves.json'));
 const catalog = JSON.parse(catalogText.toString('utf8'));
 const pin = JSON.parse(readFileSync(join(dataDir, 'source-pin.json'), 'utf8'));
-const loaded = loadShowdownSource(flag('--source-root'));
-let moves;
-try {
-  moves = Object.fromEntries(
+const moves = withPinnedShowdown(flag('--archive'), pin.showdown, ({ dex }) =>
+  Object.fromEntries(
     catalog.map(({ id }) => {
-      const move = loaded.dex.moves.get(id);
+      const move = dex.moves.get(id);
       const name = names[move.num];
       if (!move.exists || !name || !/[가-힣]/.test(name))
         throw new Error(`Missing Korean name: ${id}`);
       return [id, { number: move.num, name }];
     }),
-  );
-} finally {
-  loaded.restore();
-}
+  ),
+);
 const output = `${JSON.stringify(
   {
     schemaVersion: 1,

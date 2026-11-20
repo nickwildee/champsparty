@@ -5165,7 +5165,7 @@
       "unresolvedRuleIds": [],
       "calculationVerification": "not-verified-by-catalog-extraction",
       "category": "Physical",
-      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial full-HP damage array.",
+      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial damage array.",
       "mechanicInputIds": [],
       "mechanicReviewRequired": true,
       "mechanicReviewRuleIds": [
@@ -7658,7 +7658,7 @@
       "unresolvedRuleIds": [],
       "calculationVerification": "not-verified-by-catalog-extraction",
       "category": "Physical",
-      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial full-HP damage array.",
+      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial damage array.",
       "mechanicInputIds": [],
       "mechanicReviewRequired": false,
       "mechanicReviewRuleIds": [],
@@ -17139,7 +17139,7 @@
       "unresolvedRuleIds": [],
       "calculationVerification": "not-verified-by-catalog-extraction",
       "category": "Physical",
-      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial full-HP damage array.",
+      "mechanicNote": "Recompute using remaining HP for repeated attacks; do not repeat the initial damage array.",
       "mechanicInputIds": [],
       "mechanicReviewRequired": true,
       "mechanicReviewRuleIds": [
