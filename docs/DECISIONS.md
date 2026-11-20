@@ -1,7 +1,7 @@
 # 주요 논의와 결정 기록
 
-- 인계 문서 버전: 0.11
-- 기준일: 2026-11-18
+- 인계 문서 버전: 0.12
+- 기준일: 2026-11-20
 - 프로젝트: 포켓몬 챔피언스 능력치 세부 조정 계산기, 정식 명칭 미정
 - 현재 요구사항: [PROJECT.md](PROJECT.md)
 - 협업 원칙: [AGENTS.md](../AGENTS.md)
@@ -12,8 +12,8 @@
 - **합의:** 현재 요구사항과 작업 방향으로 채택한 내용.
 - **구현 방향:** 사용할 구성을 정했으나 버전·설정·실행 결과는 확인하지 않은 내용.
 - **미정·검증 필요:** 구현 계약이나 실제 실행 결과로 확정할 내용.
-- D01~D12의 최초 작성 기준일은 2026-11-16이다. 저장소 초기 설정과 문서 인계의 확인 결과는 D12, 개발 도구 검증 결과는 D13, 최소 앱 실행 환경의 결정과 검증은 D14에 기록했다. 실제 계산·인증·저장 기능의 실행 검증 결과와 성능 개선 수치는 아직 없다.
-- 포켓몬 이미지의 제공처·스타일과 비상업적 운영·권리 고지 방향은 D16, 로컬 PostgreSQL 구성·접속 검증은 D17, 앱 DB 연결 구현·검증은 D18에 기록했다.
+- D01~D12의 최초 작성 기준일은 2026-11-16이다. 저장소 초기 설정과 문서 인계의 확인 결과는 D12, 개발 도구 검증 결과는 D13, 최소 앱 실행 환경의 결정과 검증은 D14에 기록했다. 실제 계산·계정별 세팅 저장·네이버 로그인 검증과 성능 개선 수치는 후속 작업이다.
+- 포켓몬 이미지의 제공처·스타일과 비상업적 운영·권리 고지 방향은 D16, 로컬 PostgreSQL 구성·접속 검증은 D17, 앱 DB 연결 구현·검증은 D18, 인증 서버·세션 정책 검증은 D20에 기록했다.
 - 요구사항과 구현 판단에 영향을 준 기술적 논의·선택 이유·검증 결과를 기록한다. 학습용 질문·답변, 일반 개념 설명, 이해도와 설명·동의·승인 과정은 제외한다.
 
 ## D01. 숙련자의 세팅 조정을 위한 현재 결과 표시
@@ -103,9 +103,8 @@
 - **대안:** 다른 ORM, 초기 후보였던 카카오 로그인, 인증 흐름을 직접 구성하는 방식.
 - **선택 이유:** 사용자와 저장 세팅의 관계를 DB에 두고, TypeScript에서 스키마와 쿼리를 다루는 구성을 사용한다. 인증의 반복 작업은 라이브러리를 활용하는 방향이다.
 - **범위:** 게임의 모든 계산 데이터를 DB에 다시 입력하는 것이 목적은 아니다. 계정에 저장할 사용자 세팅이 중심이다.
-- **현재 상태:** 로컬 PostgreSQL 설치와 두 역할의 직접 접속·권한 검증을 마쳤다. 구체적인 구성과 대안은 D17에, 앱의 pg·Drizzle 공통 연결 구현·검증은 D18에 기록한다.
-- **검증 필요:** 인증 라이브러리 버전 호환성, 실제 네이버 로그인과 세션, 사용자별 저장 데이터 접근 제어.
-- **미정:** 배포용 DB 제공 서비스, 상세 인증 스키마와 인증 설정. 네이버 로그인 선택을 특정 OAuth/OIDC 연동 방식의 실행 검증 완료로 쓰지 않는다. n3r 도입은 선택하지 않았다.
+- 로컬 PostgreSQL과 역할 검증은 D17, 앱의 pg·Drizzle 연결은 D18, 인증 라이브러리 호환성과 기본 인증 스키마·서버 검증은 D20에 기록했다.
+- 실제 네이버 로그인과 브라우저 세션, 사용자별 저장 데이터 접근 제어는 후속 검증 대상이다. 배포용 DB 서비스는 미정이다. n3r 도입은 선택하지 않았다.
 
 ## D11. 생산성 중심 MVP 이후 실제 측정으로 개선
 
@@ -198,6 +197,19 @@
 - **Next.js 검증:** DB 모듈을 가져오는 임시 Client Component의 프로덕션 빌드가 `server-only` 오류로 거부됐다. 임시 Server Component를 포함한 빌드는 `DATABASE_URL` 없이 통과했다. 실제 로컬 Next.js 프로덕션 서버에서 DB 읽기 성공 응답 200, 잘못된 비밀번호·누락 설정의 DB 요청 500과 각 오류 이후 일반 페이지 200을 확인했다. 사용한 임시 페이지·서버는 제거했다. 배포할 확인용 API·페이지나 DB 테이블·데이터는 생성하지 않았다.
 - **검증 경계와 후속 범위:** 타입 검사·린트·peer 검사·일반 frozen-lockfile 설치와 임시 페이지 제거 후 최종 프로덕션 빌드를 통과했다. 서식·문서 링크·공백 검사도 통과했다. 모듈 재로딩 검증은 같은 Node 실행 환경의 캐시 재로딩이며 실제 Next.js 편집 이벤트 전체를 검증한 것은 아니다. 배포용 연결 수·사전 점검과 장애 종류별 복구는 후속 검토 대상이다. 인증 스키마·마이그레이션·네이버 로그인·세션은 이번 검증에 포함하지 않는다.
 - **확인 자료:** [pg Pool 설정·연결 획득·유휴 정리](https://node-postgres.com/apis/pool), [풀 크기와 서버별 연결 수](https://node-postgres.com/guides/pool-sizing), [Next.js 개발 서버의 HMR](https://nextjs.org/docs/app/api-reference/cli/next#next-dev-options), [Node.js 전역 객체](https://nodejs.org/api/globals.html#global), [Next.js 서버 전용 코드 검사](https://nextjs.org/docs/app/getting-started/server-and-client-components#preventing-environment-poisoning), [Next.js 외부의 환경 파일 로딩](https://nextjs.org/docs/app/guides/environment-variables#loading-environment-variables-with-nextenv), [Node.js TypeScript 실행](https://nodejs.org/api/typescript.html), [pnpm 설치 스크립트 허용 범위](https://pnpm.io/settings/build#allowbuilds).
+
+## D20. Better Auth 기반 인증 테이블과 세션 설정
+
+- [#10](https://github.com/nickwildee/champsparty/issues/10)에서 기존 PostgreSQL과 Drizzle 연결 위에 Better Auth의 기본 인증 서버를 구성했다. 런타임 `better-auth`와 스키마 생성 도구 `auth`를 `1.7.26`으로 맞추고, `drizzle-kit 0.31.11`을 사용한다. 기존 `drizzle-orm 0.45.4` 및 `pg 8.23.1`과의 peer 의존성 검사를 통과했다.
+- 생성 도구 전용 `auth-schema.config.ts`에서 Better Auth의 기본 스키마를 만든다. 실제 인증 요청에는 `auth.ts`가 앱 DB에 연결하고 인증 비밀값을 사용한다. Better Auth가 생성하는 `user`, `account`, `session`, `verification`을 그대로 채택하고, Drizzle Kit가 만든 SQL과 메타데이터를 함께 보관해 같은 변경을 검토하고 다른 개발 환경에도 적용할 수 있게 했다.
+- 수동 SQL 실행도 가능하지만, Drizzle Kit를 통해 저장소의 변경과 실제 DB의 적용 이력을 연결한다. D17의 역할 분리를 유지하기 위해 마이그레이션 명령은 앱 접속 정보와 별도의 `.env.migrations.local`을 사용한다. 로컬 `champsparty` DB와 `champsparty_migrator` 역할만 허용하고, 실행용 앱 역할에는 서비스 테이블의 행 작업 권한을 둔다.
+- 이메일·비밀번호 로그인을 비활성화했다. 세션은 PostgreSQL에 저장하며, 생성 또는 갱신 후 7일 동안 유효하고 하루가 지난 뒤 로그인 상태를 확인하면 7일로 연장한다. 쿠키 캐시를 쓰면 DB 조회를 줄일 수 있지만 종료된 세션이 캐시 만료까지 유효하게 보일 수 있다. 초기에는 상태 확인에 DB 최신 값을 쓰고 실제 부하를 확인한 뒤 캐시 필요성을 다시 판단한다.
+- 세션 생성 때 받을 수 있는 접속 IP와 `User-Agent`는 기본 필드에 저장한다. 오류 환경을 좁히고 접근을 조사할 때 참고한다. 실제 배포에서의 IP 기록과 비로그인 반복 요청 제한은 [#21](https://github.com/nickwildee/champsparty/issues/21)에서 검증한다.
+- `getAuth()`는 인증 기능을 처음 호출할 때 환경변수를 검사하고 인스턴스를 생성한 뒤 같은 서버 모듈에서 재사용한다. Next.js의 `GET`·`POST`는 공식 `toNextJsHandler`를 통해 Better Auth에 전달한다. 요청이 들어오는 시점에 `getAuth()`를 호출하도록 함수를 넘겨, 파일을 읽을 때 인증 환경변수를 요구하지 않도록 했다.
+- Drizzle Kit가 직접 사용하는 `esbuild@0.25.12`와 `@esbuild-kit/esm-loader`를 거쳐 들어오는 `esbuild@0.18.20`의 설치 후 스크립트를 추가 허용했다. 기존 `0.28.2` 허용을 유지하고 배포 직후의 설치 제한을 우회하는 예외는 추가하지 않았다. macOS의 일반 frozen-lockfile 설치를 확인했다. Windows에서의 실제 설치·실행은 미검증이다.
+- 로컬 PostgreSQL에서 마이그레이션 재실행 후 같은 SQL의 적용 이력이 1건임을 확인했다. 인증 테이블의 기본 키·외래 키·고유 제약과 앱 역할의 행 권한을 확인했고, 앱 역할에는 테이블 생성 및 이력 스키마 접근 권한이 없음을 확인했다. 앱의 Better Auth 어댑터로 네 테이블을 조회했다.
+- 실제 Next.js 개발 서버에서 쿠키 없는 세션 조회는 `200`과 `null`, 로그아웃 요청은 `200`과 성공 응답을 반환했다. 세션의 최초 만료일·하루 전후의 갱신·만료 세션 거부와 IP·`User-Agent` 기록은 별도의 메모리 저장소로 검증했다. 인증 URL·비밀값·DB URL을 비운 프로덕션 빌드도 통과했다. 네이버 앱·제공자 연결은 #11, 실제 계정과 쿠키·DB를 포함한 통합 검증은 #13 범위다.
+- [Better Auth 기본 스키마](https://better-auth.com/docs/concepts/database#core-schema), [세션 관리](https://better-auth.com/docs/concepts/session-management), [Next.js 연동](https://better-auth.com/docs/integrations/next#create-api-route), [Drizzle Kit 마이그레이션](https://orm.drizzle.team/docs/drizzle-kit-migrate)
 
 ## 앞으로 결정 기록을 갱신할 때
 
