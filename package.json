@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "pnpm --filter @champsparty/web dev",
     "db:check": "pnpm --filter @champsparty/web db:check",
+    "db:migrate": "pnpm --filter @champsparty/web db:migrate",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
     "build": "pnpm --filter @champsparty/web build",
