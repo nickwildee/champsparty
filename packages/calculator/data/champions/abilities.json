@@ -7361,7 +7361,7 @@
       "reviewRequired": false,
       "unresolvedRuleIds": [],
       "calculationVerification": "not-verified-by-catalog-extraction",
-      "mechanicNote": "Selecting Unburden disables item input and starts calculations without a held item.",
+      "mechanicNote": "Unburden defaults to active with no held item; switching it off allows a held item.",
       "mechanicInputIds": [
         "abilityActive"
       ],
@@ -7371,12 +7371,11 @@
         "abilityActive"
       ],
       "productRuleIds": [
-        "activation-default-on",
         "unburden-no-item"
       ],
       "productPolicy": {
         "selection": "damage-or-speed-only",
-        "implementation": "planned",
+        "implementation": "implemented",
         "maximumUses": null,
         "defaults": {
           "abilityActive": true

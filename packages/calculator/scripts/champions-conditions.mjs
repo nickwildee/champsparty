@@ -214,7 +214,7 @@ const updates = {
   },
   'ability-activation': {
     defaultEnabled: true,
-    note: 'Default ON for the agreed activation abilities; Analytic defaults OFF. Unburden disables item input. See per-ability product rules.',
+    note: 'Default ON for the agreed activation abilities; Analytic defaults OFF. Active Unburden disables item input. See per-ability product rules.',
   },
   'low-hp-activation': {
     defaultEnabled: true,
@@ -566,7 +566,7 @@ export function classifyAbility(ability, raw) {
       'Faint count is captured on entry, capped at 5; Last Respects reads cumulative faints. Same UI quantity does not imply identical timing semantics.';
   if (ability.id === 'unburden')
     extras.mechanicNote =
-      'Selecting Unburden disables item input and starts calculations without a held item.';
+      'Unburden defaults to active with no held item; switching it off allows a held item.';
   if (ability.id === 'poisonheal')
     extras.mechanicNote =
       'Poison and toxic poison are diagnostic inputs for the original ability. Its end-of-turn recovery is excluded from the product; no selectable ability or automatic poison status.';

@@ -412,7 +412,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     mechanicProbes: mechanicProbes(engine),
   };
   const conditions = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     definitions: conditionDefinitions,
     productRules,
     note: 'mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope. requiredInputIds/productRuleIds describe the product rules, including both implemented one-use behavior and planned inputs. For example, the calculator sets the user to sleep for Snore; move-specific input forms and repeated KO calculations are planned.',

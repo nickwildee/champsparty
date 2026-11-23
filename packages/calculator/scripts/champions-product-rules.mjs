@@ -1,5 +1,5 @@
 // Product decisions are separate from the contexts used to probe the engine.
-// These records describe planned inputs and processing, not implemented support.
+// Product rules default to planned until their calculator behavior is implemented.
 const ids = (value) => value.split(' ');
 const move = (id, moves, options) => ({
   id,
@@ -16,7 +16,7 @@ const ability = (id, abilities, options) => ({
 
 export const productRules = {
   updatedOn: '2026-11-20',
-  implementation: 'planned',
+  defaultImplementation: 'planned',
   common: {
     game: 'Champions',
     battle: 'Singles',
@@ -166,6 +166,7 @@ export const productRules = {
         'Use item-dependent power and validate throwability; no after-hit item effects or item reacquisition.',
     }),
     move('sleep-required', 'snore', {
+      implementation: 'implemented',
       inputs: [],
       scope: 'pokemon',
       requiredUserStatus: 'slp',
@@ -241,7 +242,7 @@ export const productRules = {
     }),
     ability(
       'activation-default-on',
-      'overgrow blaze torrent swarm flashfire electromorphosis stakeout unburden',
+      'overgrow blaze torrent swarm flashfire electromorphosis stakeout',
       {
         inputs: ['abilityActive'],
         defaults: { abilityActive: true },
@@ -256,7 +257,11 @@ export const productRules = {
       processing: 'Manual activation; do not infer from Speed.',
     }),
     ability('unburden-no-item', 'unburden', {
-      processing: 'Disable item input and calculate without a held item.',
+      implementation: 'implemented',
+      inputs: ['abilityActive'],
+      defaults: { abilityActive: true },
+      processing:
+        'When active (default), reject a held item. When inactive, allow a held item and keep the ability off.',
     }),
     ability('rivalry-toggle', 'rivalry', {
       inputs: ['rivalrySameGender'],
@@ -359,7 +364,11 @@ export function applyProductRules(kind, id, classification, raw, definitions) {
         : kind === 'ability'
           ? 'damage-or-speed-only'
           : 'included',
-      implementation: 'planned',
+      implementation:
+        matches.length > 0 &&
+        matches.every((rule) => rule.implementation === 'implemented')
+          ? 'implemented'
+          : productRules.defaultImplementation,
       maximumUses: excluded
         ? 0
         : matches.some((r) => r.maximumUses === 1)

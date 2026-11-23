@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "definitions": {
     "unresolved-context": {
       "label": "원본 문맥 참조",
@@ -58,7 +58,7 @@
         "abilityActive"
       ],
       "policy": "approved",
-      "note": "Default ON for the agreed activation abilities; Analytic defaults OFF. Unburden disables item input. See per-ability product rules.",
+      "note": "Default ON for the agreed activation abilities; Analytic defaults OFF. Active Unburden disables item input. See per-ability product rules.",
       "defaultEnabled": true
     },
     "low-hp-activation": {
@@ -230,7 +230,7 @@
   },
   "productRules": {
     "updatedOn": "2026-11-20",
-    "implementation": "planned",
+    "defaultImplementation": "planned",
     "common": {
       "game": "Champions",
       "battle": "Singles",
@@ -507,6 +507,7 @@
         "ids": [
           "snore"
         ],
+        "implementation": "implemented",
         "inputs": [],
         "scope": "pokemon",
         "requiredUserStatus": "slp",
@@ -659,8 +660,7 @@
           "swarm",
           "flashfire",
           "electromorphosis",
-          "stakeout",
-          "unburden"
+          "stakeout"
         ],
         "inputs": [
           "abilityActive"
@@ -691,7 +691,14 @@
         "ids": [
           "unburden"
         ],
-        "processing": "Disable item input and calculate without a held item."
+        "implementation": "implemented",
+        "inputs": [
+          "abilityActive"
+        ],
+        "defaults": {
+          "abilityActive": true
+        },
+        "processing": "When active (default), reject a held item. When inactive, allow a held item and keep the ability off."
       },
       {
         "id": "rivalry-toggle",
