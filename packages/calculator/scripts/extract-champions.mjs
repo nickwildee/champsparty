@@ -13,6 +13,7 @@ import {
   calculate,
   toID,
 } from '@smogon/calc';
+import { getFlingPower } from '@smogon/calc/dist/items.js';
 import { withPinnedShowdown, sourceEntryIndex } from './showdown-source.mjs';
 import {
   classifyMove,
@@ -43,6 +44,33 @@ withPinnedShowdown(archive, pin.showdown, extract);
 
 function sorted(values) {
   return [...new Set(values)].sort();
+}
+
+// Use the pinned Champions Fling and TakeItem data. Store only differences
+// from the engine's power table and holder-specific throw restrictions.
+function flingItemOverrides(dex, engine, pokemon) {
+  const overrides = {};
+  for (const item of [...dex.items.all()].sort((a, b) =>
+    a.id.localeCompare(b.id, 'en'),
+  )) {
+    if (!item.exists || item.num <= 0 || item.isNonstandard) continue;
+    const engineItem = engine.items.get(item.id);
+    if (!engineItem) continue;
+    const power = item.fling?.basePower ?? 0;
+    const entry = {};
+    if (power !== getFlingPower(engineItem.name, engine.num))
+      entry.power = power;
+    if (item.onTakeItem) {
+      const blocked = pokemon.filter(({ id }) => {
+        const holder = { baseSpecies: dex.species.get(id) };
+        return item.onTakeItem(item, holder) === false;
+      });
+      const blockedHolders = sorted(blocked.map((holder) => holder.engineId));
+      if (blockedHolders.length) entry.blockedHolders = blockedHolders;
+    }
+    if (Object.keys(entry).length) overrides[item.id] = entry;
+  }
+  return overrides;
 }
 
 function extract({ dex, root: sourceRoot, sourceHashes }) {
@@ -389,6 +417,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     productRules,
     note: 'Product inputs and processing are planned, not implemented. mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope; requiredInputIds/productRuleIds describe current product decisions.',
   };
+  const flingItems = flingItemOverrides(dex, engine, pokemon);
   const manifest = {
     ...pin,
     extraction: {
@@ -428,6 +457,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     'species-aliases.json': Object.fromEntries(
       aliases.map(({ speciesId, engineId }) => [speciesId, engineId]),
     ),
+    'fling-item-overrides.json': flingItems,
     'moves.json': moves,
     'abilities.json': abilities,
     'conditions.json': conditions,

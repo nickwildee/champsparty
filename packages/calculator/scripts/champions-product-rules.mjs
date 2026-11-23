@@ -34,6 +34,8 @@ export const productRules = {
     status:
       'One selected status per Pokemon; preserve it during repeated KO calculation.',
     automaticMoveStatusChanges: false,
+    screens:
+      'For repeated uses of the same move by the same attacker against the same defender, ignore screens on every hit if the move breaks them or the attacker bypasses them with Infiltrator.',
     rankChangesDefaultEnabled: true,
     probabilisticRankChanges: false,
     endOfTurnDamage: false,
@@ -167,8 +169,9 @@ export const productRules = {
       inputs: [],
       scope: 'pokemon',
       requiredUserStatus: 'slp',
+      lockedUserStatus: 'slp',
       processing:
-        'Read the current user status without changing it on move selection. Calculate while asleep; otherwise show the move as unavailable.',
+        'Selecting Snore replaces the user’s status with sleep. Keep sleep locked while Snore is selected and discard the previous status.',
     }),
     move('status-from-user', 'facade', {
       inputs: ['status'],

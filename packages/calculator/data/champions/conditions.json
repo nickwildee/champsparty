@@ -248,6 +248,7 @@
       "abilitySelection": "Only effects relevant to supported direct damage or Speed; field-setting abilities use field inputs instead.",
       "status": "One selected status per Pokemon; preserve it during repeated KO calculation.",
       "automaticMoveStatusChanges": false,
+      "screens": "For repeated uses of the same move by the same attacker against the same defender, ignore screens on every hit if the move breaks them or the attacker bypasses them with Infiltrator.",
       "rankChangesDefaultEnabled": true,
       "probabilisticRankChanges": false,
       "endOfTurnDamage": false,
@@ -509,7 +510,8 @@
         "inputs": [],
         "scope": "pokemon",
         "requiredUserStatus": "slp",
-        "processing": "Read the current user status without changing it on move selection. Calculate while asleep; otherwise show the move as unavailable."
+        "lockedUserStatus": "slp",
+        "processing": "Selecting Snore replaces the user’s status with sleep. Keep sleep locked while Snore is selected and discard the previous status."
       },
       {
         "id": "status-from-user",
