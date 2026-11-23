@@ -415,7 +415,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     schemaVersion: 2,
     definitions: conditionDefinitions,
     productRules,
-    note: 'Product inputs and processing are planned, not implemented. mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope; requiredInputIds/productRuleIds describe current product decisions.',
+    note: 'mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope. requiredInputIds/productRuleIds describe the product rules, including both implemented one-use behavior and planned inputs. For example, the calculator sets the user to sleep for Snore; move-specific input forms and repeated KO calculations are planned.',
   };
   const flingItems = flingItemOverrides(dex, engine, pokemon);
   const manifest = {

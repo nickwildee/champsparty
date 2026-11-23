@@ -1,4 +1,10 @@
 import { calculate, Field, Move, Pokemon, Result } from '@smogon/calc';
+import {
+  checkIntimidate,
+  checkItem,
+  checkSeedBoost,
+  computeFinalStats,
+} from '@smogon/calc/dist/mechanics/util.js';
 
 type Category = 'Physical' | 'Special';
 
@@ -90,42 +96,57 @@ export function calculateOneUse(
   move: Move,
   field: Field,
 ): OneUseResult {
-  const result = calculate(move.gen, attacker, defender, move, field);
   if (!move.named('Shell Side Arm')) {
+    const result = calculate(move.gen, attacker, defender, move, field);
     return applyDisguise(result, attacker, defender, move, field);
   }
 
-  const { atk, spa } = result.attacker.stats;
-  const { def, spd } = result.defender.stats;
+  // Apply pre-hit stat changes on copies. A hit can subsequently change the
+  // defender's stats (e.g. Stamina) even within the same use.
+  const source = attacker.clone();
+  const target = defender.clone();
+  for (const pokemon of [source, target]) {
+    checkItem(pokemon, field.isMagicRoom);
+    checkSeedBoost(pokemon, field);
+  }
+  checkIntimidate(move.gen, source, target);
+  checkIntimidate(move.gen, target, source);
+  computeFinalStats(
+    move.gen,
+    source,
+    target,
+    field,
+    'atk',
+    'spa',
+    'def',
+    'spd',
+  );
   const factor = (Math.floor((2 * attacker.level) / 5) + 2) * move.bp;
   const score = (offense: number, defense: number) =>
     Math.floor(Math.floor((factor * offense) / defense) / 50);
-  const tied = score(atk, def) === score(spa, spd);
-  const first = applyDisguise(result, attacker, defender, move, field);
-  if (!tied) return first;
+  const physical = score(source.stats.atk, target.stats.def);
+  const special = score(source.stats.spa, target.stats.spd);
 
-  const alternative =
-    first.move.category === 'Physical' ? 'Special' : 'Physical';
-  const alternateMove = new Move(move.gen, move.name, {
-    ability: attacker.ability,
-    item: attacker.item,
-    overrides: {
-      ...move.overrides,
-      category: alternative,
-      flags: { ...move.flags, contact: alternative === 'Physical' ? 1 : 0 },
-    },
-  });
-  const alternate = applyDisguise(
-    calculate(move.gen, attacker, defender, alternateMove, field),
-    attacker,
-    defender,
-    alternateMove,
-    field,
-  );
-  const branches =
-    first.move.category === 'Physical'
-      ? [describeBranch(first), describeBranch(alternate)]
-      : [describeBranch(alternate), describeBranch(first)];
+  function calculateCategory(category: Category) {
+    const selected = new Move(move.gen, move.name, {
+      ability: attacker.ability,
+      item: attacker.item,
+      overrides: {
+        ...move.overrides,
+        category,
+        flags: { ...move.flags, contact: category === 'Physical' ? 1 : 0 },
+      },
+    });
+    const result = calculate(move.gen, attacker, defender, selected, field);
+    return applyDisguise(result, attacker, defender, selected, field);
+  }
+
+  const first = calculateCategory(physical >= special ? 'Physical' : 'Special');
+  if (physical !== special) return first;
+  const branches = [
+    describeBranch(first),
+    describeBranch(calculateCategory('Special')),
+  ];
   first.categoryBranches = branches;
   first.damage = shellRolls(branches[0].damage)
     .concat(shellRolls(branches[1].damage))

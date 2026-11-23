@@ -101,6 +101,32 @@ test('displayed HP selects the upper compatible value independently for each sid
   }
 });
 
+test('each side has its own 66 stat points with at most 32 per stat', () => {
+  const mon = pokemon('Garchomp', { statPoints: { hp: 2, atk: 32, spe: 32 } });
+  const input = { attacker: mon, defender: mon, move: 'Earthquake' };
+  assert.doesNotThrow(() => calculateChampionsDamage(input));
+  for (const side of ['attacker', 'defender']) {
+    for (const [statPoints, path] of [
+      [{ atk: 33 }, side + '.statPoints.atk'],
+      [{ atk: 21696 }, side + '.statPoints.atk'],
+      [{ atk: 1.5 }, side + '.statPoints.atk'],
+      [{ hp: -1 }, side + '.statPoints.hp'],
+      [{ hp: 3, atk: 32, spe: 32 }, side + '.statPoints'],
+    ]) {
+      assert.throws(
+        () =>
+          calculateChampionsDamage({
+            ...input,
+            [side]: { ...mon, statPoints },
+          }),
+        (err) =>
+          err instanceof ChampionsInputError &&
+          err.message.startsWith(path + ':'),
+      );
+    }
+  }
+});
+
 test('final Speed of 999 is accepted and 1000 is rejected on either side', () => {
   const target = pokemon('Hippowdon');
   // 148 × 3 (+4) × 1.5 (Quick Feet) × 1.5 (Choice Scarf) = 999.
@@ -477,6 +503,45 @@ test('Shell Side Arm scores before damage modifiers and exposes both outcomes of
   // Equal ratios take the engine's other default branch; still offer physical contact.
   const equal = run({ defender: { ...defender, statPoints: { def: 5 } } });
   assert.deepEqual(equal.categoryBranches, result.categoryBranches);
+});
+
+test('Shell Side Arm keeps the pre-hit category when Stamina raises Defense between hits', () => {
+  const attacker = pokemon('Slowbro-Galar', {
+    nature: 'Hardy',
+    ability: 'Parental Bond',
+  });
+  const defender = pokemon('Dragonite', {
+    nature: 'Hardy',
+    statPoints: { def: 5, spd: 1 },
+  });
+  const run = (target, field) =>
+    summarizeChampionsDamage(
+      calculateChampionsDamage({
+        attacker,
+        defender: target,
+        move: 'Shell Side Arm',
+        field,
+      }),
+    );
+  const control = run(defender);
+  const result = run({ ...defender, ability: 'Stamina' });
+  assert.deepEqual(
+    result.categoryBranches.map((b) => [b.category, b.probability]),
+    [
+      ['Physical', 0.5],
+      ['Special', 0.5],
+    ],
+  );
+  const [physical, special] = result.categoryBranches;
+  const [originalPhysical, originalSpecial] = control.categoryBranches;
+  assert.deepEqual(physical.damage[0], originalPhysical.damage[0]);
+  assert.ok(physical.damage[1][15] < originalPhysical.damage[1][15]);
+  assert.deepEqual(special.damage, originalSpecial.damage);
+  // A terrain seed raises Defense before the first hit, so it affects selection.
+  assert.equal(
+    run({ ...defender, item: 'Grassy Seed' }, { terrain: 'Grassy' }).category,
+    'Special',
+  );
 });
 
 test('Disguise absorbs only the first effective hit and reports break HP separately', () => {

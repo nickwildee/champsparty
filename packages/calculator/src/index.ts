@@ -29,7 +29,7 @@ export interface ChampionsPokemonInput {
   nature: string;
   ability?: string;
   item?: string;
-  /** Omitted stats have 0 points. */
+  /** 0–32 per stat, up to 66 per Pokémon. Omitted stats have 0 points. */
   statPoints: Readonly<Partial<StatsTable>>;
   boosts?: Readonly<Partial<Omit<StatsTable, 'hp'>>>;
   /** Whole HP percentage from 1 to 100. Defaults to 100. */
@@ -154,6 +154,7 @@ function checkStats(
   const path = `${side}.${key}`;
   const ranks = key === 'boosts';
   requireObject(stats, path);
+  let totalPoints = 0;
   for (const [stat, value] of Object.entries(stats)) {
     if (
       !['atk', 'def', 'spa', 'spd', 'spe'].includes(stat) &&
@@ -166,11 +167,15 @@ function checkStats(
     if (
       typeof value !== 'number' ||
       !Number.isSafeInteger(value) ||
-      (ranks ? value < -6 || value > 6 : value < 0)
+      (ranks ? value < -6 || value > 6 : value < 0 || value > 32)
     ) {
-      const range = ranks ? '-6~6 사이의 정수' : '0 이상의 정수';
+      const range = ranks ? '-6~6 사이의 정수' : '0~32 사이의 정수';
       throw new ChampionsInputError(`${path}.${stat}: ${range}가 필요합니다.`);
     }
+    if (!ranks) totalPoints += value;
+  }
+  if (totalPoints > 66) {
+    throw new ChampionsInputError(`${path}: 포인트 합계는 66 이하여야 합니다.`);
   }
 }
 
@@ -264,13 +269,7 @@ function checkSpeedLimit(attacker: Pokemon, defender: Pokemon, field: Field) {
   ] as const) {
     const holder = pokemon.clone();
     checkItem(holder, speedField.isMagicRoom);
-    // An unrestricted stat-point input can overflow the engine's 16-bit
-    // rank calculation. At that magnitude even the slowest result exceeds 999.
-    const rankNumerator = Math.max(2, 2 + holder.boosts.spe);
-    if (
-      holder.rawStats.spe * rankNumerator > 65535 ||
-      getFinalSpeed(speedRules, holder, speedField, side) > 999
-    ) {
+    if (getFinalSpeed(speedRules, holder, speedField, side) > 999) {
       throw new ChampionsInputError(
         `${path}.spe: 최종 스피드가 999를 초과합니다.`,
       );

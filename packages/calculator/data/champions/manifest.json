@@ -61,7 +61,7 @@
     "sim/dex.ts": "e4541bdef8f8256e045549969b6b20a27083fd7078af91f59ac378335efee2b5"
   },
   "generatorFileSha256": {
-    "extract-champions.mjs": "cbd03785055d15d56453b017ec5050e7d627ee733900e65991eaebe32af21495",
+    "extract-champions.mjs": "769a909cb313aecd3c9a91559833c36677be40e94bd757cb531e531a98a5953b",
     "showdown-source.mjs": "c44963e3c660d35ac3876ba968dafc293fda8b9815dda0ee43750ccc8fee4f63",
     "champions-conditions.mjs": "eddfa14663147ced30efd06c1a971a466a00c8559e7394b9d7ea0ce45fe98a4c",
     "champions-product-rules.mjs": "53cb226e4cb3ad5738c968e48958ab33fae63c420677e828081fd7404ef14e3a"
@@ -72,7 +72,7 @@
     "fling-item-overrides.json": "11cc181208d51896f5542dd7ca068cc55e440acd2767778e343f6330f15ee74a",
     "moves.json": "0c9e9631f96211dd9722eca548080726396bab3375862791ba83d01780860be0",
     "abilities.json": "19bd89fcfc238c31100aae556626e264018b466de4a3b2e0d6db79bd11fdeffc",
-    "conditions.json": "b2015030a36086a828f9163ea278effc89f4655f6b84c5e45a69a33104fbc965",
+    "conditions.json": "4378d5c4efffa02b973c7374c760a619141e4f240876d6c112e2a837b4731dc6",
     "engine-diff.json": "f68a1122374c64687b4c9ae3af5177accc54eec3561e5529c4c025dcafe59ba4"
   }
 }
