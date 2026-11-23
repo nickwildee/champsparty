@@ -1,0 +1,70 @@
+diff --git a/dist/mechanics/champions.js b/dist/mechanics/champions.js
+index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..f5a7d2e3368f74742ba09015e45cd9a5cd203e22 100644
+--- a/dist/mechanics/champions.js
++++ b/dist/mechanics/champions.js
+@@ -36,7 +36,7 @@ function calculateChampions(gen, attacker, defender, move, field) {
+     if (move.category === 'Status') {
+         return result;
+     }
+-    if (move.named('Shell Side Arm') &&
++    if (move.named('Shell Side Arm') && !move.overrides?.category &&
+         (0, util_2.getShellSideArmCategory)(attacker, defender, field.isWonderRoom) === 'Physical') {
+         move.category = 'Physical';
+         move.flags.contact = 1;
+@@ -378,7 +378,7 @@ function calculateBasePowerChampions(gen, attacker, defender, move, field, hasAt
+             desc.moveBP = basePower;
+             break;
+         case 'Fling':
+-            basePower = (0, items_1.getFlingPower)(attacker.item, gen.num);
++            basePower = move.overrides?.basePower ?? (0, items_1.getFlingPower)(attacker.item, gen.num);
+             desc.moveBP = basePower;
+             desc.attackerItem = attacker.item;
+             break;
+@@ -795,9 +795,11 @@ function calculateFinalModsChampions(gen, attacker, defender, move, field, desc,
+         }
+         desc.attackerItem = attacker.item;
+     }
++    var berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
++      defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
+     if (move.hasType((0, items_1.getBerryResistType)(defender.item)) &&
+         (typeEffectiveness > 1 || move.hasType('Normal')) &&
+-        hitCount === 0 &&
++        hitCount === (berryAfterDisguise ? 1 : 0) &&
+         !attacker.hasAbility('Unnerve')) {
+         if (defender.hasAbility('Ripen')) {
+             finalMods.push(1024);
+diff --git a/src/mechanics/champions.ts b/src/mechanics/champions.ts
+index 348763f4f98594f3975c8d439fdc2f7c4281f953..2cdb6e213a1dd1fb1f0bc49366e6cf760ca9e8e6 100644
+--- a/src/mechanics/champions.ts
++++ b/src/mechanics/champions.ts
+@@ -86,7 +86,7 @@ export function calculateChampions(
+     return result;
+   }
+ 
+-  if (move.named('Shell Side Arm') &&
++  if (move.named('Shell Side Arm') && !move.overrides?.category &&
+     getShellSideArmCategory(attacker, defender, field.isWonderRoom) === 'Physical') {
+     move.category = 'Physical';
+     move.flags.contact = 1;
+@@ -606,7 +606,7 @@ export function calculateBasePowerChampions(
+     desc.moveBP = basePower;
+     break;
+   case 'Fling':
+-    basePower = getFlingPower(attacker.item, gen.num);
++    basePower = move.overrides?.basePower ?? getFlingPower(attacker.item, gen.num);
+     desc.moveBP = basePower;
+     desc.attackerItem = attacker.item;
+     break;
+@@ -1174,9 +1174,11 @@ export function calculateFinalModsChampions(
+     desc.attackerItem = attacker.item;
+   }
+ 
++  const berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
++    defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
+   if (move.hasType(getBerryResistType(defender.item)) &&
+       (typeEffectiveness > 1 || move.hasType('Normal')) &&
+-      hitCount === 0 &&
++      hitCount === (berryAfterDisguise ? 1 : 0) &&
+       !attacker.hasAbility('Unnerve')) {
+     if (defender.hasAbility('Ripen')) {
+       finalMods.push(1024);

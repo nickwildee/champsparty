@@ -1,5 +1,4 @@
 import {
-  calculate,
   Field,
   Generations,
   Move,
@@ -9,8 +8,21 @@ import {
   type State,
   type StatsTable,
 } from '@smogon/calc';
-import { checkItem, isGrounded } from '@smogon/calc/dist/mechanics/util.js';
+import type { Move as MoveData } from '@smogon/calc/dist/data/interface.js';
+import { getFlingPower } from '@smogon/calc/dist/items.js';
+import {
+  checkAirLock,
+  checkItem,
+  getFinalSpeed,
+  isGrounded,
+} from '@smogon/calc/dist/mechanics/util.js';
+import flingOverrides from '../data/champions/fling-item-overrides.json' with { type: 'json' };
 import speciesAliases from '../data/champions/species-aliases.json' with { type: 'json' };
+import {
+  calculateOneUse,
+  type CategoryBranch,
+  type OneUseResult,
+} from './one-use.ts';
 
 export interface ChampionsPokemonInput {
   species: string;
@@ -23,6 +35,8 @@ export interface ChampionsPokemonInput {
   /** Whole HP percentage from 1 to 100. Defaults to 100. */
   hpPercent?: number;
   status?: State.Pokemon['status'];
+  /** Applies to Mimikyu with Disguise. Defaults to intact. */
+  disguiseIntact?: boolean;
 }
 
 interface ChampionsFieldSideInput {
@@ -61,15 +75,27 @@ export interface ChampionsDamageSummary {
   damageRange: [number, number];
   damage: Result['damage'];
   unavailableReason?: string;
+  category?: 'Physical' | 'Special';
+  categoryBranches?: CategoryBranch[];
+  disguiseHpLoss?: number;
 }
 
-export type ChampionsDamageResult = Result & { unavailableReason?: string };
+export type ChampionsDamageResult = OneUseResult & {
+  unavailableReason?: string;
+};
 
 export class ChampionsInputError extends RangeError {}
 
 const champions = Generations.get(0);
 
 const speciesEngineIds = new Map(Object.entries(speciesAliases));
+
+const flingItems: Readonly<
+  Record<
+    string,
+    { power?: number; blockedHolders?: readonly string[] } | undefined
+  >
+> = flingOverrides;
 
 function engineEntry<T extends { id: string; name: string }>(
   table: { get(id: ReturnType<typeof toID>): T | undefined },
@@ -153,6 +179,7 @@ function createPokemon(
   side: 'attacker' | 'defender',
 ): Pokemon {
   requireObject(input, side);
+  checkBoolean(input.disguiseIntact, `${side}.disguiseIntact`);
   checkStats(input, side, 'statPoints');
   checkStats(input, side, 'boosts');
   checkOption(input.status, statusOptions, `${side}.status`);
@@ -193,6 +220,11 @@ function createPokemon(
     },
   );
 
+  if (pokemon.named('Mimikyu') && pokemon.hasAbility('Disguise')) {
+    pokemon.abilityOn = input.disguiseIntact ?? true;
+  }
+  if (pokemon.hasAbility('Unburden') && !pokemon.item) pokemon.abilityOn = true;
+
   if (hpPercent < 100) {
     // The game floors the displayed percentage. Stay below the next percent.
     const nextPercentHp = ((hpPercent + 1) * pokemon.maxHP()) / 100;
@@ -219,8 +251,65 @@ function toEngineSide(
   };
 }
 
-function createMove(name: string, attacker: Pokemon, field: Field): Move {
-  const data = engineEntry(champions.moves, name, 'move');
+function checkSpeedLimit(attacker: Pokemon, defender: Pokemon, field: Field) {
+  const speedField = field.clone();
+  checkAirLock(attacker, speedField);
+  checkAirLock(defender, speedField);
+  // In calc 0.12.0 the modern Speed rules match Champions, but their cap
+  // allows us to distinguish exactly 999 from a value truncated to 999.
+  const speedRules = Generations.get(9);
+  for (const [path, pokemon, side] of [
+    ['attacker', attacker, speedField.attackerSide],
+    ['defender', defender, speedField.defenderSide],
+  ] as const) {
+    const holder = pokemon.clone();
+    checkItem(holder, speedField.isMagicRoom);
+    // An unrestricted stat-point input can overflow the engine's 16-bit
+    // rank calculation. At that magnitude even the slowest result exceeds 999.
+    const rankNumerator = Math.max(2, 2 + holder.boosts.spe);
+    if (
+      holder.rawStats.spe * rankNumerator > 65535 ||
+      getFinalSpeed(speedRules, holder, speedField, side) > 999
+    ) {
+      throw new ChampionsInputError(
+        `${path}.spe: 최종 스피드가 999를 초과합니다.`,
+      );
+    }
+  }
+}
+
+function resolveFling(attacker: Pokemon): {
+  power: number;
+  overridePower?: number;
+  unavailableReason?: string;
+} {
+  const item = attacker.item;
+  if (!item) return { power: 0, unavailableReason: '던질 도구가 없습니다.' };
+  if (attacker.hasAbility('Klutz')) {
+    return {
+      power: 0,
+      unavailableReason: '서투름 특성으로 도구를 던질 수 없습니다.',
+    };
+  }
+  const rule = flingItems[toID(item)];
+  if (rule?.blockedHolders?.includes(attacker.species.id)) {
+    return {
+      power: 0,
+      unavailableReason: '이 포켓몬은 자신의 메가스톤을 던질 수 없습니다.',
+    };
+  }
+  const power = rule?.power ?? getFlingPower(item, champions.num);
+  if (power === 0)
+    return { power, unavailableReason: '내던지기로 던질 수 없는 도구입니다.' };
+  return { power, overridePower: rule?.power };
+}
+
+function createMove(
+  data: MoveData,
+  attacker: Pokemon,
+  field: Field,
+  powerOverride?: number,
+): Move {
   let priorityBoosted = false;
   if (data.name === 'Grassy Glide' && field.hasTerrain('Grassy')) {
     // The engine checks held-item suppression before determining groundedness.
@@ -239,9 +328,10 @@ function createMove(name: string, attacker: Pokemon, field: Field): Move {
     ability: attacker.ability,
     item: attacker.item,
     // calculate() clones the move. Constructor overrides survive that clone.
-    overrides: priorityBoosted
-      ? { priority: (data.priority ?? 0) + 1 }
-      : undefined,
+    overrides: {
+      ...(priorityBoosted && { priority: (data.priority ?? 0) + 1 }),
+      ...(powerOverride !== undefined && { basePower: powerOverride }),
+    },
   });
 }
 
@@ -257,10 +347,25 @@ function unavailableMoveReason(move: Move, field: Field): string | undefined {
   }
 }
 
-export function calculateChampionsDamage(
+/** Returns the new selection, including any change to the user's status slot. */
+export function selectChampionsMove(
   input: ChampionsDamageInput,
+  move: string,
+): ChampionsDamageInput {
+  const selected = { ...input, move };
+  if (typeof move === 'string' && toID(move) === 'snore') {
+    requireObject(input.attacker, 'attacker');
+    checkOption(input.attacker.status, statusOptions, 'attacker.status');
+    selected.attacker = { ...input.attacker, status: 'slp' };
+  }
+  return selected;
+}
+
+export function calculateChampionsDamage(
+  request: ChampionsDamageInput,
 ): ChampionsDamageResult {
-  requireObject(input, 'input');
+  requireObject(request, 'input');
+  const input = selectChampionsMove(request, request.move);
   const attacker = createPokemon(input.attacker, 'attacker');
   const defender = createPokemon(input.defender, 'defender');
   if (input.field !== undefined) {
@@ -278,18 +383,27 @@ export function calculateChampionsDamage(
     defenderSide: toEngineSide(input.field?.defenderSide, 'field.defenderSide'),
   });
 
-  const move = createMove(input.move, attacker, field);
-  const unavailableReason = unavailableMoveReason(move, field);
+  checkSpeedLimit(attacker, defender, field);
+  const data = engineEntry(champions.moves, input.move, 'move');
+  const fling = data.name === 'Fling' ? resolveFling(attacker) : undefined;
+  const move = createMove(data, attacker, field, fling?.overridePower);
+  const unavailableReason =
+    fling?.unavailableReason ?? unavailableMoveReason(move, field);
   if (unavailableReason) {
     const result = new Result(champions, attacker, defender, move, field, 0, {
       attackerName: attacker.name,
       defenderName: defender.name,
       moveName: move.name,
+      ...(fling && { moveBP: fling.power }),
     });
     return Object.assign(result, { unavailableReason });
   }
 
-  const result = calculate(champions, attacker, defender, move, field);
+  const result = calculateOneUse(attacker, defender, move, field);
+  if (fling) {
+    result.move.bp = fling.power;
+    result.rawDesc.moveBP ??= fling.power;
+  }
   // Version 0.12.0 checks these Ground immunities even when Iron Ball grounds the holder.
   if (
     result.damage === 0 &&
@@ -305,8 +419,7 @@ export function calculateChampionsDamage(
       },
       'defender',
     );
-    const groundedResult = calculate(
-      champions,
+    const groundedResult = calculateOneUse(
       attacker,
       groundedDefender,
       move,
@@ -336,6 +449,16 @@ export function summarizeChampionsDamage(
     },
     damageRange: result.range(),
     damage: result.damage,
+    ...(result.move.named('Shell Side Arm') &&
+      !result.categoryBranches && {
+        category: result.move.category as 'Physical' | 'Special',
+      }),
+    ...(result.categoryBranches && {
+      categoryBranches: result.categoryBranches,
+    }),
+    ...(result.disguiseHpLoss !== undefined && {
+      disguiseHpLoss: result.disguiseHpLoss,
+    }),
     ...(result.unavailableReason && {
       unavailableReason: result.unavailableReason,
     }),
