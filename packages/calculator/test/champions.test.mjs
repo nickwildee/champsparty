@@ -454,6 +454,87 @@ test('Fling distinguishes missing items, incompatible holders and Klutz', () => 
   }
 });
 
+test('Fling loses only the seed consumed by the current terrain', () => {
+  const terrains = ['Electric', 'Grassy', 'Misty', 'Psychic'];
+  const defender = pokemon('Mimikyu', { ability: 'Disguise' });
+  const attack = (attacker, terrain, intact) =>
+    summarizeChampionsDamage(
+      calculateChampionsDamage({
+        attacker,
+        defender: { ...defender, disguiseIntact: intact },
+        move: 'Fling',
+        field: { terrain },
+      }),
+    );
+  for (const seed of terrains) {
+    const attacker = pokemon('Garchomp', { item: seed + ' Seed' });
+    for (const terrain of [undefined, ...terrains]) {
+      for (const intact of [true, false]) {
+        const result = attack(attacker, terrain, intact);
+        if (terrain === seed) {
+          assert.match(result.unavailableReason, /시드가 소모/);
+          assert.equal(result.basePower, 0);
+          assert.equal(result.reportedPower, 0);
+          assert.equal(result.damage, 0);
+          assert.equal(result.disguiseHpLoss, undefined);
+        } else {
+          assert.equal(result.unavailableReason, undefined);
+          assert.equal(result.basePower, 10);
+          assert.equal(result.reportedPower, 10);
+          assert.equal(result.disguiseHpLoss, intact ? 16 : undefined);
+          assert.equal(result.damageRange[1] > 0, !intact);
+        }
+      }
+    }
+  }
+  assert.match(
+    attack(
+      pokemon('Lopunny', { item: 'Grassy Seed', ability: 'Klutz' }),
+      'Grassy',
+      false,
+    ).unavailableReason,
+    /서투름/,
+  );
+});
+
+test('Parental Bond obeys Champions exclusion flags and preserves eligible hits', () => {
+  const parent = pokemon('Kangaskhan-Mega', {
+    nature: 'Hardy',
+    ability: 'Parental Bond',
+    item: 'Kangaskhanite',
+  });
+  const target = pokemon('Mimikyu', { nature: 'Hardy', ability: 'Disguise' });
+  for (const [move, item] of [
+    ['Dig', 'Kangaskhanite'],
+    ['Solar Beam', 'Kangaskhanite'],
+    ['Future Sight', 'Kangaskhanite'],
+    ['Fling', 'Iron Ball'],
+  ]) {
+    const attacker = { ...parent, item };
+    const result = calculate(attacker, target, move);
+    assert.equal(result.unavailableReason, undefined, move);
+    assert.equal(result.hits, 1, move);
+    assert.equal(result.damage, 0, move);
+    assert.equal(result.disguiseHpLoss, 16, move);
+    const broken = { ...target, disguiseIntact: false };
+    const expected = calculate({ ...attacker, ability: '' }, broken, move);
+    assert.ok(expected.damageRange[0] > 0, move);
+    assert.deepEqual(
+      calculate(attacker, broken, move).damage,
+      expected.damage,
+      move,
+    );
+  }
+  const ironTail = calculate(parent, target, 'Iron Tail');
+  assert.equal(ironTail.hits, 2);
+  assert.ok(ironTail.damage[0].every((roll) => roll === 0));
+  assert.ok(ironTail.damage[1].every((roll) => roll > 0));
+  assert.deepEqual(
+    calculate(parent, pokemon('Hippowdon'), 'Seismic Toss').damage,
+    [50, 50],
+  );
+});
+
 test('Shell Side Arm scores before damage modifiers and exposes both outcomes of an integer tie', () => {
   const attacker = pokemon('Slowbro-Galar', { nature: 'Hardy' });
   const defender = pokemon('Dragonite', {

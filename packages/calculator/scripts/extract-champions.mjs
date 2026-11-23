@@ -458,6 +458,15 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
       aliases.map(({ speciesId, engineId }) => [speciesId, engineId]),
     ),
     'fling-item-overrides.json': flingItems,
+    'parental-bond-exclusions.json': sorted(
+      availableMoves
+        .filter(
+          ({ category, flags }) =>
+            category !== 'Status' &&
+            (flags.noparentalbond || flags.charge || flags.futuremove),
+        )
+        .map(({ id }) => id),
+    ),
     'moves.json': moves,
     'abilities.json': abilities,
     'conditions.json': conditions,

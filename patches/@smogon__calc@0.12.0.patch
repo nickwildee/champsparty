@@ -1,28 +1,39 @@
+diff --git a/dist/data/interface.d.ts b/dist/data/interface.d.ts
+index 66ee9fe298c321342654776424f99120772085d3..0929e4b2573773156f80df792cfb8fc52d7e1cd8 100644
+--- a/dist/data/interface.d.ts
++++ b/dist/data/interface.d.ts
+@@ -70,2 +70,3 @@
+ export interface MoveFlags {
++    noparentalbond?: 1 | 0;
+     contact?: 1 | 0;
 diff --git a/dist/mechanics/champions.js b/dist/mechanics/champions.js
-index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..f5a7d2e3368f74742ba09015e45cd9a5cd203e22 100644
+index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..9e4d9707de1503d08a616f977772e56c8535e7fe 100644
 --- a/dist/mechanics/champions.js
 +++ b/dist/mechanics/champions.js
-@@ -36,7 +36,7 @@ function calculateChampions(gen, attacker, defender, move, field) {
-     if (move.category === 'Status') {
-         return result;
+@@ -38,3 +38,3 @@
      }
 -    if (move.named('Shell Side Arm') &&
 +    if (move.named('Shell Side Arm') && !move.overrides?.category &&
          (0, util_2.getShellSideArmCategory)(attacker, defender, field.isWonderRoom) === 'Physical') {
-         move.category = 'Physical';
-         move.flags.contact = 1;
-@@ -378,7 +378,7 @@ function calculateBasePowerChampions(gen, attacker, defender, move, field, hasAt
-             desc.moveBP = basePower;
-             break;
+@@ -194,5 +194,6 @@
+     desc.HPEVs = (0, util_2.getStatDescriptionText)(gen, defender, 'hp');
++    var parentalBond = attacker.hasAbility('Parental Bond') && !move.flags.noparentalbond;
+     var fixedDamage = (0, util_2.handleFixedDamageMoves)(attacker, move);
+     if (fixedDamage) {
+-        if (attacker.hasAbility('Parental Bond')) {
++        if (parentalBond) {
+             result.damage = [fixedDamage, fixedDamage];
+@@ -250,3 +251,3 @@
+     var childDamage;
+-    if (attacker.hasAbility('Parental Bond') && move.hits === 1 && !isSpread) {
++    if (parentalBond && move.hits === 1 && !isSpread) {
+         var child = attacker.clone();
+@@ -380,3 +381,3 @@
          case 'Fling':
 -            basePower = (0, items_1.getFlingPower)(attacker.item, gen.num);
 +            basePower = move.overrides?.basePower ?? (0, items_1.getFlingPower)(attacker.item, gen.num);
              desc.moveBP = basePower;
-             desc.attackerItem = attacker.item;
-             break;
-@@ -795,9 +795,11 @@ function calculateFinalModsChampions(gen, attacker, defender, move, field, desc,
-         }
-         desc.attackerItem = attacker.item;
+@@ -797,5 +798,7 @@
      }
 +    var berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
 +      defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
@@ -31,34 +42,40 @@ index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..f5a7d2e3368f74742ba09015e45cd9a5
 -        hitCount === 0 &&
 +        hitCount === (berryAfterDisguise ? 1 : 0) &&
          !attacker.hasAbility('Unnerve')) {
-         if (defender.hasAbility('Ripen')) {
-             finalMods.push(1024);
+diff --git a/src/data/interface.ts b/src/data/interface.ts
+index 366f17ee288b9b753f8e7f35c31feff032a5ca4e..4304b22160c845cbbdc101bd136b5bcf7caaaf4a 100644
+--- a/src/data/interface.ts
++++ b/src/data/interface.ts
+@@ -88,2 +88,3 @@
+ export interface MoveFlags {
++  noparentalbond?: 1 | 0;
+   contact?: 1 | 0;
 diff --git a/src/mechanics/champions.ts b/src/mechanics/champions.ts
-index 348763f4f98594f3975c8d439fdc2f7c4281f953..2cdb6e213a1dd1fb1f0bc49366e6cf760ca9e8e6 100644
+index 348763f4f98594f3975c8d439fdc2f7c4281f953..5f00b5a0ae492c2d0234bb175cab892f2bec4a45 100644
 --- a/src/mechanics/champions.ts
 +++ b/src/mechanics/champions.ts
-@@ -86,7 +86,7 @@ export function calculateChampions(
-     return result;
-   }
- 
+@@ -89,2 +89,2 @@
 -  if (move.named('Shell Side Arm') &&
 +  if (move.named('Shell Side Arm') && !move.overrides?.category &&
      getShellSideArmCategory(attacker, defender, field.isWonderRoom) === 'Physical') {
-     move.category = 'Physical';
-     move.flags.contact = 1;
-@@ -606,7 +606,7 @@ export function calculateBasePowerChampions(
-     desc.moveBP = basePower;
-     break;
+@@ -301,4 +301,5 @@
++  const parentalBond = attacker.hasAbility('Parental Bond') && !move.flags.noparentalbond;
+   const fixedDamage = handleFixedDamageMoves(attacker, move);
+   if (fixedDamage) {
+-    if (attacker.hasAbility('Parental Bond')) {
++    if (parentalBond) {
+       result.damage = [fixedDamage, fixedDamage];
+@@ -415,3 +416,3 @@
+   let childDamage: number[] | undefined;
+-  if (attacker.hasAbility('Parental Bond') && move.hits === 1 && !isSpread) {
++  if (parentalBond && move.hits === 1 && !isSpread) {
+     const child = attacker.clone();
+@@ -608,3 +609,3 @@
    case 'Fling':
 -    basePower = getFlingPower(attacker.item, gen.num);
 +    basePower = move.overrides?.basePower ?? getFlingPower(attacker.item, gen.num);
      desc.moveBP = basePower;
-     desc.attackerItem = attacker.item;
-     break;
-@@ -1174,9 +1174,11 @@ export function calculateFinalModsChampions(
-     desc.attackerItem = attacker.item;
-   }
- 
+@@ -1177,4 +1178,6 @@
 +  const berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
 +    defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
    if (move.hasType(getBerryResistType(defender.item)) &&
@@ -66,5 +83,3 @@ index 348763f4f98594f3975c8d439fdc2f7c4281f953..2cdb6e213a1dd1fb1f0bc49366e6cf76
 -      hitCount === 0 &&
 +      hitCount === (berryAfterDisguise ? 1 : 0) &&
        !attacker.hasAbility('Unnerve')) {
-     if (defender.hasAbility('Ripen')) {
-       finalMods.push(1024);

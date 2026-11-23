@@ -10,6 +10,7 @@ packages/calculator/data/champions/moves.json
 packages/calculator/data/champions/abilities.json
 packages/calculator/data/champions/conditions.json
 packages/calculator/data/champions/fling-item-overrides.json
+packages/calculator/data/champions/parental-bond-exclusions.json
 packages/calculator/data/champions/engine-diff.json
 packages/calculator/data/champions/manifest.json
 packages/calculator/data/champions/conditional-audit.json

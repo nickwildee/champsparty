@@ -31,23 +31,24 @@
 
 ## 파일과 책임
 
-| 파일                                                   | 내용                                                                   |
-| ------------------------------------------------------ | ---------------------------------------------------------------------- |
-| [pokemon.json](pokemon.json)                           | 폼별 전체 특성 슬롯, 습득 기술 ID, 폼·도구 조건, 엔진 ID 연결, 출처    |
-| [species-aliases.json](species-aliases.json)           | 엔진 ID가 다른 25개 폼의 런타임 연결                                   |
-| [fling-item-overrides.json](fling-item-overrides.json) | 내던지기 위력이 엔진과 다른 도구, 도구별 투척 불가 포켓몬·폼 ID        |
-| [moves.json](moves.json)                               | 기술 ID·이름, 원본 등장 여부, 엔진 사전 존재 여부, 조건 분류           |
-| [move-names.ko.json](move-names.ko.json)               | 챔피언스 기술 515개의 한글 표시명, 기술 번호, 고정한 명칭 원본·해시    |
-| [abilities.json](abilities.json)                       | 실제 등장 포켓몬들이 가진 특성 ID·이름, 엔진 사전 존재 여부, 조건 분류 |
-| [conditions.json](conditions.json)                     | 분류 ID별 입력 항목·정책·범위·주의사항                                 |
-| [engine-diff.json](engine-diff.json)                   | 누락·차이·제외 폼, 추가 입력 대상 색인, 엔진 동작 실험                 |
-| [CONDITIONAL-AUDIT.md](CONDITIONAL-AUDIT.md)           | 조건부 입력 전체의 엔진·앱 대조, 수치, 필요한 보완과 판단 보류 목록    |
-| [conditional-audit.json](conditional-audit.json)       | 당시 조건별 호출·기대값·실측값과 원본/엔진/앱 해시                     |
-| [SMARTNUO-COMPARISON.md](SMARTNUO-COMPARISON.md)       | 스마트누오의 조건부 입력·반복 KO 비교, 목록 누락과 우리 쪽 구현 경계   |
-| [smartnuo-comparison.json](smartnuo-comparison.json)   | 챔피언스 목록 대조, UI 관찰 82건, 엔진 대조 배열과 증거 경로           |
-| [source-pin.json](source-pin.json)                     | 원본 커밋·아카이브 SHA-256·엔진 버전·추출 범위                         |
-| [manifest.json](manifest.json)                         | 추출 규칙, 실제 읽은 원본·생성기·산출 파일의 SHA-256                   |
-| [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)           | 추출 원본의 MIT 저작권·라이선스 고지                                   |
+| 파일                                                           | 내용                                                                   |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [pokemon.json](pokemon.json)                                   | 폼별 전체 특성 슬롯, 습득 기술 ID, 폼·도구 조건, 엔진 ID 연결, 출처    |
+| [species-aliases.json](species-aliases.json)                   | 엔진 ID가 다른 25개 폼의 런타임 연결                                   |
+| [fling-item-overrides.json](fling-item-overrides.json)         | 내던지기 위력이 엔진과 다른 도구, 도구별 투척 불가 포켓몬·폼 ID        |
+| [parental-bond-exclusions.json](parental-bond-exclusions.json) | 챔피언스 공격기 중 원본 플래그로 부자유친의 추가 타격을 제외할 기술 ID |
+| [moves.json](moves.json)                                       | 기술 ID·이름, 원본 등장 여부, 엔진 사전 존재 여부, 조건 분류           |
+| [move-names.ko.json](move-names.ko.json)                       | 챔피언스 기술 515개의 한글 표시명, 기술 번호, 고정한 명칭 원본·해시    |
+| [abilities.json](abilities.json)                               | 실제 등장 포켓몬들이 가진 특성 ID·이름, 엔진 사전 존재 여부, 조건 분류 |
+| [conditions.json](conditions.json)                             | 분류 ID별 입력 항목·정책·범위·주의사항                                 |
+| [engine-diff.json](engine-diff.json)                           | 누락·차이·제외 폼, 추가 입력 대상 색인, 엔진 동작 실험                 |
+| [CONDITIONAL-AUDIT.md](CONDITIONAL-AUDIT.md)                   | 조건부 입력 전체의 엔진·앱 대조, 수치, 필요한 보완과 판단 보류 목록    |
+| [conditional-audit.json](conditional-audit.json)               | 당시 조건별 호출·기대값·실측값과 원본/엔진/앱 해시                     |
+| [SMARTNUO-COMPARISON.md](SMARTNUO-COMPARISON.md)               | 스마트누오의 조건부 입력·반복 KO 비교, 목록 누락과 우리 쪽 구현 경계   |
+| [smartnuo-comparison.json](smartnuo-comparison.json)           | 챔피언스 목록 대조, UI 관찰 82건, 엔진 대조 배열과 증거 경로           |
+| [source-pin.json](source-pin.json)                             | 원본 커밋·아카이브 SHA-256·엔진 버전·추출 범위                         |
+| [manifest.json](manifest.json)                                 | 추출 규칙, 실제 읽은 원본·생성기·산출 파일의 SHA-256                   |
+| [UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt)                   | 추출 원본의 MIT 저작권·라이선스 고지                                   |
 
 종족값·타입·위력·타입 상성 등 계산용 기본 데이터 전체를 중복 저장하지 않는다. `moves.json`의 515개는 원본의 전체 등장 기술 목록이며, 현재 포켓몬 중 습득자가 없는 기술도 포함한다. 변화기도 전체 습득 목록에 보존하고, 데미지 선택창 노출 여부는 별도로 결정한다.
 
@@ -148,7 +149,7 @@ pnpm catalog:extract --archive /tmp/champsparty-showdown.tar.gz --check
 
 추출기는 아카이브 SHA-256·엔진 버전을 먼저 검사한다. 고정 원본을 임시 디렉터리에 풀고, 이미 설치한 TypeScript로 원본 Dex를 읽은 뒤 자체 임시 디렉터리만 제거한다. Showdown 서버 패키지를 설치하거나 웹 번들에 포함하지 않는다. 생성 JSON은 추출기가 서식을 관리하므로 손으로 수정하지 않는다. 기전 분류는 `scripts/champions-conditions.mjs`, 제품의 입력·처리 결정은 `scripts/champions-product-rules.mjs`에서 수정한 뒤 다시 추출한다.
 
-당시 회귀 검사는 원본·생성 파일 해시, ID 중복·정렬, 전체 특성·기술 참조, 출처 줄, 엔진 연결·버전, 분류의 입력 일관성, 전투 중 폼의 제외, 일반·메가 한카리아스의 특성·기술 상속을 다룬다. `--check`는 원본에서 다시 생성한 폼 별칭·내던지기 도구 보정을 포함한 여덟 JSON의 바이트 일치를 검사한다. 이 검증은 공식 게임 데이터 전수 확인이나 각 기술의 독립 데미지 검증을 대신하지 않는다.
+당시 회귀 검사는 원본·생성 파일 해시, ID 중복·정렬, 전체 특성·기술 참조, 출처 줄, 엔진 연결·버전, 분류의 입력 일관성, 전투 중 폼의 제외, 일반·메가 한카리아스의 특성·기술 상속을 다룬다. `--check`는 원본에서 다시 생성한 폼 별칭·내던지기 도구 보정·부자유친 제외 기술을 포함한 아홉 JSON의 바이트 일치를 검사한다. 이 검증은 공식 게임 데이터 전수 확인이나 각 기술의 독립 데미지 검증을 대신하지 않는다.
 
 2026-11-17 추출과 2026-11-18 상태 변화 후속 검증에서 Node.js `26.13.1`·pnpm `12.19.0`으로 다음을 실제 통과했다.
 

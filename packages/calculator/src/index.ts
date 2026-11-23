@@ -17,6 +17,7 @@ import {
   isGrounded,
 } from '@smogon/calc/dist/mechanics/util.js';
 import flingOverrides from '../data/champions/fling-item-overrides.json' with { type: 'json' };
+import parentalBondExclusions from '../data/champions/parental-bond-exclusions.json' with { type: 'json' };
 import speciesAliases from '../data/champions/species-aliases.json' with { type: 'json' };
 import {
   calculateOneUse,
@@ -89,6 +90,7 @@ export class ChampionsInputError extends RangeError {}
 const champions = Generations.get(0);
 
 const speciesEngineIds = new Map(Object.entries(speciesAliases));
+const movesWithoutChildHit = new Set(parentalBondExclusions);
 
 const flingItems: Readonly<
   Record<
@@ -277,7 +279,10 @@ function checkSpeedLimit(attacker: Pokemon, defender: Pokemon, field: Field) {
   }
 }
 
-function resolveFling(attacker: Pokemon): {
+function resolveFling(
+  attacker: Pokemon,
+  field: Field,
+): {
   power: number;
   overridePower?: number;
   unavailableReason?: string;
@@ -288,6 +293,13 @@ function resolveFling(attacker: Pokemon): {
     return {
       power: 0,
       unavailableReason: '서투름 특성으로 도구를 던질 수 없습니다.',
+    };
+  }
+  // The four terrain seeds share the corresponding engine terrain's English name.
+  if (field.terrain && item === `${field.terrain} Seed`) {
+    return {
+      power: 0,
+      unavailableReason: '필드에서 시드가 소모되어 던질 수 없습니다.',
     };
   }
   const rule = flingItems[toID(item)];
@@ -330,6 +342,10 @@ function createMove(
     overrides: {
       ...(priorityBoosted && { priority: (data.priority ?? 0) + 1 }),
       ...(powerOverride !== undefined && { basePower: powerOverride }),
+      ...(attacker.hasAbility('Parental Bond') &&
+        movesWithoutChildHit.has(data.id) && {
+          flags: { noparentalbond: 1 },
+        }),
     },
   });
 }
@@ -384,7 +400,8 @@ export function calculateChampionsDamage(
 
   checkSpeedLimit(attacker, defender, field);
   const data = engineEntry(champions.moves, input.move, 'move');
-  const fling = data.name === 'Fling' ? resolveFling(attacker) : undefined;
+  const fling =
+    data.name === 'Fling' ? resolveFling(attacker, field) : undefined;
   const move = createMove(data, attacker, field, fling?.overridePower);
   const unavailableReason =
     fling?.unavailableReason ?? unavailableMoveReason(move, field);
@@ -433,9 +450,17 @@ export function calculateChampionsDamage(
 export function summarizeChampionsDamage(
   result: ChampionsDamageResult,
 ): ChampionsDamageSummary {
+  // The engine leaves move.hits at one for Parental Bond. Its per-hit rolls
+  // (or two fixed values) show whether the child actually attacked.
+  const perUseDamage = result.categoryBranches?.[0].damage ?? result.damage;
+  const hasChildHit =
+    result.attacker.hasAbility('Parental Bond') &&
+    result.move.hits === 1 &&
+    Array.isArray(perUseDamage) &&
+    perUseDamage.length === 2;
   return {
     move: result.move.name,
-    hits: result.move.hits,
+    hits: hasChildHit ? 2 : result.move.hits,
     basePower: result.move.bp,
     reportedPower: result.rawDesc.moveBP ?? null,
     attackerHp: {

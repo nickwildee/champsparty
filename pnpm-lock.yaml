@@ -177,7 +177,7 @@ overrides:
   eslint-plugin-react@7.37.5>eslint:peer: ^9 || ^10
 
 patchedDependencies:
-  '@smogon/calc@0.12.0': 55bfb26d5c03ddbedcd383813ce2d09d0d83f4b6134689dfade7152eabd0e708
+  '@smogon/calc@0.12.0': a3ef8fdd3770224dd25b362cbdb2321694a6910653e3007cc9e4ddcd9fe30e54
 
 importers:
 
@@ -264,7 +264,7 @@ importers:
     dependencies:
       '@smogon/calc':
         specifier: 0.12.0
-        version: 0.12.0(patch_hash=55bfb26d5c03ddbedcd383813ce2d09d0d83f4b6134689dfade7152eabd0e708)
+        version: 0.12.0(patch_hash=a3ef8fdd3770224dd25b362cbdb2321694a6910653e3007cc9e4ddcd9fe30e54)
     devDependencies:
       '@eslint/js':
         specifier: ^10
@@ -4197,7 +4197,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@smogon/calc@0.12.0(patch_hash=55bfb26d5c03ddbedcd383813ce2d09d0d83f4b6134689dfade7152eabd0e708)':
+  '@smogon/calc@0.12.0(patch_hash=a3ef8fdd3770224dd25b362cbdb2321694a6910653e3007cc9e4ddcd9fe30e54)':
     dependencies:
       '@types/node': 18.19.130
 
