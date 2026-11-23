@@ -3,6 +3,7 @@ import process from 'node:process';
 import {
   calculateChampionsDamage,
   ChampionsInputError,
+  compareChampionsSpeed,
   summarizeChampionsDamage,
 } from '../src/index.ts';
 
@@ -10,17 +11,22 @@ const args = process.argv.slice(2);
 let stage = 'input';
 
 try {
-  if (args.length !== 1) {
-    throw new Error('사용법: pnpm calc:check <입력.json>');
+  const speed = args[0] === '--speed';
+  if (args.length !== (speed ? 2 : 1)) {
+    throw new Error('사용법: pnpm calc:check [--speed] <입력.json>');
   }
 
-  const input = JSON.parse(readFileSync(args[0], 'utf8'));
+  const input = JSON.parse(readFileSync(args[speed ? 1 : 0], 'utf8'));
 
   stage = 'engine';
-  const result = calculateChampionsDamage(input);
-
-  stage = 'result';
-  const summary = summarizeChampionsDamage(result);
+  let summary;
+  if (speed) {
+    summary = compareChampionsSpeed(input);
+  } else {
+    const result = calculateChampionsDamage(input);
+    stage = 'result';
+    summary = summarizeChampionsDamage(result);
+  }
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 } catch (error) {
   const failure = {

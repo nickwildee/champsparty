@@ -7,7 +7,7 @@ index 66ee9fe298c321342654776424f99120772085d3..0929e4b2573773156f80df792cfb8fc5
 +    noparentalbond?: 1 | 0;
      contact?: 1 | 0;
 diff --git a/dist/mechanics/champions.js b/dist/mechanics/champions.js
-index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..9e4d9707de1503d08a616f977772e56c8535e7fe 100644
+index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..4319bb7e0506594f7a0f3ff4da0cfa367237ae2f 100644
 --- a/dist/mechanics/champions.js
 +++ b/dist/mechanics/champions.js
 @@ -38,3 +38,3 @@
@@ -23,25 +23,47 @@ index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..9e4d9707de1503d08a616f977772e56c
 -        if (attacker.hasAbility('Parental Bond')) {
 +        if (parentalBond) {
              result.damage = [fixedDamage, fixedDamage];
-@@ -250,3 +251,3 @@
+@@ -250,7 +251,12 @@
      var childDamage;
 -    if (attacker.hasAbility('Parental Bond') && move.hits === 1 && !isSpread) {
 +    if (parentalBond && move.hits === 1 && !isSpread) {
          var child = attacker.clone();
-@@ -380,3 +381,3 @@
++        var target = defender;
++        if (appliesResistBerry(attacker, defender, move, typeEffectiveness, 0)) {
++            target = defender.clone();
++            target.item = undefined;
++        }
+         child.ability = 'Parental Bond (Child)';
+-        (0, util_2.checkMultihitBoost)(gen, child, defender, move, field, desc);
+-        childDamage = calculateChampions(gen, child, defender, move, field).damage;
++        (0, util_2.checkMultihitBoost)(gen, child, target, move, field, desc);
++        childDamage = calculateChampions(gen, child, target, move, field).damage;
+         desc.attackerAbility = attacker.ability;
+@@ -380,3 +386,3 @@
          case 'Fling':
 -            basePower = (0, items_1.getFlingPower)(attacker.item, gen.num);
 +            basePower = move.overrides?.basePower ?? (0, items_1.getFlingPower)(attacker.item, gen.num);
              desc.moveBP = basePower;
-@@ -797,5 +798,7 @@
+@@ -797,6 +803,3 @@
      }
+-    if (move.hasType((0, items_1.getBerryResistType)(defender.item)) &&
+-        (typeEffectiveness > 1 || move.hasType('Normal')) &&
+-        hitCount === 0 &&
+-        !attacker.hasAbility('Unnerve')) {
++    if (appliesResistBerry(attacker, defender, move, typeEffectiveness, hitCount)) {
+         if (defender.hasAbility('Ripen')) {
+@@ -812,2 +815,11 @@
+ exports.calculateFinalModsChampions = calculateFinalModsChampions;
++function appliesResistBerry(attacker, defender, move, typeEffectiveness, hitCount) {
 +    var berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
 +      defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
-     if (move.hasType((0, items_1.getBerryResistType)(defender.item)) &&
-         (typeEffectiveness > 1 || move.hasType('Normal')) &&
--        hitCount === 0 &&
++    return move.hasType((0, items_1.getBerryResistType)(defender.item)) &&
++        (typeEffectiveness > 1 || move.hasType('Normal')) &&
 +        hitCount === (berryAfterDisguise ? 1 : 0) &&
-         !attacker.hasAbility('Unnerve')) {
++        !attacker.hasAbility('Unnerve');
++}
++
+ function hasTerrainSeed(pokemon) {
 diff --git a/src/data/interface.ts b/src/data/interface.ts
 index 366f17ee288b9b753f8e7f35c31feff032a5ca4e..4304b22160c845cbbdc101bd136b5bcf7caaaf4a 100644
 --- a/src/data/interface.ts
@@ -51,7 +73,7 @@ index 366f17ee288b9b753f8e7f35c31feff032a5ca4e..4304b22160c845cbbdc101bd136b5bcf
 +  noparentalbond?: 1 | 0;
    contact?: 1 | 0;
 diff --git a/src/mechanics/champions.ts b/src/mechanics/champions.ts
-index 348763f4f98594f3975c8d439fdc2f7c4281f953..5f00b5a0ae492c2d0234bb175cab892f2bec4a45 100644
+index 348763f4f98594f3975c8d439fdc2f7c4281f953..ef295bdd732915bc938bd69da2fc57ebbba9b8ac 100644
 --- a/src/mechanics/champions.ts
 +++ b/src/mechanics/champions.ts
 @@ -89,2 +89,2 @@
@@ -65,21 +87,44 @@ index 348763f4f98594f3975c8d439fdc2f7c4281f953..5f00b5a0ae492c2d0234bb175cab892f
 -    if (attacker.hasAbility('Parental Bond')) {
 +    if (parentalBond) {
        result.damage = [fixedDamage, fixedDamage];
-@@ -415,3 +416,3 @@
+@@ -415,7 +416,12 @@
    let childDamage: number[] | undefined;
 -  if (attacker.hasAbility('Parental Bond') && move.hits === 1 && !isSpread) {
 +  if (parentalBond && move.hits === 1 && !isSpread) {
      const child = attacker.clone();
-@@ -608,3 +609,3 @@
++    let target = defender;
++    if (appliesResistBerry(attacker, defender, move, typeEffectiveness, 0)) {
++      target = defender.clone();
++      target.item = undefined;
++    }
+     child.ability = 'Parental Bond (Child)' as AbilityName;
+-    checkMultihitBoost(gen, child, defender, move, field, desc);
+-    childDamage = calculateChampions(gen, child, defender, move, field).damage as number[];
++    checkMultihitBoost(gen, child, target, move, field, desc);
++    childDamage = calculateChampions(gen, child, target, move, field).damage as number[];
+     desc.attackerAbility = attacker.ability;
+@@ -608,3 +614,3 @@
    case 'Fling':
 -    basePower = getFlingPower(attacker.item, gen.num);
 +    basePower = move.overrides?.basePower ?? getFlingPower(attacker.item, gen.num);
      desc.moveBP = basePower;
-@@ -1177,4 +1178,6 @@
+@@ -1177,5 +1183,2 @@
+-  if (move.hasType(getBerryResistType(defender.item)) &&
+-      (typeEffectiveness > 1 || move.hasType('Normal')) &&
+-      hitCount === 0 &&
+-      !attacker.hasAbility('Unnerve')) {
++  if (appliesResistBerry(attacker, defender, move, typeEffectiveness, hitCount)) {
+     if (defender.hasAbility('Ripen')) {
+@@ -1192,1 +1195,12 @@
++function appliesResistBerry(
++  attacker: Pokemon, defender: Pokemon, move: Move, typeEffectiveness: number, hitCount: number
++) {
 +  const berryAfterDisguise = defender.named('Mimikyu') && defender.hasAbility('Disguise') &&
 +    defender.abilityOn && !move.hasType('Normal') && !attacker.hasAbility('Parental Bond (Child)');
-   if (move.hasType(getBerryResistType(defender.item)) &&
-       (typeEffectiveness > 1 || move.hasType('Normal')) &&
--      hitCount === 0 &&
++  return move.hasType(getBerryResistType(defender.item)) &&
++      (typeEffectiveness > 1 || move.hasType('Normal')) &&
 +      hitCount === (berryAfterDisguise ? 1 : 0) &&
-       !attacker.hasAbility('Unnerve')) {
++      !attacker.hasAbility('Unnerve');
++}
++
+ function hasTerrainSeed(pokemon: Pokemon) {

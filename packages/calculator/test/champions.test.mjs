@@ -9,6 +9,7 @@ import { fileURLToPath, URL } from 'node:url';
 import {
   calculateChampionsDamage,
   ChampionsInputError,
+  compareChampionsSpeed,
   selectChampionsMove,
   summarizeChampionsDamage,
 } from '../src/index.ts';
@@ -127,7 +128,7 @@ test('each side has its own 66 stat points with at most 32 per stat', () => {
   }
 });
 
-test('final Speed of 999 is accepted and 1000 is rejected on either side', () => {
+test('only Speed-dependent damage is limited; comparisons retain both actual speeds', () => {
   const target = pokemon('Hippowdon');
   // 148 × 3 (+4) × 1.5 (Quick Feet) × 1.5 (Choice Scarf) = 999.
   const atLimit = pokemon('Jolteon', {
@@ -149,7 +150,7 @@ test('final Speed of 999 is accepted and 1000 is rejected on either side', () =>
     const input = {
       attacker: target,
       defender: target,
-      move: 'Facade',
+      move: 'Gyro Ball',
       field: { weather: 'Rain' },
     };
     assert.equal(
@@ -162,6 +163,15 @@ test('final Speed of 999 is accepted and 1000 is rejected on either side', () =>
         err instanceof ChampionsInputError &&
         err.message.startsWith(side + '.spe:'),
     );
+    const matchup = { ...input, [side]: overLimit };
+    assert.doesNotThrow(() =>
+      calculateChampionsDamage({ ...matchup, move: 'Facade' }),
+    );
+    assert.throws(
+      () => calculateChampionsDamage({ ...matchup, move: 'Electro Ball' }),
+      ChampionsInputError,
+    );
+    assert.equal(compareChampionsSpeed(matchup)[side], 1000);
   }
   const dry = calculateChampionsDamage({
     attacker: overLimit,
@@ -172,22 +182,43 @@ test('final Speed of 999 is accepted and 1000 is rejected on either side', () =>
   assert.equal(dry.attacker.stats.spe, 500);
 });
 
-test('the speed limit uses active Unburden, status and effective items', () => {
+test('Unburden defaults on, supports explicit OFF, and shares its state across comparisons and damage', () => {
   const target = pokemon('Hippowdon');
   const sneasler = pokemon('Sneasler', {
     statPoints: { spe: 32 },
     ability: 'Unburden',
   });
   const speed = (attacker) =>
-    calculateChampionsDamage({
-      attacker,
-      defender: target,
-      move: 'Acrobatics',
-    }).attacker.stats.spe;
+    compareChampionsSpeed({ attacker, defender: target }).attacker;
   assert.equal(speed(sneasler), 378);
+  assert.equal(speed({ ...sneasler, abilityActive: false }), 189);
+  assert.equal(
+    speed({ ...sneasler, abilityActive: false, item: 'Iron Ball' }),
+    94,
+  );
+  assert.throws(
+    () => speed({ ...sneasler, item: 'Grassy Seed' }),
+    /attacker\.item/,
+  );
+  assert.throws(
+    () => speed({ ...sneasler, abilityActive: 1 }),
+    /attacker\.abilityActive/,
+  );
+  assert.throws(
+    () =>
+      calculate(target, {
+        ...sneasler,
+        abilityActive: true,
+        item: 'Iron Ball',
+      }),
+    /defender\.item/,
+  );
+  const run = (abilityActive) =>
+    calculate(sneasler, { ...sneasler, abilityActive }, 'Gyro Ball');
+  assert.ok(run(true).reportedPower > run(false).reportedPower);
   assert.equal(speed({ ...sneasler, boosts: { spe: 2 } }), 756);
   const boosted = { ...sneasler, boosts: { spe: 4 } };
-  assert.throws(() => speed(boosted), /attacker\.spe: 최종 스피드가 999/);
+  assert.equal(speed(boosted), 1134);
   assert.equal(speed({ ...boosted, status: 'par' }), 567);
   const klutz = pokemon('Lopunny', {
     statPoints: { spe: 32 },
@@ -199,6 +230,44 @@ test('the speed limit uses active Unburden, status and effective items', () => {
   assert.throws(
     () => speed(pokemon('Sneasler', { statPoints: { spe: 65536 } })),
     ChampionsInputError,
+  );
+});
+
+test('Speed comparison keeps distinct values over 999, ties, and Trick Room order', () => {
+  const runner = (spe) =>
+    pokemon('Sneasler', {
+      ability: 'Unburden',
+      boosts: { spe: 4 },
+      statPoints: { spe },
+    });
+  const matchup = { attacker: runner(12), defender: runner(13) };
+  assert.deepEqual(compareChampionsSpeed(matchup), {
+    attacker: 1002,
+    defender: 1008,
+    first: 'defender',
+  });
+  assert.deepEqual(
+    compareChampionsSpeed({ ...matchup, field: { trickRoom: true } }),
+    { attacker: 1002, defender: 1008, first: 'attacker' },
+  );
+  assert.equal(
+    compareChampionsSpeed({
+      ...matchup,
+      defender: runner(12),
+      field: { trickRoom: true },
+    }).first,
+    'tie',
+  );
+  assert.doesNotThrow(() =>
+    calculateChampionsDamage({ ...matchup, move: 'Close Combat' }),
+  );
+  assert.throws(
+    () => calculateChampionsDamage({ ...matchup, move: 'Payback' }),
+    ChampionsInputError,
+  );
+  assert.throws(
+    () => compareChampionsSpeed({ ...matchup, field: { trickRoom: 1 } }),
+    /field\.trickRoom/,
   );
 });
 
@@ -670,6 +739,28 @@ test('Disguise absorbs only the first effective hit and reports break HP separat
   assert.deepEqual(berry.damage[0], Array(16).fill(0));
   assert.ok(berry.damage[1][15] < child.damage[1][15]);
   assert.equal(berry.disguiseHpLoss, 16);
+});
+
+test('a resist berry reduces one qualifying hit of Parental Bond or a natural multi-hit move', () => {
+  const parent = pokemon('Kangaskhan-Mega', { ability: 'Parental Bond' });
+  for (const [attacker, defender, move, item, hits] of [
+    [parent, pokemon('Metagross'), 'Earthquake', 'Shuca Berry', 2],
+    [parent, pokemon('Hippowdon'), 'Facade', 'Chilan Berry', 2],
+    [
+      pokemon('Maushold'),
+      pokemon('Hippowdon'),
+      'Population Bomb',
+      'Chilan Berry',
+      10,
+    ],
+    [pokemon('Lucario'), pokemon('Metagross'), 'Bone Rush', 'Shuca Berry', 3],
+  ]) {
+    const control = calculate(attacker, defender, move);
+    const berry = calculate(attacker, { ...defender, item }, move);
+    assert.equal(berry.hits, hits);
+    assert.ok(berry.damage[0].every((roll, i) => roll < control.damage[0][i]));
+    assert.deepEqual(berry.damage.slice(1), control.damage.slice(1));
+  }
 });
 
 test('Multiscale and defense-stage-ignoring moves keep the native damage rolls', () => {

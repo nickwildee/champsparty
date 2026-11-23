@@ -29,6 +29,8 @@ export interface ChampionsPokemonInput {
   species: string;
   nature: string;
   ability?: string;
+  /** Unburden defaults to active. Only its inactive state permits a held item. */
+  abilityActive?: boolean;
   item?: string;
   /** 0–32 per stat, up to 66 per Pokémon. Omitted stats have 0 points. */
   statPoints: Readonly<Partial<StatsTable>>;
@@ -54,15 +56,20 @@ export interface ChampionsFieldInput {
   weather?: (typeof weatherOptions)[number];
   terrain?: State.Field['terrain'];
   gravity?: boolean;
+  trickRoom?: boolean;
   attackerSide?: ChampionsFieldSideInput;
   defenderSide?: ChampionsFieldSideInput;
 }
 
-export interface ChampionsDamageInput {
+export interface ChampionsMatchupInput {
   attacker: ChampionsPokemonInput;
   defender: ChampionsPokemonInput;
-  move: string;
   field?: ChampionsFieldInput;
+  move?: string;
+}
+
+export interface ChampionsDamageInput extends ChampionsMatchupInput {
+  move: string;
 }
 
 export interface ChampionsDamageSummary {
@@ -187,6 +194,7 @@ function createPokemon(
 ): Pokemon {
   requireObject(input, side);
   checkBoolean(input.disguiseIntact, `${side}.disguiseIntact`);
+  checkBoolean(input.abilityActive, `${side}.abilityActive`);
   checkStats(input, side, 'statPoints');
   checkStats(input, side, 'boosts');
   checkOption(input.status, statusOptions, `${side}.status`);
@@ -230,7 +238,18 @@ function createPokemon(
   if (pokemon.named('Mimikyu') && pokemon.hasAbility('Disguise')) {
     pokemon.abilityOn = input.disguiseIntact ?? true;
   }
-  if (pokemon.hasAbility('Unburden') && !pokemon.item) pokemon.abilityOn = true;
+  if (pokemon.hasAbility('Unburden')) {
+    pokemon.abilityOn = input.abilityActive ?? true;
+    if (pokemon.abilityOn && pokemon.item) {
+      throw new ChampionsInputError(
+        `${side}.item: 곡예가 ON이면 도구를 지정할 수 없습니다.`,
+      );
+    }
+  } else if (input.abilityActive !== undefined) {
+    throw new ChampionsInputError(
+      `${side}.abilityActive: 현재 곡예에만 지정할 수 있습니다.`,
+    );
+  }
 
   if (hpPercent < 100) {
     // The game floors the displayed percentage. Stay below the next percent.
@@ -258,25 +277,22 @@ function toEngineSide(
   };
 }
 
-function checkSpeedLimit(attacker: Pokemon, defender: Pokemon, field: Field) {
+function matchupSpeeds(attacker: Pokemon, defender: Pokemon, field: Field) {
   const speedField = field.clone();
   checkAirLock(attacker, speedField);
   checkAirLock(defender, speedField);
   // In calc 0.12.0 the modern Speed rules match Champions, but their cap
   // allows us to distinguish exactly 999 from a value truncated to 999.
   const speedRules = Generations.get(9);
-  for (const [path, pokemon, side] of [
-    ['attacker', attacker, speedField.attackerSide],
-    ['defender', defender, speedField.defenderSide],
-  ] as const) {
+  function speed(pokemon: Pokemon, side: Field['attackerSide']) {
     const holder = pokemon.clone();
     checkItem(holder, speedField.isMagicRoom);
-    if (getFinalSpeed(speedRules, holder, speedField, side) > 999) {
-      throw new ChampionsInputError(
-        `${path}.spe: 최종 스피드가 999를 초과합니다.`,
-      );
-    }
+    return getFinalSpeed(speedRules, holder, speedField, side);
   }
+  return {
+    attacker: speed(attacker, speedField.attackerSide),
+    defender: speed(defender, speedField.defenderSide),
+  };
 }
 
 function resolveFling(
@@ -364,7 +380,7 @@ function unavailableMoveReason(move: Move, field: Field): string | undefined {
 
 /** Returns the new selection, including any change to the user's status slot. */
 export function selectChampionsMove(
-  input: ChampionsDamageInput,
+  input: ChampionsMatchupInput,
   move: string,
 ): ChampionsDamageInput {
   const selected = { ...input, move };
@@ -376,11 +392,8 @@ export function selectChampionsMove(
   return selected;
 }
 
-export function calculateChampionsDamage(
-  request: ChampionsDamageInput,
-): ChampionsDamageResult {
-  requireObject(request, 'input');
-  const input = selectChampionsMove(request, request.move);
+function createMatchup(input: ChampionsMatchupInput) {
+  requireObject(input, 'input');
   const attacker = createPokemon(input.attacker, 'attacker');
   const defender = createPokemon(input.defender, 'defender');
   if (input.field !== undefined) {
@@ -388,6 +401,7 @@ export function calculateChampionsDamage(
     checkOption(input.field.weather, weatherOptions, 'field.weather');
     checkOption(input.field.terrain, terrainOptions, 'field.terrain');
     checkBoolean(input.field.gravity, 'field.gravity');
+    checkBoolean(input.field.trickRoom, 'field.trickRoom');
   }
   const field = new Field({
     gameType: 'Singles',
@@ -398,7 +412,29 @@ export function calculateChampionsDamage(
     defenderSide: toEngineSide(input.field?.defenderSide, 'field.defenderSide'),
   });
 
-  checkSpeedLimit(attacker, defender, field);
+  return { attacker, defender, field };
+}
+
+export function compareChampionsSpeed(input: ChampionsMatchupInput) {
+  requireObject(input, 'input');
+  const matchup =
+    input.move === undefined ? input : selectChampionsMove(input, input.move);
+  const { attacker, defender, field } = createMatchup(matchup);
+  const speeds = matchupSpeeds(attacker, defender, field);
+  const difference = speeds.attacker - speeds.defender;
+  const order = input.field?.trickRoom ? -difference : difference;
+  return {
+    ...speeds,
+    first: order === 0 ? 'tie' : order > 0 ? 'attacker' : 'defender',
+  } as const;
+}
+
+export function calculateChampionsDamage(
+  request: ChampionsDamageInput,
+): ChampionsDamageResult {
+  requireObject(request, 'input');
+  const input = selectChampionsMove(request, request.move);
+  const { attacker, defender, field } = createMatchup(input);
   const data = engineEntry(champions.moves, input.move, 'move');
   const fling =
     data.name === 'Fling' ? resolveFling(attacker, field) : undefined;
@@ -413,6 +449,26 @@ export function calculateChampionsDamage(
       ...(fling && { moveBP: fling.power }),
     });
     return Object.assign(result, { unavailableReason });
+  }
+
+  // Payback and Analytic still use the engine's Speed-based turn-order estimate.
+  const speedRatio = move.named('Electro Ball', 'Gyro Ball');
+  const usesTurnOrder =
+    move.category !== 'Status' &&
+    (move.named('Payback') || attacker.hasAbility('Analytic'));
+  if (speedRatio || usesTurnOrder) {
+    const speeds = matchupSpeeds(attacker, defender, field);
+    // An order comparison stays valid when only the faster side is clipped
+    // and the slower side is below 999.
+    if (speedRatio || Math.min(speeds.attacker, speeds.defender) >= 999) {
+      for (const side of ['attacker', 'defender'] as const) {
+        if (speeds[side] > 999) {
+          throw new ChampionsInputError(
+            `${side}.spe: 스피드를 사용하는 데미지 계산에서 최종 스피드가 999를 초과합니다.`,
+          );
+        }
+      }
+    }
   }
 
   const result = calculateOneUse(attacker, defender, move, field);
