@@ -2,6 +2,11 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
+allowBuilds:
+  esbuild@0.18.20: true
+  esbuild@0.25.12: true
+  esbuild@0.28.2: true
+
 # Next.js 16.4 supports ESLint 10; these plugins still declare ESLint 9.
 # Remove each override when the plugin's peer metadata includes ESLint 10.
 overrides:
@@ -21,3 +26,6 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/utils@8.73.0'
   - '@typescript-eslint/visitor-keys@8.73.0'
   - typescript-eslint@8.73.0
+
+patchedDependencies:
+  '@smogon/calc@0.12.0': patches/@smogon__calc@0.12.0.patch

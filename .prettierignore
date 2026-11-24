@@ -3,3 +3,13 @@
 next-env.d.ts
 *.tsbuildinfo
 pnpm-lock.yaml
+
+# The catalog extractors control JSON formatting for byte-for-byte verification.
+packages/calculator/data/champions/pokemon.json
+packages/calculator/data/champions/moves.json
+packages/calculator/data/champions/abilities.json
+packages/calculator/data/champions/conditions.json
+packages/calculator/data/champions/names.ko.json
+packages/calculator/data/champions/fling-item-overrides.json
+packages/calculator/data/champions/parental-bond-exclusions.json
+packages/calculator/data/champions/species-aliases.json

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>챔피언스 배틀 계산기 · PC 시안</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="preview.js"></script>
+  </head>
+  <body>
+    <header class="mast">
+      <div class="mast-in">
+        <div class="brand">
+          <i class="ball" aria-hidden="true"></i>포켓몬 챔피언스
+        </div>
+        <span class="nav-current">배틀 계산기</span>
+        <div class="format">
+          <i aria-hidden="true"></i>싱글 배틀<span class="split"></span
+          ><b>Lv. 50</b>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="page-title">
+        <h1>배틀 계산기</h1>
+        <button id="reset" class="quiet">
+          <span aria-hidden="true">↺</span> 예시 세팅 복원
+        </button>
+      </div>
+      <div class="workspace">
+        <section class="own">
+          <div class="section-head"><h2>내 포켓몬</h2></div>
+          <div id="own"></div>
+        </section>
+        <section class="comparison">
+          <div class="section-head">
+            <h2>상대별 결과 <span id="count" class="count"></span></h2>
+            <button id="add" class="primary">
+              <b aria-hidden="true">＋</b> 상대 추가
+            </button>
+          </div>
+          <div id="opponents"></div>
+        </section>
+      </div>
+      <footer>
+        <span>PC 화면 시안 · 기본 세팅의 결과를 표시합니다.</span
+        ><span
+          >포켓몬 이미지 © Pokémon ·
+          <a
+            href="https://github.com/PokeAPI/sprites"
+            target="_blank"
+            rel="noreferrer"
+            >PokéAPI</a
+          ></span
+        >
+      </footer>
+    </main>
+    <dialog id="picker">
+      <form method="dialog" class="picker-head">
+        <h2 id="picker-title">포켓몬 선택</h2>
+        <button aria-label="닫기" class="close">×</button>
+      </form>
+      <input
+        type="search"
+        id="search"
+        aria-label="포켓몬 또는 폼 검색"
+        placeholder="포켓몬 또는 폼 검색"
+        autocomplete="off"
+      />
+      <div id="choices"></div>
+    </dialog>
+  </body>
+</html>

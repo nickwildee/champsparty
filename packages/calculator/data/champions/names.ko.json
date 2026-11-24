@@ -1,0 +1,2695 @@
+{
+  "schemaVersion": 1,
+  "championsCommit": "f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
+  "sources": {
+    "pokemonAndAbilities": {
+      "commit": "9e1baaaca1a537b17d91a1c34b2f7bcd5d3b7bb5",
+      "path": "packages/calculator/data/champions/smartnuo-comparison.json",
+      "pokemonField": "pokemonFormCatalog[].nameKo",
+      "abilityField": "abilityCatalog[].nameKo",
+      "pokemonListing": "https://smartnuo.com/api/pokemon",
+      "pokemonListingSha256": "bba669043536ef6a5e1a8298b3f4076c461e10515f326a9e70fb60882fb856d6",
+      "formReferences": {
+        "mimikyubusted": "https://www.pokemonstore.co.kr/pages/product/list.html?keyword=%EB%94%B0%EB%9D%BC%ED%81%90",
+        "polteageistantique": "https://pokemonkorea.co.kr/pokedex/view/1087",
+        "sinistchamasterpiece": "https://pokemonkorea.co.kr/pokedex?word=1013",
+        "vivillonfancy": "https://new.pokemonkorea.co.kr/?inc=event-bb-bb_page",
+        "vivillonpokeball": "https://vivillon-challenge.pokemon.co.jp/ko/"
+      }
+    },
+    "moves": {
+      "repository": "https://github.com/kwsch/PKHeX",
+      "commit": "fd1c538cc5e91cd7328f5048007f5f44bb78577c",
+      "path": "PKHeX.Core/Resources/text/other/ko/text_Moves_ko.txt",
+      "sha256": "00431074f8cda5994ae8e4364124c57ed7915e15ea51457d8cbe903913affbeb"
+    },
+    "moveCrossCheck": {
+      "url": "https://gamewith.ai/pokemon-champions/ko/moves",
+      "htmlSha256": "6b6cdfbe0d77dfc3949c3a3c23bddd49a13c4f0080b350ddf234e9d6dc1e2829"
+    }
+  },
+  "pokemon": {
+    "abomasnow": "눈설왕",
+    "abomasnowmega": "메가눈설왕",
+    "absol": "앱솔",
+    "absolmega": "메가앱솔",
+    "absolmegaz": "메가앱솔Z",
+    "aegislash": "킬가르도",
+    "aegislashblade": "킬가르도 (블레이드)",
+    "aerodactyl": "프테라",
+    "aerodactylmega": "메가프테라",
+    "aggron": "보스로라",
+    "aggronmega": "메가보스로라",
+    "alakazam": "후딘",
+    "alakazammega": "메가후딘",
+    "alcremie": "마휘핑",
+    "alcremiecaramelswirl": "마휘핑",
+    "alcremielemoncream": "마휘핑",
+    "alcremiematchacream": "마휘핑",
+    "alcremiemintcream": "마휘핑",
+    "alcremierainbowswirl": "마휘핑",
+    "alcremierubycream": "마휘핑",
+    "alcremierubyswirl": "마휘핑",
+    "altaria": "파비코리",
+    "altariamega": "메가파비코리",
+    "ampharos": "전룡",
+    "ampharosmega": "메가전룡",
+    "annihilape": "저승갓숭",
+    "appletun": "단지래플",
+    "araquanid": "깨비물거미",
+    "arbok": "아보크",
+    "arboliva": "올리르바",
+    "arcanine": "윈디",
+    "arcaninehisui": "윈디 (히스이)",
+    "archaludon": "브리두라스",
+    "ariados": "아리아도스",
+    "armarouge": "카디나르마",
+    "aromatisse": "프레프티르",
+    "audino": "다부니",
+    "audinomega": "메가다부니",
+    "aurorus": "아마루르가",
+    "avalugg": "크레베이스",
+    "avalugghisui": "크레베이스 (히스이)",
+    "azumarill": "마릴리",
+    "banette": "다크펫",
+    "banettemega": "메가다크펫",
+    "barbaracle": "거북손데스",
+    "barbaraclemega": "메가거북손데스",
+    "basculegion": "대쓰여너 ♂",
+    "basculegionf": "대쓰여너 ♀",
+    "bastiodon": "바리톱스",
+    "baxcalibur": "드닐레이브",
+    "baxcaliburmega": "메가드닐레이브",
+    "beartic": "툰베어",
+    "beedrill": "독침붕",
+    "beedrillmega": "메가독침붕",
+    "bellibolt": "찌리배리",
+    "blastoise": "거북왕",
+    "blastoisemega": "메가거북왕",
+    "blaziken": "번치코",
+    "blazikenmega": "메가번치코",
+    "camerupt": "폭타",
+    "cameruptmega": "메가폭타",
+    "castform": "캐스퐁",
+    "castformrainy": "캐스퐁 (빗방울)",
+    "castformsnowy": "캐스퐁 (설운)",
+    "castformsunny": "캐스퐁 (태양)",
+    "ceruledge": "파라블레이즈",
+    "chandelure": "샹델라",
+    "chandeluremega": "메가샹델라",
+    "charizard": "리자몽",
+    "charizardmegax": "메가리자몽X",
+    "charizardmegay": "메가리자몽Y",
+    "chesnaught": "브리가론",
+    "chesnaughtmega": "메가브리가론",
+    "chimecho": "치렁",
+    "chimechomega": "메가치렁",
+    "cinderace": "에이스번",
+    "clawitzer": "블로스터",
+    "clefable": "픽시",
+    "clefablemega": "메가픽시",
+    "cofagrigus": "데스니칸",
+    "conkeldurr": "노보청",
+    "corviknight": "아머까오",
+    "crabominable": "모단단게",
+    "crabominablemega": "메가모단단게",
+    "decidueye": "모크나이퍼",
+    "decidueyehisui": "모크나이퍼 (히스이)",
+    "dedenne": "데덴네",
+    "delphox": "마폭시",
+    "delphoxmega": "메가마폭시",
+    "diggersby": "파르토",
+    "ditto": "메타몽",
+    "dragalge": "드래캄",
+    "dragalgemega": "메가드래캄",
+    "dragapult": "드래펄트",
+    "dragonite": "망나뇽",
+    "dragonitemega": "메가망나뇽",
+    "drampa": "할비롱",
+    "drampamega": "메가할비롱",
+    "eelektross": "저리더프",
+    "eelektrossmega": "메가저리더프",
+    "emboar": "염무왕",
+    "emboarmega": "메가염무왕",
+    "emolga": "에몽가",
+    "empoleon": "엠페르트",
+    "espathra": "클레스퍼트라",
+    "espeon": "에브이",
+    "excadrill": "몰드류",
+    "excadrillmega": "메가몰드류",
+    "falinks": "대여르",
+    "falinksmega": "메가대여르",
+    "farfetchd": "파오리",
+    "farigiraf": "키키링",
+    "feraligatr": "장크로다일",
+    "feraligatrmega": "메가장크로다일",
+    "flapple": "애프룡",
+    "flareon": "부스터",
+    "floetteeternal": "플라엣테 (영원의꽃)",
+    "floettemega": "메가플라엣테",
+    "florges": "플라제스",
+    "forretress": "쏘콘",
+    "froslass": "눈여아",
+    "froslassmega": "메가눈여아",
+    "furfrou": "트리미앙",
+    "gallade": "엘레이드",
+    "gallademega": "메가엘레이드",
+    "garbodor": "더스트나",
+    "garchomp": "한카리아스",
+    "garchompmega": "메가한카리아스",
+    "garchompmegaz": "메가한카리아스Z",
+    "gardevoir": "가디안",
+    "gardevoirmega": "메가가디안",
+    "garganacl": "콜로솔트",
+    "gengar": "팬텀",
+    "gengarmega": "메가팬텀",
+    "gholdengo": "타부자고",
+    "glaceon": "글레이시아",
+    "glalie": "얼음귀신",
+    "glaliemega": "메가얼음귀신",
+    "glimmora": "킬라플로르",
+    "glimmoramega": "메가킬라플로르",
+    "gliscor": "글라이온",
+    "gogoat": "고고트",
+    "golisopod": "갑주무사",
+    "golisopodmega": "메가갑주무사",
+    "golurk": "골루그",
+    "golurkmega": "메가골루그",
+    "goodra": "미끄래곤",
+    "goodrahisui": "미끄래곤 (히스이)",
+    "gourgeist": "펌킨인",
+    "gourgeistlarge": "펌킨인 (대)",
+    "gourgeistsmall": "펌킨인 (소)",
+    "gourgeistsuper": "펌킨인 (특대)",
+    "grapploct": "케오퍼스",
+    "greninja": "개굴닌자",
+    "greninjamega": "메가개굴닌자",
+    "grimmsnarl": "오롱털",
+    "gyarados": "갸라도스",
+    "gyaradosmega": "메가갸라도스",
+    "hatterene": "브리무음",
+    "hawlucha": "루차불",
+    "hawluchamega": "메가루차불",
+    "heliolisk": "일레도리자드",
+    "heracross": "헤라크로스",
+    "heracrossmega": "메가헤라크로스",
+    "hippowdon": "하마돈",
+    "houndoom": "헬가",
+    "houndoommega": "메가헬가",
+    "houndstone": "묘두기",
+    "hydrapple": "과미드라",
+    "hydreigon": "삼삼드래",
+    "incineroar": "어흥염",
+    "indeedee": "에써르 ♂",
+    "indeedeef": "에써르 ♀",
+    "infernape": "초염몽",
+    "inteleon": "인텔리레온",
+    "jolteon": "쥬피썬더",
+    "kangaskhan": "캥카",
+    "kangaskhanmega": "메가캥카",
+    "kingambit": "대도각참",
+    "kleavor": "사마자르",
+    "klefki": "클레피",
+    "kommoo": "짜랑고우거",
+    "krookodile": "악비아르",
+    "leafeon": "리피아",
+    "liepard": "레파르다스",
+    "lopunny": "이어롭",
+    "lopunnymega": "메가이어롭",
+    "lucario": "루카리오",
+    "lucariomega": "메가루카리오",
+    "lucariomegaz": "메가루카리오Z",
+    "luxray": "렌트라",
+    "lycanroc": "루가루암 (한낮)",
+    "lycanrocdusk": "루가루암 (황혼)",
+    "lycanrocmidnight": "루가루암 (한밤중)",
+    "mabosstiff": "마피티프",
+    "machamp": "괴력몬",
+    "malamar": "칼라마네로",
+    "malamarmega": "메가칼라마네로",
+    "mamoswine": "맘모꾸리",
+    "manectric": "썬더볼트",
+    "manectricmega": "메가썬더볼트",
+    "maushold": "파밀리쥐",
+    "mausholdfour": "파밀리쥐",
+    "mawile": "입치트",
+    "mawilemega": "메가입치트",
+    "medicham": "요가램",
+    "medichammega": "메가요가램",
+    "meganium": "메가니움",
+    "meganiummega": "메가메가니움",
+    "meowscarada": "마스카나",
+    "meowstic": "냐오닉스 ♂",
+    "meowsticf": "냐오닉스 ♀",
+    "meowsticfmega": "메가냐오닉스 ♀",
+    "meowsticmmega": "메가냐오닉스 ♂",
+    "metagross": "메타그로스",
+    "metagrossmega": "메가메타그로스",
+    "milotic": "밀로틱",
+    "mimikyu": "따라큐",
+    "mimikyubusted": "따라큐(들킨 모습)",
+    "morpeko": "모르페코 (배부른)",
+    "morpekohangry": "모르페코 (배고픈)",
+    "mrmime": "마임맨",
+    "mrrime": "마임꽁꽁",
+    "mudsdale": "만마드",
+    "musharna": "몽얌나",
+    "ninetales": "나인테일",
+    "ninetalesalola": "나인테일 (알로라)",
+    "noivern": "음번",
+    "oranguru": "하랑우탄",
+    "orthworm": "꿈트렁",
+    "overqwil": "장침바루",
+    "palafin": "돌핀맨 (나이브)",
+    "palafinhero": "돌핀맨 (마이티)",
+    "pangoro": "부란다",
+    "passimian": "내던숭이",
+    "pawmot": "빠르모트",
+    "pelipper": "패리퍼",
+    "perrserker": "나이킹",
+    "persian": "페르시온",
+    "persianalola": "페르시온 (알로라)",
+    "pidgeot": "피죤투",
+    "pidgeotmega": "메가피죤투",
+    "pikachu": "피카츄",
+    "pincurchin": "찌르성게",
+    "pinsir": "쁘사이저",
+    "pinsirmega": "메가쁘사이저",
+    "politoed": "왕구리",
+    "polteageist": "포트데스",
+    "polteageistantique": "포트데스(진작폼)",
+    "primarina": "누리레느",
+    "pyroar": "화염레오",
+    "pyroarmega": "메가화염레오",
+    "quaquaval": "웨이니발",
+    "qwilfish": "침바루",
+    "raichu": "라이츄",
+    "raichualola": "라이츄 (알로라)",
+    "raichumegax": "메가라이츄X",
+    "raichumegay": "메가라이츄Y",
+    "rampardos": "램펄드",
+    "reuniclus": "란쿨루스",
+    "rhyperior": "거대코뿌리",
+    "rillaboom": "고릴타",
+    "roserade": "로즈레이드",
+    "rotom": "로토무",
+    "rotomfan": "로토무 (스핀)",
+    "rotomfrost": "로토무 (프로스트)",
+    "rotomheat": "로토무 (히트)",
+    "rotommow": "로토무 (커트)",
+    "rotomwash": "로토무 (워시)",
+    "runerigus": "데스판",
+    "sableye": "깜까미",
+    "sableyemega": "메가깜까미",
+    "salamence": "보만다",
+    "salamencemega": "메가보만다",
+    "salazzle": "염뉴트",
+    "samurott": "대검귀",
+    "samurotthisui": "대검귀 (히스이)",
+    "sandaconda": "사다이사",
+    "sceptile": "나무킹",
+    "sceptilemega": "메가나무킹",
+    "scizor": "핫삼",
+    "scizormega": "메가핫삼",
+    "scolipede": "펜드라",
+    "scolipedemega": "메가펜드라",
+    "scovillain": "스코빌런",
+    "scovillainmega": "메가스코빌런",
+    "scrafty": "곤율거니",
+    "scraftymega": "메가곤율거니",
+    "serperior": "샤로다",
+    "sharpedo": "샤크니아",
+    "sharpedomega": "메가샤크니아",
+    "simipour": "앗차키",
+    "simisage": "야나키",
+    "simisear": "바오키",
+    "sinistcha": "그우린차",
+    "sinistchamasterpiece": "그우린차(걸작의 모습)",
+    "sirfetchd": "창파나이트",
+    "skarmory": "무장조",
+    "skarmorymega": "메가무장조",
+    "skeledirge": "라우드본",
+    "slowbro": "야도란",
+    "slowbrogalar": "야도란 (가라르)",
+    "slowbromega": "메가야도란",
+    "slowking": "야도킹",
+    "slowkinggalar": "야도킹 (가라르)",
+    "slurpuff": "나루림",
+    "sneasler": "포푸니크",
+    "snorlax": "잠만보",
+    "spiritomb": "화강돌",
+    "squawkabilly": "시비꼬 (초록색)",
+    "squawkabillyblue": "시비꼬 (파란색)",
+    "squawkabillywhite": "시비꼬 (하얀색)",
+    "squawkabillyyellow": "시비꼬 (노란색)",
+    "staraptor": "찌르호크",
+    "staraptormega": "메가찌르호크",
+    "starmie": "아쿠스타",
+    "starmiemega": "메가아쿠스타",
+    "steelix": "강철톤",
+    "steelixmega": "메가강철톤",
+    "stunfisk": "메더",
+    "stunfiskgalar": "메더 (가라르)",
+    "swalot": "꿀꺽몬",
+    "swampert": "대짱이",
+    "swampertmega": "메가대짱이",
+    "sylveon": "님피아",
+    "talonflame": "파이어로",
+    "tauros": "켄타로스",
+    "taurospaldeaaqua": "켄타로스 (팔데아-워터)",
+    "taurospaldeablaze": "켄타로스 (팔데아-블레이즈)",
+    "taurospaldeacombat": "켄타로스 (팔데아-컴뱃)",
+    "thievul": "폭슬라이",
+    "tinkaton": "두드리짱",
+    "torkoal": "코터스",
+    "torterra": "토대부기",
+    "toucannon": "왕큰부리",
+    "toxapex": "더시마사리",
+    "toxicroak": "독개굴",
+    "toxtricity": "스트린더 (하이)",
+    "toxtricitylowkey": "스트린더 (로우)",
+    "trevenant": "대로트",
+    "tsareena": "달코퀸",
+    "typhlosion": "블레이범",
+    "typhlosionhisui": "블레이범 (히스이)",
+    "tyranitar": "마기라스",
+    "tyranitarmega": "메가마기라스",
+    "tyrantrum": "견고라스",
+    "umbreon": "블래키",
+    "vanilluxe": "배바닐라",
+    "vaporeon": "샤미드",
+    "venusaur": "이상해꽃",
+    "venusaurmega": "메가이상해꽃",
+    "victreebel": "우츠보트",
+    "victreebelmega": "메가우츠보트",
+    "vileplume": "라플레시아",
+    "vivillon": "비비용",
+    "vivillonarchipelago": "비비용",
+    "vivilloncontinental": "비비용",
+    "vivillonelegant": "비비용",
+    "vivillonfancy": "비비용(팬시한 모양)",
+    "vivillongarden": "비비용",
+    "vivillonhighplains": "비비용",
+    "vivillonicysnow": "비비용",
+    "vivillonjungle": "비비용",
+    "vivillonmarine": "비비용",
+    "vivillonmodern": "비비용",
+    "vivillonmonsoon": "비비용",
+    "vivillonocean": "비비용",
+    "vivillonpokeball": "비비용(볼의 모양)",
+    "vivillonpolar": "비비용",
+    "vivillonriver": "비비용",
+    "vivillonsandstorm": "비비용",
+    "vivillonsavanna": "비비용",
+    "vivillonsun": "비비용",
+    "vivillontundra": "비비용",
+    "volcarona": "불카모스",
+    "watchog": "보르그",
+    "weavile": "포푸니라",
+    "whimsicott": "엘풍",
+    "wigglytuff": "푸크린",
+    "wyrdeer": "신비록",
+    "zoroark": "조로아크",
+    "zoroarkhisui": "조로아크 (히스이)"
+  },
+  "abilities": {
+    "adaptability": "적응력",
+    "aerilate": "스카이스킨",
+    "aftermath": "유폭",
+    "analytic": "애널라이즈",
+    "angerpoint": "분노의경혈",
+    "anticipation": "위험예지",
+    "armortail": "테일아머",
+    "aromaveil": "아로마베일",
+    "auraguard": "파동의방호",
+    "battlearmor": "전투무장",
+    "battlebond": "유대변화",
+    "berserk": "발끈",
+    "bigpecks": "부풀린가슴",
+    "blaze": "맹화",
+    "bulletproof": "방탄",
+    "cheekpouch": "볼주머니",
+    "chlorophyll": "엽록소",
+    "clearbody": "클리어바디",
+    "cloudnine": "날씨부정",
+    "competitive": "승기",
+    "compoundeyes": "복안",
+    "contrary": "심술꾸러기",
+    "corrosion": "부식",
+    "cudchew": "되새김질",
+    "curiousmedicine": "기묘한약",
+    "cursedbody": "저주받은바디",
+    "cutecharm": "헤롱헤롱바디",
+    "damp": "습기",
+    "defiant": "오기",
+    "disguise": "탈",
+    "dragonize": "드래곤스킨",
+    "drizzle": "잔비",
+    "drought": "가뭄",
+    "dryskin": "건조피부",
+    "earlybird": "일찍기상",
+    "eartheater": "흙먹기",
+    "eelevate": "천정부지",
+    "effectspore": "포자",
+    "electricsurge": "일렉트릭메이커",
+    "electromorphosis": "전기로바꾸기",
+    "emergencyexit": "위기회피",
+    "fairyaura": "페어리오라",
+    "filter": "필터",
+    "firemane": "불꽃의갈기",
+    "flamebody": "불꽃몸",
+    "flashfire": "타오르는불꽃",
+    "flowerveil": "플라워베일",
+    "fluffy": "복슬복슬",
+    "forecast": "기분파",
+    "forewarn": "예지몽",
+    "friendguard": "프렌드가드",
+    "frisk": "통찰",
+    "furcoat": "퍼코트",
+    "galewings": "질풍날개",
+    "gluttony": "먹보",
+    "goodasgold": "황금몸",
+    "gooey": "미끈미끈",
+    "grasspelt": "풀모피",
+    "grassysurge": "그래스메이커",
+    "guarddog": "파수견",
+    "guts": "근성",
+    "harvest": "수확",
+    "healer": "치유의마음",
+    "heatproof": "내열",
+    "heavymetal": "헤비메탈",
+    "hospitality": "대접",
+    "hugepower": "천하장사",
+    "hungerswitch": "꼬르륵스위치",
+    "hustle": "의욕",
+    "hydration": "촉촉바디",
+    "hypercutter": "괴력집게",
+    "icebody": "아이스바디",
+    "illuminate": "발광",
+    "illusion": "일루전",
+    "immunity": "면역",
+    "imposter": "괴짜",
+    "infiltrator": "틈새포착",
+    "innardsout": "내용물분출",
+    "innerfocus": "정신력",
+    "insomnia": "불면",
+    "intimidate": "위협",
+    "ironfist": "철주먹",
+    "justified": "정의의마음",
+    "keeneye": "날카로운눈",
+    "klutz": "서투름",
+    "leafguard": "리프가드",
+    "levitate": "부유",
+    "libero": "리베로",
+    "lightmetal": "라이트메탈",
+    "lightningrod": "피뢰침",
+    "limber": "유연",
+    "liquidooze": "해감액",
+    "liquidvoice": "촉촉보이스",
+    "longreach": "원격",
+    "magicbounce": "매직미러",
+    "magicguard": "매직가드",
+    "magician": "매지션",
+    "magmaarmor": "마그마의무장",
+    "marvelscale": "이상한비늘",
+    "megalauncher": "메가런처",
+    "megasol": "메가솔라",
+    "merciless": "무도한행동",
+    "mimicry": "의태",
+    "minus": "마이너스",
+    "mirrorarmor": "미러아머",
+    "moldbreaker": "틀깨기",
+    "moody": "변덕쟁이",
+    "motordrive": "전기엔진",
+    "moxie": "자기과신",
+    "multiscale": "멀티스케일",
+    "mummy": "미라",
+    "naturalcure": "자연회복",
+    "noguard": "노가드",
+    "oblivious": "둔감",
+    "opportunist": "편승",
+    "overcoat": "방진",
+    "overgrow": "심록",
+    "owntempo": "마이페이스",
+    "parentalbond": "부자유친",
+    "pickpocket": "나쁜손버릇",
+    "pickup": "픽업",
+    "piercingdrill": "관통드릴",
+    "pixilate": "페어리스킨",
+    "plus": "플러스",
+    "poisonheal": "포이즌힐",
+    "poisonpoint": "독가시",
+    "poisontouch": "독수",
+    "prankster": "짓궂은마음",
+    "pressure": "프레셔",
+    "protean": "변환자재",
+    "psychicsurge": "사이코메이커",
+    "punkrock": "펑크록",
+    "purepower": "순수한힘",
+    "purifyingsalt": "정화의소금",
+    "queenlymajesty": "여왕의위엄",
+    "quickdraw": "퀵드로",
+    "quickfeet": "속보",
+    "raindish": "젖은접시",
+    "rattled": "주눅",
+    "receiver": "리시버",
+    "reckless": "이판사판",
+    "refrigerate": "프리즈스킨",
+    "regenerator": "재생력",
+    "ripen": "숙성",
+    "rivalry": "투쟁심",
+    "rockhead": "돌머리",
+    "roughskin": "까칠한피부",
+    "runaway": "도주",
+    "sandforce": "모래의힘",
+    "sandrush": "모래헤치기",
+    "sandspit": "모래뿜기",
+    "sandstream": "모래날림",
+    "sandveil": "모래숨기",
+    "sapsipper": "초식",
+    "scrappy": "배짱",
+    "screencleaner": "배리어프리",
+    "seedsower": "넘치는씨",
+    "shadowtag": "그림자밟기",
+    "sharpness": "예리함",
+    "shedskin": "탈피",
+    "sheerforce": "우격다짐",
+    "shellarmor": "조가비갑옷",
+    "shielddust": "인분",
+    "skilllink": "스킬링크",
+    "slushrush": "눈치우기",
+    "sniper": "스나이퍼",
+    "snowcloak": "눈숨기",
+    "snowwarning": "눈퍼뜨리기",
+    "solarpower": "선파워",
+    "solidrock": "하드록",
+    "soundproof": "방음",
+    "speedboost": "가속",
+    "spicyspray": "하바네로분출",
+    "stakeout": "잠복",
+    "stall": "시간벌기",
+    "stalwart": "굳건한신념",
+    "stamina": "지구력",
+    "stancechange": "배틀스위치",
+    "static": "정전기",
+    "steadfast": "불굴의마음",
+    "steelyspirit": "강철정신",
+    "stench": "악취",
+    "stickyhold": "점착",
+    "strongjaw": "옹골찬턱",
+    "sturdy": "옹골참",
+    "suctioncups": "흡반",
+    "superluck": "대운",
+    "supersweetsyrup": "감미로운꿀",
+    "supremeoverlord": "총대장",
+    "surgesurfer": "서핑테일",
+    "swarm": "벌레의알림",
+    "sweetveil": "스위트베일",
+    "swiftswim": "쓱쓱",
+    "symbiosis": "공생",
+    "synchronize": "싱크로",
+    "tangledfeet": "갈지자걸음",
+    "technician": "테크니션",
+    "telepathy": "텔레파시",
+    "thermalexchange": "열교환",
+    "thickfat": "두꺼운지방",
+    "torrent": "급류",
+    "toughclaws": "단단한발톱",
+    "toxicdebris": "독치장",
+    "trace": "트레이스",
+    "unaware": "천진",
+    "unburden": "곡예",
+    "unnerve": "긴장감",
+    "unseenfist": "보이지않는주먹",
+    "vitalspirit": "의기양양",
+    "voltabsorb": "축전",
+    "wanderingspirit": "떠도는영혼",
+    "waterabsorb": "저수",
+    "waterbubble": "수포",
+    "weakarmor": "깨어진갑옷",
+    "whitesmoke": "하얀연기",
+    "zerotohero": "마이티체인지"
+  },
+  "moves": {
+    "accelerock": {
+      "number": 709,
+      "name": "액셀록"
+    },
+    "acidarmor": {
+      "number": 151,
+      "name": "녹기"
+    },
+    "acidspray": {
+      "number": 491,
+      "name": "애시드봄"
+    },
+    "acrobatics": {
+      "number": 512,
+      "name": "애크러뱃"
+    },
+    "acupressure": {
+      "number": 367,
+      "name": "경혈찌르기"
+    },
+    "aerialace": {
+      "number": 332,
+      "name": "제비반환"
+    },
+    "afteryou": {
+      "number": 495,
+      "name": "당신먼저"
+    },
+    "agility": {
+      "number": 97,
+      "name": "고속이동"
+    },
+    "aircutter": {
+      "number": 314,
+      "name": "에어커터"
+    },
+    "airslash": {
+      "number": 403,
+      "name": "에어슬래시"
+    },
+    "alluringvoice": {
+      "number": 914,
+      "name": "매혹의보이스"
+    },
+    "allyswitch": {
+      "number": 502,
+      "name": "사이드체인지"
+    },
+    "amnesia": {
+      "number": 133,
+      "name": "망각술"
+    },
+    "ancientpower": {
+      "number": 246,
+      "name": "원시의힘"
+    },
+    "appleacid": {
+      "number": 787,
+      "name": "사과산"
+    },
+    "aquacutter": {
+      "number": 895,
+      "name": "아쿠아커터"
+    },
+    "aquajet": {
+      "number": 453,
+      "name": "아쿠아제트"
+    },
+    "aquaring": {
+      "number": 392,
+      "name": "아쿠아링"
+    },
+    "aquastep": {
+      "number": 872,
+      "name": "아쿠아스텝"
+    },
+    "aquatail": {
+      "number": 401,
+      "name": "아쿠아테일"
+    },
+    "armorcannon": {
+      "number": 890,
+      "name": "아머캐논"
+    },
+    "aromaticmist": {
+      "number": 597,
+      "name": "아로마미스트"
+    },
+    "assurance": {
+      "number": 372,
+      "name": "승부굳히기"
+    },
+    "attract": {
+      "number": 213,
+      "name": "헤롱헤롱"
+    },
+    "aurasphere": {
+      "number": 396,
+      "name": "파동탄"
+    },
+    "aurawheel": {
+      "number": 783,
+      "name": "오라휠"
+    },
+    "auroraveil": {
+      "number": 694,
+      "name": "오로라베일"
+    },
+    "avalanche": {
+      "number": 419,
+      "name": "눈사태"
+    },
+    "axekick": {
+      "number": 853,
+      "name": "발꿈치찍기"
+    },
+    "babydolleyes": {
+      "number": 608,
+      "name": "초롱초롱눈동자"
+    },
+    "banefulbunker": {
+      "number": 661,
+      "name": "토치카"
+    },
+    "barbbarrage": {
+      "number": 839,
+      "name": "독침천발"
+    },
+    "batonpass": {
+      "number": 226,
+      "name": "배턴터치"
+    },
+    "beakblast": {
+      "number": 690,
+      "name": "부리캐논"
+    },
+    "beatup": {
+      "number": 251,
+      "name": "집단구타"
+    },
+    "belch": {
+      "number": 562,
+      "name": "트림"
+    },
+    "bellydrum": {
+      "number": 187,
+      "name": "배북"
+    },
+    "bind": {
+      "number": 20,
+      "name": "조이기"
+    },
+    "bite": {
+      "number": 44,
+      "name": "물기"
+    },
+    "bitterblade": {
+      "number": 891,
+      "name": "원념의칼"
+    },
+    "bittermalice": {
+      "number": 841,
+      "name": "천추지한"
+    },
+    "blastburn": {
+      "number": 307,
+      "name": "블라스트번"
+    },
+    "blazekick": {
+      "number": 299,
+      "name": "블레이즈킥"
+    },
+    "blizzard": {
+      "number": 59,
+      "name": "눈보라"
+    },
+    "block": {
+      "number": 335,
+      "name": "블록"
+    },
+    "bodypress": {
+      "number": 776,
+      "name": "바디프레스"
+    },
+    "bodyslam": {
+      "number": 34,
+      "name": "누르기"
+    },
+    "bonerush": {
+      "number": 198,
+      "name": "본러시"
+    },
+    "boomburst": {
+      "number": 586,
+      "name": "폭음파"
+    },
+    "bounce": {
+      "number": 340,
+      "name": "뛰어오르기"
+    },
+    "bravebird": {
+      "number": 413,
+      "name": "브레이브버드"
+    },
+    "breakingswipe": {
+      "number": 784,
+      "name": "와이드브레이커"
+    },
+    "brickbreak": {
+      "number": 280,
+      "name": "깨트리기"
+    },
+    "brutalswing": {
+      "number": 693,
+      "name": "세차게휘두르기"
+    },
+    "bugbite": {
+      "number": 450,
+      "name": "벌레먹기"
+    },
+    "bugbuzz": {
+      "number": 405,
+      "name": "벌레의야단법석"
+    },
+    "bulkup": {
+      "number": 339,
+      "name": "벌크업"
+    },
+    "bulldoze": {
+      "number": 523,
+      "name": "땅고르기"
+    },
+    "bulletpunch": {
+      "number": 418,
+      "name": "불릿펀치"
+    },
+    "bulletseed": {
+      "number": 331,
+      "name": "씨기관총"
+    },
+    "burningjealousy": {
+      "number": 807,
+      "name": "질투의불꽃"
+    },
+    "burnup": {
+      "number": 682,
+      "name": "불사르기"
+    },
+    "calmmind": {
+      "number": 347,
+      "name": "명상"
+    },
+    "ceaselessedge": {
+      "number": 845,
+      "name": "비검천중파"
+    },
+    "charge": {
+      "number": 268,
+      "name": "충전"
+    },
+    "chargebeam": {
+      "number": 451,
+      "name": "차지빔"
+    },
+    "charm": {
+      "number": 204,
+      "name": "애교부리기"
+    },
+    "chillingwater": {
+      "number": 886,
+      "name": "찬물끼얹기"
+    },
+    "chillyreception": {
+      "number": 881,
+      "name": "썰렁개그"
+    },
+    "circlethrow": {
+      "number": 509,
+      "name": "배대뒤치기"
+    },
+    "clangingscales": {
+      "number": 691,
+      "name": "스케일노이즈"
+    },
+    "clangoroussoul": {
+      "number": 775,
+      "name": "소울비트"
+    },
+    "clearsmog": {
+      "number": 499,
+      "name": "클리어스모그"
+    },
+    "closecombat": {
+      "number": 370,
+      "name": "인파이트"
+    },
+    "coaching": {
+      "number": 811,
+      "name": "코칭"
+    },
+    "coil": {
+      "number": 489,
+      "name": "똬리틀기"
+    },
+    "comeuppance": {
+      "number": 894,
+      "name": "앙갚음"
+    },
+    "confuseray": {
+      "number": 109,
+      "name": "이상한빛"
+    },
+    "copycat": {
+      "number": 383,
+      "name": "흉내쟁이"
+    },
+    "corrosivegas": {
+      "number": 810,
+      "name": "부식가스"
+    },
+    "cosmicpower": {
+      "number": 322,
+      "name": "코스믹파워"
+    },
+    "cottonguard": {
+      "number": 538,
+      "name": "코튼가드"
+    },
+    "cottonspore": {
+      "number": 178,
+      "name": "목화포자"
+    },
+    "counter": {
+      "number": 68,
+      "name": "카운터"
+    },
+    "courtchange": {
+      "number": 756,
+      "name": "코트체인지"
+    },
+    "covet": {
+      "number": 343,
+      "name": "탐내기"
+    },
+    "crabhammer": {
+      "number": 152,
+      "name": "집게해머"
+    },
+    "crosschop": {
+      "number": 238,
+      "name": "크로스촙"
+    },
+    "crosspoison": {
+      "number": 440,
+      "name": "크로스포이즌"
+    },
+    "crunch": {
+      "number": 242,
+      "name": "깨물어부수기"
+    },
+    "crushclaw": {
+      "number": 306,
+      "name": "브레이크클로"
+    },
+    "curse": {
+      "number": 174,
+      "name": "저주"
+    },
+    "darkestlariat": {
+      "number": 663,
+      "name": "DD래리어트"
+    },
+    "darkpulse": {
+      "number": 399,
+      "name": "악의파동"
+    },
+    "dazzlinggleam": {
+      "number": 605,
+      "name": "매지컬샤인"
+    },
+    "decorate": {
+      "number": 777,
+      "name": "데코레이션"
+    },
+    "defog": {
+      "number": 432,
+      "name": "안개제거"
+    },
+    "destinybond": {
+      "number": 194,
+      "name": "길동무"
+    },
+    "detect": {
+      "number": 197,
+      "name": "판별"
+    },
+    "dig": {
+      "number": 91,
+      "name": "구멍파기"
+    },
+    "direclaw": {
+      "number": 827,
+      "name": "페이탈클로"
+    },
+    "disable": {
+      "number": 50,
+      "name": "사슬묶기"
+    },
+    "discharge": {
+      "number": 435,
+      "name": "방전"
+    },
+    "dive": {
+      "number": 291,
+      "name": "다이빙"
+    },
+    "doubleedge": {
+      "number": 38,
+      "name": "이판사판태클"
+    },
+    "doublehit": {
+      "number": 458,
+      "name": "더블어택"
+    },
+    "doubleshock": {
+      "number": 892,
+      "name": "전광쌍격"
+    },
+    "doubleteam": {
+      "number": 104,
+      "name": "그림자분신"
+    },
+    "dracometeor": {
+      "number": 434,
+      "name": "용성군"
+    },
+    "dragoncheer": {
+      "number": 913,
+      "name": "드래곤옐"
+    },
+    "dragonclaw": {
+      "number": 337,
+      "name": "드래곤클로"
+    },
+    "dragondance": {
+      "number": 349,
+      "name": "용의춤"
+    },
+    "dragondarts": {
+      "number": 751,
+      "name": "드래곤애로"
+    },
+    "dragonpulse": {
+      "number": 406,
+      "name": "용의파동"
+    },
+    "dragonrush": {
+      "number": 407,
+      "name": "드래곤다이브"
+    },
+    "dragontail": {
+      "number": 525,
+      "name": "드래곤테일"
+    },
+    "drainingkiss": {
+      "number": 577,
+      "name": "드레인키스"
+    },
+    "drainpunch": {
+      "number": 409,
+      "name": "드레인펀치"
+    },
+    "drillpeck": {
+      "number": 65,
+      "name": "회전부리"
+    },
+    "drillrun": {
+      "number": 529,
+      "name": "드릴라이너"
+    },
+    "drumbeating": {
+      "number": 778,
+      "name": "드럼어택"
+    },
+    "dualwingbeat": {
+      "number": 814,
+      "name": "더블윙"
+    },
+    "dynamicpunch": {
+      "number": 223,
+      "name": "폭발펀치"
+    },
+    "earthpower": {
+      "number": 414,
+      "name": "대지의힘"
+    },
+    "earthquake": {
+      "number": 89,
+      "name": "지진"
+    },
+    "eerieimpulse": {
+      "number": 598,
+      "name": "괴전파"
+    },
+    "eeriespell": {
+      "number": 826,
+      "name": "섬뜩한주문"
+    },
+    "electricterrain": {
+      "number": 604,
+      "name": "일렉트릭필드"
+    },
+    "electrify": {
+      "number": 582,
+      "name": "송전"
+    },
+    "electroball": {
+      "number": 486,
+      "name": "일렉트릭볼"
+    },
+    "electroshot": {
+      "number": 905,
+      "name": "일렉트로빔"
+    },
+    "electroweb": {
+      "number": 527,
+      "name": "일렉트릭네트"
+    },
+    "encore": {
+      "number": 227,
+      "name": "앙코르"
+    },
+    "endeavor": {
+      "number": 283,
+      "name": "죽기살기"
+    },
+    "endure": {
+      "number": 203,
+      "name": "버티기"
+    },
+    "energyball": {
+      "number": 412,
+      "name": "에너지볼"
+    },
+    "entrainment": {
+      "number": 494,
+      "name": "동료만들기"
+    },
+    "eruption": {
+      "number": 284,
+      "name": "분화"
+    },
+    "expandingforce": {
+      "number": 797,
+      "name": "와이드포스"
+    },
+    "explosion": {
+      "number": 153,
+      "name": "대폭발"
+    },
+    "extrasensory": {
+      "number": 326,
+      "name": "신통력"
+    },
+    "extremespeed": {
+      "number": 245,
+      "name": "신속"
+    },
+    "facade": {
+      "number": 263,
+      "name": "객기"
+    },
+    "fairylock": {
+      "number": 587,
+      "name": "페어리록"
+    },
+    "fakeout": {
+      "number": 252,
+      "name": "속이기"
+    },
+    "faketears": {
+      "number": 313,
+      "name": "거짓울음"
+    },
+    "featherdance": {
+      "number": 297,
+      "name": "깃털댄스"
+    },
+    "feint": {
+      "number": 364,
+      "name": "페인트"
+    },
+    "fellstinger": {
+      "number": 565,
+      "name": "마지막일침"
+    },
+    "ficklebeam": {
+      "number": 907,
+      "name": "변덕레이저"
+    },
+    "fierydance": {
+      "number": 552,
+      "name": "불꽃춤"
+    },
+    "finalgambit": {
+      "number": 515,
+      "name": "목숨걸기"
+    },
+    "fireblast": {
+      "number": 126,
+      "name": "불대문자"
+    },
+    "firefang": {
+      "number": 424,
+      "name": "불꽃엄니"
+    },
+    "firelash": {
+      "number": 680,
+      "name": "불꽃채찍"
+    },
+    "firepunch": {
+      "number": 7,
+      "name": "불꽃펀치"
+    },
+    "firespin": {
+      "number": 83,
+      "name": "회오리불꽃"
+    },
+    "firstimpression": {
+      "number": 660,
+      "name": "만나자마자"
+    },
+    "fissure": {
+      "number": 90,
+      "name": "땅가르기"
+    },
+    "flail": {
+      "number": 175,
+      "name": "바둥바둥"
+    },
+    "flamecharge": {
+      "number": 488,
+      "name": "니트로차지"
+    },
+    "flamethrower": {
+      "number": 53,
+      "name": "화염방사"
+    },
+    "flareblitz": {
+      "number": 394,
+      "name": "플레어드라이브"
+    },
+    "flashcannon": {
+      "number": 430,
+      "name": "러스터캐논"
+    },
+    "flatter": {
+      "number": 260,
+      "name": "부추기기"
+    },
+    "fling": {
+      "number": 374,
+      "name": "내던지기"
+    },
+    "flipturn": {
+      "number": 812,
+      "name": "퀵턴"
+    },
+    "flowertrick": {
+      "number": 870,
+      "name": "트릭플라워"
+    },
+    "fly": {
+      "number": 19,
+      "name": "공중날기"
+    },
+    "flyingpress": {
+      "number": 560,
+      "name": "플라잉프레스"
+    },
+    "focusblast": {
+      "number": 411,
+      "name": "기합구슬"
+    },
+    "focusenergy": {
+      "number": 116,
+      "name": "기충전"
+    },
+    "focuspunch": {
+      "number": 264,
+      "name": "힘껏펀치"
+    },
+    "followme": {
+      "number": 266,
+      "name": "날따름"
+    },
+    "forestscurse": {
+      "number": 571,
+      "name": "숲의저주"
+    },
+    "foulplay": {
+      "number": 492,
+      "name": "속임수"
+    },
+    "freezedry": {
+      "number": 573,
+      "name": "프리즈드라이"
+    },
+    "frenzyplant": {
+      "number": 338,
+      "name": "하드플랜트"
+    },
+    "frostbreath": {
+      "number": 524,
+      "name": "얼음숨결"
+    },
+    "futuresight": {
+      "number": 248,
+      "name": "미래예지"
+    },
+    "gastroacid": {
+      "number": 380,
+      "name": "위액"
+    },
+    "gigadrain": {
+      "number": 202,
+      "name": "기가드레인"
+    },
+    "gigaimpact": {
+      "number": 416,
+      "name": "기가임팩트"
+    },
+    "gigatonhammer": {
+      "number": 893,
+      "name": "거대해머"
+    },
+    "glaiverush": {
+      "number": 862,
+      "name": "대검돌격"
+    },
+    "glare": {
+      "number": 137,
+      "name": "뱀눈초리"
+    },
+    "grassknot": {
+      "number": 447,
+      "name": "풀묶기"
+    },
+    "grassyglide": {
+      "number": 803,
+      "name": "그래스슬라이더"
+    },
+    "grassyterrain": {
+      "number": 580,
+      "name": "그래스필드"
+    },
+    "gravapple": {
+      "number": 788,
+      "name": "G의힘"
+    },
+    "gravity": {
+      "number": 356,
+      "name": "중력"
+    },
+    "growth": {
+      "number": 74,
+      "name": "성장"
+    },
+    "guardsplit": {
+      "number": 470,
+      "name": "가드셰어"
+    },
+    "guardswap": {
+      "number": 385,
+      "name": "가드스왑"
+    },
+    "guillotine": {
+      "number": 12,
+      "name": "가위자르기"
+    },
+    "gunkshot": {
+      "number": 441,
+      "name": "더스트슈트"
+    },
+    "gyroball": {
+      "number": 360,
+      "name": "자이로볼"
+    },
+    "hammerarm": {
+      "number": 359,
+      "name": "암해머"
+    },
+    "hardpress": {
+      "number": 912,
+      "name": "하드프레스"
+    },
+    "haze": {
+      "number": 114,
+      "name": "흑안개"
+    },
+    "headlongrush": {
+      "number": 838,
+      "name": "들이받기"
+    },
+    "headsmash": {
+      "number": 457,
+      "name": "양날박치기"
+    },
+    "healbell": {
+      "number": 215,
+      "name": "치료방울"
+    },
+    "healingwish": {
+      "number": 361,
+      "name": "치유소원"
+    },
+    "healpulse": {
+      "number": 505,
+      "name": "치유파동"
+    },
+    "heatcrash": {
+      "number": 535,
+      "name": "히트스탬프"
+    },
+    "heatwave": {
+      "number": 257,
+      "name": "열풍"
+    },
+    "heavyslam": {
+      "number": 484,
+      "name": "헤비봄버"
+    },
+    "helpinghand": {
+      "number": 270,
+      "name": "도우미"
+    },
+    "hex": {
+      "number": 506,
+      "name": "병상첨병"
+    },
+    "highhorsepower": {
+      "number": 667,
+      "name": "10만마력"
+    },
+    "highjumpkick": {
+      "number": 136,
+      "name": "무릎차기"
+    },
+    "horndrill": {
+      "number": 32,
+      "name": "뿔드릴"
+    },
+    "hornleech": {
+      "number": 532,
+      "name": "우드혼"
+    },
+    "howl": {
+      "number": 336,
+      "name": "멀리짖기"
+    },
+    "hurricane": {
+      "number": 542,
+      "name": "폭풍"
+    },
+    "hydrocannon": {
+      "number": 308,
+      "name": "하이드로캐논"
+    },
+    "hydropump": {
+      "number": 56,
+      "name": "하이드로펌프"
+    },
+    "hyperbeam": {
+      "number": 63,
+      "name": "파괴광선"
+    },
+    "hypervoice": {
+      "number": 304,
+      "name": "하이퍼보이스"
+    },
+    "hypnosis": {
+      "number": 95,
+      "name": "최면술"
+    },
+    "icebeam": {
+      "number": 58,
+      "name": "냉동빔"
+    },
+    "icefang": {
+      "number": 423,
+      "name": "얼음엄니"
+    },
+    "icehammer": {
+      "number": 665,
+      "name": "아이스해머"
+    },
+    "icepunch": {
+      "number": 8,
+      "name": "냉동펀치"
+    },
+    "iceshard": {
+      "number": 420,
+      "name": "얼음뭉치"
+    },
+    "icespinner": {
+      "number": 861,
+      "name": "아이스스피너"
+    },
+    "iciclecrash": {
+      "number": 556,
+      "name": "고드름떨구기"
+    },
+    "iciclespear": {
+      "number": 333,
+      "name": "고드름침"
+    },
+    "icywind": {
+      "number": 196,
+      "name": "얼어붙은바람"
+    },
+    "imprison": {
+      "number": 286,
+      "name": "봉인"
+    },
+    "infernalparade": {
+      "number": 844,
+      "name": "백귀야행"
+    },
+    "inferno": {
+      "number": 517,
+      "name": "연옥"
+    },
+    "infestation": {
+      "number": 611,
+      "name": "엉겨붙기"
+    },
+    "ingrain": {
+      "number": 275,
+      "name": "뿌리박기"
+    },
+    "instruct": {
+      "number": 689,
+      "name": "지휘"
+    },
+    "irondefense": {
+      "number": 334,
+      "name": "철벽"
+    },
+    "ironhead": {
+      "number": 442,
+      "name": "아이언헤드"
+    },
+    "irontail": {
+      "number": 231,
+      "name": "아이언테일"
+    },
+    "jawlock": {
+      "number": 746,
+      "name": "물고버티기"
+    },
+    "jetpunch": {
+      "number": 857,
+      "name": "제트펀치"
+    },
+    "kingsshield": {
+      "number": 588,
+      "name": "킹실드"
+    },
+    "knockoff": {
+      "number": 282,
+      "name": "탁쳐서떨구기"
+    },
+    "kowtowcleave": {
+      "number": 869,
+      "name": "도각참"
+    },
+    "lashout": {
+      "number": 808,
+      "name": "분풀이"
+    },
+    "lastresort": {
+      "number": 387,
+      "name": "비장의무기"
+    },
+    "lastrespects": {
+      "number": 854,
+      "name": "성묘"
+    },
+    "lavaplume": {
+      "number": 436,
+      "name": "분연"
+    },
+    "leafblade": {
+      "number": 348,
+      "name": "리프블레이드"
+    },
+    "leafstorm": {
+      "number": 437,
+      "name": "리프스톰"
+    },
+    "leechlife": {
+      "number": 141,
+      "name": "흡혈"
+    },
+    "leechseed": {
+      "number": 73,
+      "name": "씨뿌리기"
+    },
+    "lifedew": {
+      "number": 791,
+      "name": "생명의물방울"
+    },
+    "lightofruin": {
+      "number": 617,
+      "name": "파멸의빛"
+    },
+    "lightscreen": {
+      "number": 113,
+      "name": "빛의장막"
+    },
+    "liquidation": {
+      "number": 710,
+      "name": "아쿠아브레이크"
+    },
+    "lockon": {
+      "number": 199,
+      "name": "록온"
+    },
+    "lowkick": {
+      "number": 67,
+      "name": "안다리걸기"
+    },
+    "lowsweep": {
+      "number": 490,
+      "name": "로킥"
+    },
+    "luminacrash": {
+      "number": 855,
+      "name": "루미나콜리전"
+    },
+    "lunge": {
+      "number": 679,
+      "name": "덤벼들기"
+    },
+    "machpunch": {
+      "number": 183,
+      "name": "마하펀치"
+    },
+    "magicpowder": {
+      "number": 750,
+      "name": "마법가루"
+    },
+    "magicroom": {
+      "number": 478,
+      "name": "매직룸"
+    },
+    "magneticflux": {
+      "number": 602,
+      "name": "자기장조작"
+    },
+    "magnetrise": {
+      "number": 393,
+      "name": "전자부유"
+    },
+    "makeitrain": {
+      "number": 874,
+      "name": "골드러시"
+    },
+    "matchagotcha": {
+      "number": 902,
+      "name": "휘적휘적포"
+    },
+    "meanlook": {
+      "number": 212,
+      "name": "검은눈빛"
+    },
+    "megahorn": {
+      "number": 224,
+      "name": "메가혼"
+    },
+    "megakick": {
+      "number": 25,
+      "name": "메가톤킥"
+    },
+    "memento": {
+      "number": 262,
+      "name": "추억의선물"
+    },
+    "metalburst": {
+      "number": 368,
+      "name": "메탈버스트"
+    },
+    "metalsound": {
+      "number": 319,
+      "name": "금속음"
+    },
+    "meteorassault": {
+      "number": 794,
+      "name": "스타어설트"
+    },
+    "meteorbeam": {
+      "number": 800,
+      "name": "메테오빔"
+    },
+    "meteormash": {
+      "number": 309,
+      "name": "코멧펀치"
+    },
+    "milkdrink": {
+      "number": 208,
+      "name": "우유마시기"
+    },
+    "minimize": {
+      "number": 107,
+      "name": "작아지기"
+    },
+    "mirrorcoat": {
+      "number": 243,
+      "name": "미러코트"
+    },
+    "mistyexplosion": {
+      "number": 802,
+      "name": "미스트버스트"
+    },
+    "mistyterrain": {
+      "number": 581,
+      "name": "미스트필드"
+    },
+    "moonblast": {
+      "number": 585,
+      "name": "문포스"
+    },
+    "moonlight": {
+      "number": 236,
+      "name": "달빛"
+    },
+    "morningsun": {
+      "number": 234,
+      "name": "아침햇살"
+    },
+    "mortalspin": {
+      "number": 866,
+      "name": "킬러스핀"
+    },
+    "mountaingale": {
+      "number": 836,
+      "name": "빙산바람"
+    },
+    "muddywater": {
+      "number": 330,
+      "name": "탁류"
+    },
+    "mudshot": {
+      "number": 341,
+      "name": "머드샷"
+    },
+    "mudslap": {
+      "number": 189,
+      "name": "진흙뿌리기"
+    },
+    "mysticalfire": {
+      "number": 595,
+      "name": "매지컬플레임"
+    },
+    "nastyplot": {
+      "number": 417,
+      "name": "나쁜음모"
+    },
+    "nightdaze": {
+      "number": 539,
+      "name": "나이트버스트"
+    },
+    "nightshade": {
+      "number": 101,
+      "name": "나이트헤드"
+    },
+    "nightslash": {
+      "number": 400,
+      "name": "깜짝베기"
+    },
+    "nobleroar": {
+      "number": 568,
+      "name": "부르짖기"
+    },
+    "noretreat": {
+      "number": 748,
+      "name": "배수의진"
+    },
+    "nuzzle": {
+      "number": 609,
+      "name": "볼부비부비"
+    },
+    "octolock": {
+      "number": 753,
+      "name": "문어굳히기"
+    },
+    "outrage": {
+      "number": 200,
+      "name": "역린"
+    },
+    "overdrive": {
+      "number": 786,
+      "name": "오버드라이브"
+    },
+    "overheat": {
+      "number": 315,
+      "name": "오버히트"
+    },
+    "painsplit": {
+      "number": 220,
+      "name": "아픔나누기"
+    },
+    "paraboliccharge": {
+      "number": 570,
+      "name": "파라볼라차지"
+    },
+    "partingshot": {
+      "number": 575,
+      "name": "막말내뱉기"
+    },
+    "payback": {
+      "number": 371,
+      "name": "보복"
+    },
+    "perishsong": {
+      "number": 195,
+      "name": "멸망의노래"
+    },
+    "petalblizzard": {
+      "number": 572,
+      "name": "꽃보라"
+    },
+    "petaldance": {
+      "number": 80,
+      "name": "꽃잎댄스"
+    },
+    "phantomforce": {
+      "number": 566,
+      "name": "고스트다이브"
+    },
+    "pinmissile": {
+      "number": 42,
+      "name": "바늘미사일"
+    },
+    "playrough": {
+      "number": 583,
+      "name": "치근거리기"
+    },
+    "pluck": {
+      "number": 365,
+      "name": "쪼아대기"
+    },
+    "poisonfang": {
+      "number": 305,
+      "name": "맹독엄니"
+    },
+    "poisonjab": {
+      "number": 398,
+      "name": "독찌르기"
+    },
+    "poisonpowder": {
+      "number": 77,
+      "name": "독가루"
+    },
+    "pollenpuff": {
+      "number": 676,
+      "name": "꽃가루경단"
+    },
+    "poltergeist": {
+      "number": 809,
+      "name": "폴터가이스트"
+    },
+    "populationbomb": {
+      "number": 860,
+      "name": "찍찍베기"
+    },
+    "pounce": {
+      "number": 884,
+      "name": "달려들기"
+    },
+    "pound": {
+      "number": 1,
+      "name": "막치기"
+    },
+    "powergem": {
+      "number": 408,
+      "name": "파워젬"
+    },
+    "powershift": {
+      "number": 829,
+      "name": "파워시프트"
+    },
+    "powersplit": {
+      "number": 471,
+      "name": "파워셰어"
+    },
+    "powerswap": {
+      "number": 384,
+      "name": "파워스왑"
+    },
+    "powertrick": {
+      "number": 379,
+      "name": "파워트릭"
+    },
+    "powertrip": {
+      "number": 681,
+      "name": "기어오르기"
+    },
+    "powerwhip": {
+      "number": 438,
+      "name": "파워휩"
+    },
+    "protect": {
+      "number": 182,
+      "name": "방어"
+    },
+    "psychic": {
+      "number": 94,
+      "name": "사이코키네시스"
+    },
+    "psychicfangs": {
+      "number": 706,
+      "name": "사이코팽"
+    },
+    "psychicnoise": {
+      "number": 917,
+      "name": "사이코노이즈"
+    },
+    "psychicterrain": {
+      "number": 678,
+      "name": "사이코필드"
+    },
+    "psychocut": {
+      "number": 427,
+      "name": "사이코커터"
+    },
+    "psychup": {
+      "number": 244,
+      "name": "자기암시"
+    },
+    "psyshieldbash": {
+      "number": 828,
+      "name": "배리어러시"
+    },
+    "psyshock": {
+      "number": 473,
+      "name": "사이코쇼크"
+    },
+    "pyroball": {
+      "number": 780,
+      "name": "화염볼"
+    },
+    "quash": {
+      "number": 511,
+      "name": "순서미루기"
+    },
+    "quickattack": {
+      "number": 98,
+      "name": "전광석화"
+    },
+    "quickguard": {
+      "number": 501,
+      "name": "패스트가드"
+    },
+    "quiverdance": {
+      "number": 483,
+      "name": "나비춤"
+    },
+    "ragefist": {
+      "number": 889,
+      "name": "분노의주먹"
+    },
+    "ragepowder": {
+      "number": 476,
+      "name": "분노가루"
+    },
+    "ragingbull": {
+      "number": 873,
+      "name": "레이징불"
+    },
+    "ragingfury": {
+      "number": 833,
+      "name": "대격분"
+    },
+    "raindance": {
+      "number": 240,
+      "name": "비바라기"
+    },
+    "rapidspin": {
+      "number": 229,
+      "name": "고속스핀"
+    },
+    "razorshell": {
+      "number": 534,
+      "name": "셸블레이드"
+    },
+    "recover": {
+      "number": 105,
+      "name": "HP회복"
+    },
+    "recycle": {
+      "number": 278,
+      "name": "리사이클"
+    },
+    "reflect": {
+      "number": 115,
+      "name": "리플렉터"
+    },
+    "reflecttype": {
+      "number": 513,
+      "name": "미러타입"
+    },
+    "rest": {
+      "number": 156,
+      "name": "잠자기"
+    },
+    "reversal": {
+      "number": 179,
+      "name": "기사회생"
+    },
+    "revivalblessing": {
+      "number": 863,
+      "name": "회생의기도"
+    },
+    "risingvoltage": {
+      "number": 804,
+      "name": "라이징볼트"
+    },
+    "roar": {
+      "number": 46,
+      "name": "울부짖기"
+    },
+    "rockblast": {
+      "number": 350,
+      "name": "록블라스트"
+    },
+    "rockpolish": {
+      "number": 397,
+      "name": "록커트"
+    },
+    "rockslide": {
+      "number": 157,
+      "name": "스톤샤워"
+    },
+    "rocktomb": {
+      "number": 317,
+      "name": "암석봉인"
+    },
+    "rockwrecker": {
+      "number": 439,
+      "name": "암석포"
+    },
+    "roleplay": {
+      "number": 272,
+      "name": "역할"
+    },
+    "roost": {
+      "number": 355,
+      "name": "날개쉬기"
+    },
+    "round": {
+      "number": 496,
+      "name": "돌림노래"
+    },
+    "sacredsword": {
+      "number": 533,
+      "name": "성스러운칼"
+    },
+    "safeguard": {
+      "number": 219,
+      "name": "신비의부적"
+    },
+    "saltcure": {
+      "number": 864,
+      "name": "소금절이"
+    },
+    "sandstorm": {
+      "number": 201,
+      "name": "모래바람"
+    },
+    "sandtomb": {
+      "number": 328,
+      "name": "모래지옥"
+    },
+    "scald": {
+      "number": 503,
+      "name": "열탕"
+    },
+    "scaleshot": {
+      "number": 799,
+      "name": "스케일샷"
+    },
+    "scaryface": {
+      "number": 184,
+      "name": "겁나는얼굴"
+    },
+    "scorchingsands": {
+      "number": 815,
+      "name": "열사의대지"
+    },
+    "screech": {
+      "number": 103,
+      "name": "싫은소리"
+    },
+    "seedbomb": {
+      "number": 402,
+      "name": "씨폭탄"
+    },
+    "seismictoss": {
+      "number": 69,
+      "name": "지구던지기"
+    },
+    "selfdestruct": {
+      "number": 120,
+      "name": "자폭"
+    },
+    "shadowball": {
+      "number": 247,
+      "name": "섀도볼"
+    },
+    "shadowclaw": {
+      "number": 421,
+      "name": "섀도클로"
+    },
+    "shadowpunch": {
+      "number": 325,
+      "name": "섀도펀치"
+    },
+    "shadowsneak": {
+      "number": 425,
+      "name": "야습"
+    },
+    "shedtail": {
+      "number": 880,
+      "name": "꼬리자르기"
+    },
+    "sheercold": {
+      "number": 329,
+      "name": "절대영도"
+    },
+    "shellsidearm": {
+      "number": 801,
+      "name": "셸암즈"
+    },
+    "shellsmash": {
+      "number": 504,
+      "name": "껍질깨기"
+    },
+    "shelter": {
+      "number": 842,
+      "name": "농성"
+    },
+    "shiftgear": {
+      "number": 508,
+      "name": "기어체인지"
+    },
+    "simplebeam": {
+      "number": 493,
+      "name": "심플빔"
+    },
+    "sing": {
+      "number": 47,
+      "name": "노래하기"
+    },
+    "skillswap": {
+      "number": 285,
+      "name": "스킬스왑"
+    },
+    "skittersmack": {
+      "number": 806,
+      "name": "엄습하는일격"
+    },
+    "skyattack": {
+      "number": 143,
+      "name": "불새"
+    },
+    "slackoff": {
+      "number": 303,
+      "name": "게으름피우기"
+    },
+    "slash": {
+      "number": 163,
+      "name": "베어가르기"
+    },
+    "sleeppowder": {
+      "number": 79,
+      "name": "수면가루"
+    },
+    "sleeptalk": {
+      "number": 214,
+      "name": "잠꼬대"
+    },
+    "sludgebomb": {
+      "number": 188,
+      "name": "오물폭탄"
+    },
+    "sludgewave": {
+      "number": 482,
+      "name": "오물웨이브"
+    },
+    "smackdown": {
+      "number": 479,
+      "name": "떨어뜨리기"
+    },
+    "smartstrike": {
+      "number": 684,
+      "name": "스마트혼"
+    },
+    "snaptrap": {
+      "number": 779,
+      "name": "집게덫"
+    },
+    "snarl": {
+      "number": 555,
+      "name": "바크아웃"
+    },
+    "snipeshot": {
+      "number": 745,
+      "name": "노려맞히기"
+    },
+    "snore": {
+      "number": 173,
+      "name": "코골기"
+    },
+    "snowscape": {
+      "number": 883,
+      "name": "설경"
+    },
+    "soak": {
+      "number": 487,
+      "name": "물붓기"
+    },
+    "softboiled": {
+      "number": 135,
+      "name": "알낳기"
+    },
+    "solarbeam": {
+      "number": 76,
+      "name": "솔라빔"
+    },
+    "solarblade": {
+      "number": 669,
+      "name": "솔라블레이드"
+    },
+    "sparklingaria": {
+      "number": 664,
+      "name": "물거품아리아"
+    },
+    "speedswap": {
+      "number": 683,
+      "name": "스피드스왑"
+    },
+    "spicyextract": {
+      "number": 858,
+      "name": "하바네로엑기스"
+    },
+    "spikes": {
+      "number": 191,
+      "name": "압정뿌리기"
+    },
+    "spikyshield": {
+      "number": 596,
+      "name": "니들가드"
+    },
+    "spiritbreak": {
+      "number": 789,
+      "name": "소울크래시"
+    },
+    "spiritshackle": {
+      "number": 662,
+      "name": "그림자꿰매기"
+    },
+    "spite": {
+      "number": 180,
+      "name": "원한"
+    },
+    "spitup": {
+      "number": 255,
+      "name": "토해내기"
+    },
+    "spore": {
+      "number": 147,
+      "name": "버섯포자"
+    },
+    "stealthrock": {
+      "number": 446,
+      "name": "스텔스록"
+    },
+    "steelbeam": {
+      "number": 796,
+      "name": "철제광선"
+    },
+    "steelroller": {
+      "number": 798,
+      "name": "아이언롤러"
+    },
+    "steelwing": {
+      "number": 211,
+      "name": "강철날개"
+    },
+    "stickyweb": {
+      "number": 564,
+      "name": "끈적끈적네트"
+    },
+    "stockpile": {
+      "number": 254,
+      "name": "비축하기"
+    },
+    "stompingtantrum": {
+      "number": 707,
+      "name": "분함의발구르기"
+    },
+    "stoneaxe": {
+      "number": 830,
+      "name": "암석액스"
+    },
+    "stoneedge": {
+      "number": 444,
+      "name": "스톤에지"
+    },
+    "storedpower": {
+      "number": 500,
+      "name": "어시스트파워"
+    },
+    "stormthrow": {
+      "number": 480,
+      "name": "업어후리기"
+    },
+    "strengthsap": {
+      "number": 668,
+      "name": "힘흡수"
+    },
+    "stringshot": {
+      "number": 81,
+      "name": "실뿜기"
+    },
+    "struggle": {
+      "number": 165,
+      "name": "발버둥"
+    },
+    "strugglebug": {
+      "number": 522,
+      "name": "벌레의저항"
+    },
+    "stuffcheeks": {
+      "number": 747,
+      "name": "볼가득넣기"
+    },
+    "stunspore": {
+      "number": 78,
+      "name": "저리가루"
+    },
+    "substitute": {
+      "number": 164,
+      "name": "대타출동"
+    },
+    "suckerpunch": {
+      "number": 389,
+      "name": "기습"
+    },
+    "sunnyday": {
+      "number": 241,
+      "name": "쾌청"
+    },
+    "supercellslam": {
+      "number": 916,
+      "name": "썬더다이브"
+    },
+    "superfang": {
+      "number": 162,
+      "name": "분노의앞니"
+    },
+    "superpower": {
+      "number": 276,
+      "name": "엄청난힘"
+    },
+    "surf": {
+      "number": 57,
+      "name": "파도타기"
+    },
+    "swagger": {
+      "number": 207,
+      "name": "뽐내기"
+    },
+    "swallow": {
+      "number": 256,
+      "name": "꿀꺽"
+    },
+    "sweetkiss": {
+      "number": 186,
+      "name": "천사의키스"
+    },
+    "sweetscent": {
+      "number": 230,
+      "name": "달콤한향기"
+    },
+    "switcheroo": {
+      "number": 415,
+      "name": "바꿔치기"
+    },
+    "swordsdance": {
+      "number": 14,
+      "name": "칼춤"
+    },
+    "synthesis": {
+      "number": 235,
+      "name": "광합성"
+    },
+    "syrupbomb": {
+      "number": 903,
+      "name": "시럽봄"
+    },
+    "tailslap": {
+      "number": 541,
+      "name": "스위프뺨치기"
+    },
+    "tailwind": {
+      "number": 366,
+      "name": "순풍"
+    },
+    "taunt": {
+      "number": 269,
+      "name": "도발"
+    },
+    "tearfullook": {
+      "number": 715,
+      "name": "눈물그렁그렁"
+    },
+    "teatime": {
+      "number": 752,
+      "name": "다과회"
+    },
+    "teeterdance": {
+      "number": 298,
+      "name": "흔들흔들댄스"
+    },
+    "temperflare": {
+      "number": 915,
+      "name": "열불내기"
+    },
+    "terrainpulse": {
+      "number": 805,
+      "name": "대지의파동"
+    },
+    "thief": {
+      "number": 168,
+      "name": "도둑질"
+    },
+    "thrash": {
+      "number": 37,
+      "name": "난동부리기"
+    },
+    "throatchop": {
+      "number": 675,
+      "name": "지옥찌르기"
+    },
+    "thunder": {
+      "number": 87,
+      "name": "번개"
+    },
+    "thunderbolt": {
+      "number": 85,
+      "name": "10만볼트"
+    },
+    "thunderfang": {
+      "number": 422,
+      "name": "번개엄니"
+    },
+    "thunderpunch": {
+      "number": 9,
+      "name": "번개펀치"
+    },
+    "thunderwave": {
+      "number": 86,
+      "name": "전기자석파"
+    },
+    "tickle": {
+      "number": 321,
+      "name": "간지르기"
+    },
+    "tidyup": {
+      "number": 882,
+      "name": "정리정돈"
+    },
+    "topsyturvy": {
+      "number": 576,
+      "name": "뒤집어엎기"
+    },
+    "torchsong": {
+      "number": 871,
+      "name": "플레어송"
+    },
+    "torment": {
+      "number": 259,
+      "name": "트집"
+    },
+    "toxic": {
+      "number": 92,
+      "name": "맹독"
+    },
+    "toxicspikes": {
+      "number": 390,
+      "name": "독압정"
+    },
+    "toxicthread": {
+      "number": 672,
+      "name": "독실"
+    },
+    "trailblaze": {
+      "number": 885,
+      "name": "개척하기"
+    },
+    "transform": {
+      "number": 144,
+      "name": "변신"
+    },
+    "triattack": {
+      "number": 161,
+      "name": "트라이어택"
+    },
+    "trick": {
+      "number": 271,
+      "name": "트릭"
+    },
+    "trickortreat": {
+      "number": 567,
+      "name": "핼러윈"
+    },
+    "trickroom": {
+      "number": 433,
+      "name": "트릭룸"
+    },
+    "triplearrows": {
+      "number": 843,
+      "name": "3연화살"
+    },
+    "tripleaxel": {
+      "number": 813,
+      "name": "트리플악셀"
+    },
+    "tropkick": {
+      "number": 688,
+      "name": "트로피컬킥"
+    },
+    "twinbeam": {
+      "number": 888,
+      "name": "트윈빔"
+    },
+    "upperhand": {
+      "number": 918,
+      "name": "기선제압"
+    },
+    "uproar": {
+      "number": 253,
+      "name": "소란피기"
+    },
+    "uturn": {
+      "number": 369,
+      "name": "유턴"
+    },
+    "vacuumwave": {
+      "number": 410,
+      "name": "진공파"
+    },
+    "venoshock": {
+      "number": 474,
+      "name": "베놈쇼크"
+    },
+    "voltswitch": {
+      "number": 521,
+      "name": "볼트체인지"
+    },
+    "volttackle": {
+      "number": 344,
+      "name": "볼트태클"
+    },
+    "waterfall": {
+      "number": 127,
+      "name": "폭포오르기"
+    },
+    "waterpulse": {
+      "number": 352,
+      "name": "물의파동"
+    },
+    "watershuriken": {
+      "number": 594,
+      "name": "물수리검"
+    },
+    "waterspout": {
+      "number": 323,
+      "name": "해수스파우팅"
+    },
+    "wavecrash": {
+      "number": 834,
+      "name": "웨이브태클"
+    },
+    "weatherball": {
+      "number": 311,
+      "name": "웨더볼"
+    },
+    "whirlpool": {
+      "number": 250,
+      "name": "바다회오리"
+    },
+    "whirlwind": {
+      "number": 18,
+      "name": "날려버리기"
+    },
+    "wideguard": {
+      "number": 469,
+      "name": "와이드가드"
+    },
+    "wildcharge": {
+      "number": 528,
+      "name": "와일드볼트"
+    },
+    "willowisp": {
+      "number": 261,
+      "name": "도깨비불"
+    },
+    "wish": {
+      "number": 273,
+      "name": "희망사항"
+    },
+    "wonderroom": {
+      "number": 472,
+      "name": "원더룸"
+    },
+    "woodhammer": {
+      "number": 452,
+      "name": "우드해머"
+    },
+    "worryseed": {
+      "number": 388,
+      "name": "고민씨"
+    },
+    "wrap": {
+      "number": 35,
+      "name": "김밥말이"
+    },
+    "xscissor": {
+      "number": 404,
+      "name": "시저크로스"
+    },
+    "yawn": {
+      "number": 281,
+      "name": "하품"
+    },
+    "zapcannon": {
+      "number": 192,
+      "name": "전자포"
+    },
+    "zenheadbutt": {
+      "number": 428,
+      "name": "사념의박치기"
+    },
+    "zingzap": {
+      "number": 716,
+      "name": "찌리리따끔따끔"
+    }
+  }
+}
