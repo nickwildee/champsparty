@@ -17,7 +17,7 @@ const dex = {
     tint: '#e3eaf4',
     nature: '장난꾸러기',
     ability: '단단한발톱',
-    item: '메타그로스나이트',
+    requiredItem: '메타그로스나이트',
     moves: ['냉동펀치', '코멧펀치'],
     points: [20, 0, 20, 0, 0, 26],
     stats: [175, 165, 209, 112, 130, 156],
@@ -100,7 +100,7 @@ function build(id) {
     id,
     nature: d.nature,
     ability: d.ability,
-    item: d.item,
+    item: d.requiredItem ?? d.item,
     move: d.moves[0],
     points: [...d.points],
     ranks: [0, 0, 0, 0, 0, 0],
@@ -124,7 +124,7 @@ function exactBuild(b) {
   return (
     b.nature === d.nature &&
     b.ability === d.ability &&
-    b.item === d.item &&
+    b.item === (d.requiredItem ?? d.item) &&
     b.move === d.moves[0] &&
     b.points.every((v, i) => v === d.points[i]) &&
     b.ranks.every((v) => v === 0) &&
@@ -231,12 +231,14 @@ function setupFields(b, includeMove) {
       b,
     ) +
     selectField('특성', 'ability', [d.ability, '없음'], b) +
-    selectField(
-      '도구',
-      'item',
-      [d.item, '없음', '구애스카프', '생명의구슬', '검은철구', '반감열매'],
-      b,
-    ) +
+    (d.requiredItem
+      ? ''
+      : selectField(
+          '도구',
+          'item',
+          ['없음', '구애스카프', '생명의구슬', '검은철구', '반감열매'],
+          b,
+        )) +
     selectField('기술', 'move', d.moves, b, !includeMove) +
     '</div>'
   );

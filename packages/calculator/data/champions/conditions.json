@@ -245,7 +245,7 @@
     }
   },
   "productRules": {
-    "updatedOn": "2026-11-20",
+    "updatedOn": "2026-11-24",
     "defaultImplementation": "planned",
     "common": {
       "game": "Champions",
@@ -262,6 +262,40 @@
       "abilityOptional": true,
       "emptyAbility": "No Ability",
       "abilitySelection": "Only effects relevant to supported direct damage or Speed; field-setting abilities use field inputs instead.",
+      "heldItemOptions": {
+        "airballoon": "풍선",
+        "blackbelt": "검은띠",
+        "blackglasses": "검은안경",
+        "charcoal": "목탄",
+        "choicescarf": "구애스카프",
+        "dragonfang": "용의이빨",
+        "expertbelt": "달인의띠",
+        "fairyfeather": "요정의깃털",
+        "hardstone": "딱딱한돌",
+        "ironball": "검은철구",
+        "leek": "대파",
+        "lifeorb": "생명의구슬",
+        "lightball": "전기구슬",
+        "magnet": "자석",
+        "metalcoat": "금속코트",
+        "metronome": "메트로놈",
+        "miracleseed": "기적의씨",
+        "muscleband": "힘의머리띠",
+        "mysticwater": "신비의물방울",
+        "nevermeltice": "녹지않는얼음",
+        "normalgem": "노말주얼",
+        "poisonbarb": "독바늘",
+        "resistberry": "반감열매",
+        "scopelens": "초점렌즈",
+        "sharpbeak": "예리한부리",
+        "silkscarf": "실크스카프",
+        "silverpowder": "은빛가루",
+        "softsand": "부드러운모래",
+        "spelltag": "저주의부적",
+        "twistedspoon": "휘어진스푼",
+        "whiteherb": "하양허브",
+        "wiseglasses": "박식안경"
+      },
       "status": "One selected status per Pokemon; preserve it during repeated KO calculation.",
       "automaticMoveStatusChanges": false,
       "screens": "For repeated uses of the same move by the same attacker against the same defender, ignore screens on every hit if the move breaks them or the attacker bypasses them with Infiltrator.",
@@ -607,12 +641,19 @@
         "processing": "Remove supported screens/terrain at the move-specific timing; recalculate affected later damage."
       },
       {
-        "id": "item-removal",
+        "id": "item-power-toggle",
         "kind": "move",
         "ids": [
+          "acrobatics",
           "knockoff"
         ],
-        "processing": "Apply the eligible first-use power bonus; remove the item after the hit and recalculate later damage, respecting removal restrictions."
+        "inputs": [
+          "powerBoostEnabled"
+        ],
+        "defaults": {
+          "powerBoostEnabled": false
+        },
+        "processing": "Select the move power bonus directly for the matchup."
       },
       {
         "id": "item-transfer-excluded",
@@ -754,6 +795,7 @@
           "hungerswitch",
           "zerotohero"
         ],
+        "selection": "excluded",
         "inputs": [],
         "processing": "Select the calculation form directly and keep it during repeated KO; no turn/switch history."
       },
@@ -776,12 +818,11 @@
         "kind": "ability",
         "ids": [
           "multiscale",
-          "sturdy",
           "terashell",
           "shadowshield"
         ],
         "inputs": [],
-        "processing": "Use the current HP for supported protection; update HP between hits. Sturdy survival affects KO, not the raw move damage rolls."
+        "processing": "Use the current HP for supported protection; update HP between hits."
       },
       {
         "id": "field-setter-excluded",
@@ -843,7 +884,97 @@
           "regenerator",
           "healer",
           "hospitality",
-          "shedskin"
+          "shedskin",
+          "innardsout",
+          "liquidooze",
+          "magicguard",
+          "rockhead",
+          "toxicdebris",
+          "gluttony"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "manual-state-excluded",
+        "kind": "ability",
+        "ids": [
+          "battlebond",
+          "guarddog",
+          "innerfocus",
+          "intimidate",
+          "moody",
+          "moxie",
+          "oblivious",
+          "owntempo",
+          "screencleaner",
+          "speedboost",
+          "steadfast"
+        ],
+        "selection": "excluded",
+        "inputs": []
+      },
+      {
+        "id": "outside-comparison-excluded",
+        "kind": "ability",
+        "ids": [
+          "aromaveil",
+          "corrosion",
+          "cursedbody",
+          "cutecharm",
+          "earlybird",
+          "effectspore",
+          "flamebody",
+          "goodasgold",
+          "hydration",
+          "immunity",
+          "insomnia",
+          "leafguard",
+          "limber",
+          "magicbounce",
+          "magmaarmor",
+          "naturalcure",
+          "overcoat",
+          "poisonpoint",
+          "poisontouch",
+          "spicyspray",
+          "static",
+          "stench",
+          "sweetveil",
+          "synchronize",
+          "vitalspirit",
+          "compoundeyes",
+          "illuminate",
+          "keeneye",
+          "noguard",
+          "sandveil",
+          "snowcloak",
+          "supersweetsyrup",
+          "tangledfeet",
+          "piercingdrill",
+          "prankster",
+          "quickdraw",
+          "stall",
+          "unseenfist",
+          "anticipation",
+          "emergencyexit",
+          "forewarn",
+          "frisk",
+          "illusion",
+          "pressure",
+          "runaway",
+          "shadowtag",
+          "suctioncups",
+          "curiousmedicine",
+          "flowerveil",
+          "friendguard",
+          "minus",
+          "plus",
+          "stalwart",
+          "telepathy",
+          "klutz",
+          "pickup",
+          "sturdy"
         ],
         "selection": "excluded",
         "inputs": []
