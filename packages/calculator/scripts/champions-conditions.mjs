@@ -3,14 +3,12 @@
 import { applyProductRules, productRules } from './champions-product-rules.mjs';
 export { productRules };
 
-// Frozen diagnostic categories preserve the original 130-entry engine audit.
-// Their inputs are engine-probe context, not the current product input contract.
-const mechanicConditionDefinitions = {
+export const conditionDefinitions = {
   'unresolved-context': {
-    label: '미확정된 전투 문맥',
+    label: '원본 문맥 참조',
     inputs: [],
-    policy: 'mechanic-review',
-    note: 'Source callbacks reference action history/volatile/party/gender state not fully explained by a curated input rule. Lexical evidence is a review signal, not an approved input.',
+    policy: 'automatic',
+    note: 'Source-context evidence is retained for engine diagnostics; use productRules for the current processing scope.',
   },
   'variable-hit-count': {
     label: '가변 연속기 타격 횟수',
@@ -18,6 +16,10 @@ const mechanicConditionDefinitions = {
     policy: 'approved',
     bounds:
       'Use the move-specific multihit range; ability/item exceptions also need validation.',
+    defaults: {
+      hitCount: 'move-maximum',
+    },
+    note: 'Select an integer within the move-specific range; fixed-count and Skill Link restrictions apply.',
   },
   'fixed-hit-count': {
     label: '고정 연속기',
@@ -29,29 +31,38 @@ const mechanicConditionDefinitions = {
     label: '쓰러진 아군 수',
     inputs: ['alliesFainted'],
     policy: 'approved',
-    bounds:
-      'Integer >= 0. UI maximum depends on the chosen battle/team/revival scope; not decided yet.',
-    mechanicCaps: { supremeoverlord: 5, lastrespects: 100 },
+    bounds: {
+      min: 0,
+      max: 5,
+    },
+    mechanicCaps: {
+      supremeoverlord: 5,
+      lastrespects: 100,
+    },
+    defaultValue: 0,
+    note: 'Product input is 0–5 for both moves/abilities; the source Last Respects mechanic cap remains 100.',
   },
   'status-trigger': {
-    label: '상태이상 발동 토글',
-    inputs: ['statusEnabled'],
+    label: '상태이상 선택',
+    inputs: ['status'],
     policy: 'approved',
     defaultEnabled: true,
-    defaultStatus: 'brn',
-    note: 'Use the required status for status-specific abilities; the toggle changes actual status, not the selected ability.',
+    defaultStatus: 'none',
+    note: 'One status per Pokemon. A selected status-trigger ability assigns its required/default status; users may change or clear it. No status damage/healing or action-failure probability.',
   },
   'ability-activation': {
     label: '특성 발동 토글',
     inputs: ['abilityActive'],
     policy: 'approved',
-    note: 'Default ON/OFF for non-status abilities is not decided. Some activations imply consumed items or other state.',
+    note: 'Default ON for the agreed activation abilities; Analytic defaults OFF. Active Unburden disables item input. See per-ability product rules.',
+    defaultEnabled: true,
   },
   'low-hp-activation': {
     label: 'HP 조건 특성 발동 토글',
     inputs: ['abilityActive'],
     policy: 'approved',
-    note: 'Initial HP is selectable from 1 to 100 percent and defaults to 100. Forcing only the activation effect requires a verified adapter.',
+    note: 'Default ON on ability selection; force only the activation effect while preserving the supplied initial HP.',
+    defaultEnabled: true,
   },
   'existing-context': {
     label: '기존 입력·종 데이터로 결정',
@@ -67,66 +78,79 @@ const mechanicConditionDefinitions = {
   'field-setting': {
     label: '날씨·필드 생성 효과',
     inputs: [],
-    policy: 'requires-decision',
-    note: 'Field inputs already exist, but the precedence between a selected field and an ability-created field is not decided.',
+    policy: 'excluded-from-selector',
+    note: 'Field-setting abilities are not selected; use the opponent-local shared field inputs without simulating entry/hit events.',
   },
   'gender-condition': {
-    label: '성별 조건',
-    inputs: ['attackerGender', 'defenderGender'],
-    policy: 'requires-decision',
-    note: 'Fixed-gender/genderless species can be derived; variable gender requires a decision.',
+    label: '투쟁심 상대 관계',
+    inputs: ['rivalrySameGender'],
+    policy: 'approved',
+    note: 'Manual same/different toggle; no gender inputs or automatic neutral-gender override. Leave ability blank for no modifier.',
   },
   'hits-taken': {
     label: '공격받은 누적 횟수',
     inputs: ['hitsTaken'],
-    policy: 'proposed',
-    bounds: { min: 0, mechanicCap: 6 },
+    policy: 'approved',
+    bounds: {
+      min: 0,
+      max: 6,
+    },
+    defaultValue: 0,
+    note: 'Six hits already reaches the power cap.',
   },
   'stockpile-count': {
     label: '비축 횟수',
     inputs: ['stockpileCount'],
-    policy: 'proposed',
-    bounds: { min: 0, max: 3 },
+    policy: 'approved',
+    bounds: {
+      min: 0,
+      max: 3,
+    },
+    defaultValue: 0,
+    note: 'Zero is unusable. One-use result only; final ranks are entered separately.',
   },
   'party-composition': {
     label: '아군별 참여 조건·종족값',
-    inputs: ['partyContributors'],
-    policy: 'requires-decision',
-    note: 'Beat Up needs each eligible party member, not only a generic hit count.',
+    inputs: [],
+    policy: 'excluded',
+    note: 'Beat Up is excluded from the calculation selector.',
   },
   'turn-history': {
     label: '현재 턴·이전 행동의 조건',
-    inputs: ['moveConditionSatisfied'],
-    policy: 'requires-decision',
-    note: 'Each entry lists its exact history dependency; one generic boolean is not an approved UI.',
+    inputs: [],
+    policy: 'approved',
+    note: 'Per-move product rules distinguish default-OFF power toggles, assumed success and single-use results. No general battle-history input.',
   },
   'incoming-damage': {
     label: '직전에 받은 데미지와 공격 종류',
-    inputs: ['damageTaken', 'incomingMoveCategory'],
-    policy: 'requires-decision',
+    inputs: ['opponentMoveId'],
+    policy: 'approved-derived',
+    note: 'Derive incoming damage from the linked opponent build and move. Prompt for a missing move; do not require defense comparison. Reflection results are single-use only.',
   },
   'random-power': {
     label: '기술 자체의 위력 분기',
-    inputs: ['powerVariant'],
-    policy: 'requires-decision',
-    note: 'Do not silently mix this probability with the 16 damage rolls.',
+    inputs: ['powerBoostEnabled'],
+    policy: 'approved',
+    note: 'Choose the strengthened branch manually and keep it on repeated uses; do not aggregate its activation probability.',
+    defaultEnabled: false,
   },
   'copied-ability': {
     label: '복사한 특성',
-    inputs: ['copiedAbilityId'],
-    policy: 'requires-decision',
+    inputs: [],
+    policy: 'excluded',
+    note: 'Ability copying/exchanging/replacement is excluded.',
   },
   transformation: {
     label: '변신·폼 변화',
     inputs: [],
-    policy: 'requires-decision',
-    note: 'Selected form is existing context; transformation and mid-sequence form changes require mechanic-specific handling.',
+    policy: 'approved-scoped',
+    note: 'Keep selected calculation forms fixed. Protean/Libero use a default-ON move-type toggle; Disguise has an intact toggle. Transform/Imposter are excluded.',
   },
   'repeat-state-change': {
     label: '반복 사용 중 상태 변화',
     inputs: [],
-    policy: 'requires-decision',
-    note: 'An event may change later damage. Exact support for each move/ability and KO sequence is not implemented or approved merely by this classification.',
+    policy: 'approved-scoped',
+    note: 'Apply supported HP, item, screen/terrain and guaranteed-rank changes at their actual timing. Rank changes default ON. Exclude probabilistic rank/status changes, ability changes, item transfers and berry-eating effects; respect single-use limits.',
   },
   'repeated-use-power': {
     label: '연속 사용 위력 변화',
@@ -137,13 +161,14 @@ const mechanicConditionDefinitions = {
   'delegated-move': {
     label: '다른 기술을 호출',
     inputs: [],
-    policy: 'mechanic-review',
+    policy: 'excluded',
+    note: 'Copycat/Sleep Talk are excluded; choose the actual damaging move.',
   },
   'hp-dependent': {
     label: '현재 HP 의존',
     inputs: [],
-    policy: 'fixed-hp-context',
-    note: 'Initial HP is the supplied percentage (default 100); target-HP-dependent damage can still change during repeated attacks.',
+    policy: 'approved-scoped',
+    note: 'Start at the supplied HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only.',
   },
   'status-move': {
     label: '변화기',
@@ -172,7 +197,7 @@ const mechanicConditionDefinitions = {
     label: '급소 관련 효과',
     inputs: [],
     policy: 'critical-input-excluded',
-    note: 'No user critical toggle or critical-chance aggregation. Intrinsic guaranteed-critical move handling still needs a documented support policy.',
+    note: 'No user critical toggle or probability aggregation; preserve intrinsic move mechanics supplied by the engine.',
   },
   'ally-only': {
     label: '아군을 요구하는 효과',
@@ -183,116 +208,10 @@ const mechanicConditionDefinitions = {
   'custom-damage': {
     label: '일반 위력식이 아닌 데미지',
     inputs: [],
-    policy: 'mechanic-review',
-    note: 'Fixed damage, HP fractions and OHKO moves need separate result-shape/KO validation.',
-  },
-};
-
-export const conditionDefinitions = JSON.parse(
-  JSON.stringify(mechanicConditionDefinitions),
-);
-const updates = {
-  'unresolved-context': {
-    label: '원본 문맥 참조',
-    policy: 'automatic',
-    note: 'Source-context evidence is retained for engine diagnostics; use productRules for the current processing scope.',
-  },
-  'variable-hit-count': {
-    defaults: { hitCount: 'move-maximum' },
-    note: 'Select an integer within the move-specific range; fixed-count and Skill Link restrictions apply.',
-  },
-  'fainted-allies': {
-    bounds: { min: 0, max: 5 },
-    defaultValue: 0,
-    note: 'Product input is 0–5 for both moves/abilities; the source Last Respects mechanic cap remains 100.',
-  },
-  'status-trigger': {
-    label: '상태이상 선택',
-    inputs: ['status'],
-    defaultStatus: 'none',
-    note: 'One status per Pokemon. A selected status-trigger ability assigns its required/default status; users may change or clear it. No status damage/healing or action-failure probability.',
-  },
-  'ability-activation': {
-    defaultEnabled: true,
-    note: 'Default ON for the agreed activation abilities; Analytic defaults OFF. Active Unburden disables item input. See per-ability product rules.',
-  },
-  'low-hp-activation': {
-    defaultEnabled: true,
-    note: 'Default ON on ability selection; force only the activation effect while preserving the supplied initial HP.',
-  },
-  'field-setting': {
-    policy: 'excluded-from-selector',
-    note: 'Field-setting abilities are not selected; use the opponent-local shared field inputs without simulating entry/hit events.',
-  },
-  'gender-condition': {
-    label: '투쟁심 상대 관계',
-    inputs: ['rivalrySameGender'],
-    policy: 'approved',
-    note: 'Manual same/different toggle; no gender inputs or automatic neutral-gender override. Leave ability blank for no modifier.',
-  },
-  'hits-taken': {
-    policy: 'approved',
-    bounds: { min: 0, max: 6 },
-    defaultValue: 0,
-    note: 'Six hits already reaches the power cap.',
-  },
-  'stockpile-count': {
-    policy: 'approved',
-    defaultValue: 0,
-    note: 'Zero is unusable. One-use result only; final ranks are entered separately.',
-  },
-  'party-composition': {
-    inputs: [],
-    policy: 'excluded',
-    note: 'Beat Up is excluded from the calculation selector.',
-  },
-  'turn-history': {
-    inputs: [],
-    policy: 'approved',
-    note: 'Per-move product rules distinguish default-OFF power toggles, assumed success and single-use results. No general battle-history input.',
-  },
-  'incoming-damage': {
-    inputs: ['opponentMoveId'],
-    policy: 'approved-derived',
-    note: 'Derive incoming damage from the linked opponent build and move. Prompt for a missing move; do not require defense comparison. Reflection results are single-use only.',
-  },
-  'random-power': {
-    inputs: ['powerBoostEnabled'],
-    policy: 'approved',
-    defaultEnabled: false,
-    note: 'Choose the strengthened branch manually and keep it on repeated uses; do not aggregate its activation probability.',
-  },
-  'copied-ability': {
-    inputs: [],
-    policy: 'excluded',
-    note: 'Ability copying/exchanging/replacement is excluded.',
-  },
-  transformation: {
-    policy: 'approved-scoped',
-    note: 'Keep selected calculation forms fixed. Protean/Libero use a default-ON move-type toggle; Disguise has an intact toggle. Transform/Imposter are excluded.',
-  },
-  'repeat-state-change': {
-    policy: 'approved-scoped',
-    note: 'Apply supported HP, item, screen/terrain and guaranteed-rank changes at their actual timing. Rank changes default ON. Exclude probabilistic rank/status changes, ability changes, item transfers and berry-eating effects; respect single-use limits.',
-  },
-  'delegated-move': {
-    policy: 'excluded',
-    note: 'Copycat/Sleep Talk are excluded; choose the actual damaging move.',
-  },
-  'hp-dependent': {
-    policy: 'approved-scoped',
-    note: 'Start at the supplied HP and update remaining HP per outcome. Super Fang/Pain Split/Endeavor are excluded; Final Gambit is single-use only.',
-  },
-  'critical-effects': {
-    note: 'No user critical toggle or probability aggregation; preserve intrinsic move mechanics supplied by the engine.',
-  },
-  'custom-damage': {
     policy: 'approved-scoped',
     note: 'Native fixed-damage moves use engine data; linked reflection is single-use. OHKO moves and the three HP-manipulation exclusions are not selectable.',
   },
 };
-for (const [id, update] of Object.entries(updates))
-  Object.assign(conditionDefinitions[id], update);
 
 const moveGroups = [
   ['fainted-allies', 'lastrespects'],
@@ -432,28 +351,6 @@ function sourceSignals(raw) {
     .map(([name]) => name);
 }
 
-function finish(rules, raw, extras = {}) {
-  const ruleIds = [...rules].sort();
-  const proposed = ruleIds.filter((id) =>
-    ['requires-decision', 'proposed', 'mechanic-review'].includes(
-      mechanicConditionDefinitions[id].policy,
-    ),
-  );
-  return {
-    ruleIds,
-    requiredInputIds: [
-      ...new Set(
-        ruleIds.flatMap((id) => mechanicConditionDefinitions[id].inputs),
-      ),
-    ].sort(),
-    existingContextSignals: sourceSignals(raw),
-    reviewRequired: proposed.length > 0,
-    unresolvedRuleIds: proposed,
-    calculationVerification: 'not-verified-by-catalog-extraction',
-    ...extras,
-  };
-}
-
 export function classifyMove(move, raw) {
   const rules = new Set();
   const extras = { category: move.category };
@@ -543,9 +440,8 @@ export function classifyMove(move, raw) {
   return applyProductRules(
     'move',
     move.id,
-    finish(rules, raw, extras),
+    { ...extras, ruleIds: [...rules].sort() },
     raw,
-    conditionDefinitions,
   );
 }
 
@@ -582,8 +478,7 @@ export function classifyAbility(ability, raw) {
   return applyProductRules(
     'ability',
     ability.id,
-    finish(rules, raw, extras),
+    { ...extras, ruleIds: [...rules].sort() },
     raw,
-    conditionDefinitions,
   );
 }

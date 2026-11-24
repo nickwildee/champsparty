@@ -56,7 +56,7 @@ test('catalog form aliases resolve to their engine form', () => {
     ),
   );
   for (const { id, engineId } of catalog.filter(
-    (row) => row.id !== row.engineId,
+    (row) => row.engineId && row.id !== row.engineId,
   )) {
     assert.deepEqual(
       calculate(pokemon('garchomp'), pokemon(id)),
@@ -527,10 +527,19 @@ test('Mud-Slap deals damage without a rank toggle; Acid Spray keeps its Special 
       'utf8',
     ),
   );
-  const mud = catalog.find((row) => row.id === 'mudslap').classification;
-  assert.equal(mud.productPolicy.selection, 'included');
-  assert.deepEqual(mud.requiredInputIds, []);
-  assert.deepEqual(mud.productPolicy.defaults, {});
+  const defaults = JSON.parse(
+    readFileSync(
+      new URL('../data/champions/conditions.json', import.meta.url),
+      'utf8',
+    ),
+  ).catalogDefaults;
+  const mud = catalog.find((row) => row.id === 'mudslap');
+  assert.equal(
+    mud.productPolicy?.selection ?? defaults.selectionByKind.move,
+    'included',
+  );
+  assert.deepEqual(mud.requiredInputIds ?? defaults.requiredInputIds, []);
+  assert.deepEqual(mud.productPolicy?.defaults ?? defaults.defaults, {});
   assert.ok(mud.productRuleIds.includes('accuracy-drop-excluded'));
   assert.ok(
     calculate(pokemon('garchomp'), pokemon('hippowdon'), 'mudslap')
@@ -539,7 +548,7 @@ test('Mud-Slap deals damage without a rank toggle; Acid Spray keeps its Special 
   assert.ok(
     catalog
       .find((row) => row.id === 'acidspray')
-      .classification.requiredInputIds.includes('rankChangesEnabled'),
+      .requiredInputIds.includes('rankChangesEnabled'),
   );
 });
 

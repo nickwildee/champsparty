@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -6,68 +7,132 @@ import console from 'node:console';
 import process from 'node:process';
 import { withPinnedShowdown } from './showdown-source.mjs';
 
-// Display names only. Availability and learnsets stay in the Champions catalog.
-const source = {
-  repository: 'https://github.com/kwsch/PKHeX',
-  commit: 'fd1c538cc5e91cd7328f5048007f5f44bb78577c',
-  path: 'PKHeX.Core/Resources/text/other/ko/text_Moves_ko.txt',
-  sha256: '00431074f8cda5994ae8e4364124c57ed7915e15ea51457d8cbe903913affbeb',
-};
 const dataDir = resolve(
   dirname(fileURLToPath(import.meta.url)),
   '../data/champions',
 );
+const readJson = (file) =>
+  JSON.parse(readFileSync(join(dataDir, file), 'utf8'));
+const names = readJson('names.ko.json');
+const pin = readJson('source-pin.json');
 const args = process.argv.slice(2);
-if (args.includes('--source-root'))
-  throw new Error('Use --archive with the pinned Showdown archive.');
+const check = args.includes('--check');
+const verifyLocal = check && args.length === 1;
+const hangul = /[가-힣]/;
+const target = join(dataDir, 'names.ko.json');
 const flag = (name) => {
   const index = args.indexOf(name);
-  if (index < 0 || !args[index + 1]) throw new Error(`Missing ${name}`);
+  if (index < 0 || !args[index + 1] || args[index + 1].startsWith('--'))
+    throw new Error(`Missing ${name}`);
   return resolve(args[index + 1]);
 };
-const hash = (value) => createHash('sha256').update(value).digest('hex');
-const text = readFileSync(flag('--names-file'));
-if (hash(text) !== source.sha256)
-  throw new Error('Korean-name source hash differs from the pinned file.');
-const names = text
-  .toString('utf8')
-  .replace(/^\uFEFF/, '')
-  .split(/\r?\n/);
-const catalogText = readFileSync(join(dataDir, 'moves.json'));
-const catalog = JSON.parse(catalogText.toString('utf8'));
-const pin = JSON.parse(readFileSync(join(dataDir, 'source-pin.json'), 'utf8'));
-const moves = withPinnedShowdown(flag('--archive'), pin.showdown, ({ dex }) =>
-  Object.fromEntries(
-    catalog.map(({ id }) => {
+
+const { pokemonAndAbilities, moves: source, moveCrossCheck } = names.sources;
+assert.match(pokemonAndAbilities.commit, /^[a-f0-9]{40}$/);
+assert.ok(
+  pokemonAndAbilities.path &&
+    pokemonAndAbilities.pokemonField &&
+    pokemonAndAbilities.abilityField,
+);
+assert.match(pokemonAndAbilities.pokemonListing, /^https:\/\//);
+assert.match(pokemonAndAbilities.pokemonListingSha256, /^[a-f0-9]{64}$/);
+assert.match(source.repository, /^https:\/\//);
+assert.match(source.commit, /^[a-f0-9]{40}$/);
+assert.ok(source.path);
+assert.match(source.sha256, /^[a-f0-9]{64}$/);
+assert.match(moveCrossCheck.url, /^https:\/\//);
+assert.match(moveCrossCheck.htmlSha256, /^[a-f0-9]{64}$/);
+
+const formReferences = pokemonAndAbilities.formReferences;
+for (const id of [
+  'mimikyubusted',
+  'polteageistantique',
+  'sinistchamasterpiece',
+  'vivillonfancy',
+  'vivillonpokeball',
+]) {
+  assert.ok(
+    Object.hasOwn(formReferences, id),
+    `Missing Korean form reference: ${id}`,
+  );
+}
+for (const [id, url] of Object.entries(formReferences)) {
+  assert.ok(
+    Object.hasOwn(names.pokemon, id),
+    `Unknown Korean form reference: ${id}`,
+  );
+  assert.match(url, /^https:\/\//);
+}
+
+const catalogs = {
+  pokemon: readJson('pokemon.json'),
+  abilities: readJson('abilities.json'),
+  moves: readJson('moves.json'),
+};
+function readMoveNames(dex, labels) {
+  return Object.fromEntries(
+    catalogs.moves.map(({ id }) => {
       const move = dex.moves.get(id);
-      const name = names[move.num];
-      if (!move.exists || !name || !/[가-힣]/.test(name))
-        throw new Error(`Missing Korean name: ${id}`);
+      const name = labels[move.num];
+      assert.ok(
+        move.exists && typeof name === 'string' && hangul.test(name),
+        `Missing Korean move name: ${id}`,
+      );
       return [id, { number: move.num, name }];
     }),
-  ),
+  );
+}
+
+if (!verifyLocal) {
+  if (args.includes('--source-root'))
+    throw new Error('Use --archive with the pinned Showdown archive.');
+  const text = readFileSync(flag('--names-file'));
+  assert.equal(
+    createHash('sha256').update(text).digest('hex'),
+    source.sha256,
+    'Korean move-name source hash mismatch.',
+  );
+  const labels = text
+    .toString('utf8')
+    .replace(/^\uFEFF/, '')
+    .split(/\r?\n/);
+  names.moves = withPinnedShowdown(flag('--archive'), pin.showdown, ({ dex }) =>
+    readMoveNames(dex, labels),
+  );
+  names.championsCommit = pin.showdown.commit;
+}
+assert.equal(
+  names.championsCommit,
+  pin.showdown.commit,
+  'Korean names refer to another Champions catalog.',
 );
-const output = `${JSON.stringify(
-  {
-    schemaVersion: 1,
-    asOf: '2026-11-18',
-    scope:
-      'Only IDs in the pinned Champions moves.json; display labels, not mechanics or availability.',
-    championsCommit: pin.showdown.commit,
-    catalogSha256: hash(catalogText),
-    source,
-    moves,
-  },
-  null,
-  2,
-)}\n`;
-const target = join(dataDir, 'move-names.ko.json');
-if (args.includes('--check')) {
-  if (readFileSync(target, 'utf8') !== output)
-    throw new Error('move-names.ko.json is stale.');
+for (const [group, catalog] of Object.entries(catalogs)) {
+  assert.deepEqual(
+    Object.keys(names[group]).sort(),
+    catalog.map(({ id }) => id).sort(),
+    `Korean name IDs differ from ${group}.json`,
+  );
+  for (const [id, entry] of Object.entries(names[group])) {
+    const name = group === 'moves' ? entry.name : entry;
+    assert.ok(
+      typeof name === 'string' && hangul.test(name),
+      `Missing Korean name: ${id}`,
+    );
+  }
+}
+const numbers = Object.values(names.moves).map(({ number }) => number);
+assert.ok(
+  numbers.every((number) => Number.isInteger(number) && number > 0) &&
+    new Set(numbers).size === numbers.length,
+  'Move numbers must be unique positive integers.',
+);
+
+const output = JSON.stringify(names, null, 2) + '\n';
+if (check) {
+  assert.ok(readFileSync(target, 'utf8') === output, 'names.ko.json is stale.');
 } else {
   writeFileSync(target, output);
 }
 console.log(
-  `${args.includes('--check') ? 'Verified' : 'Wrote'} ${Object.keys(moves).length} Champions Korean move names.`,
+  `${check ? 'Verified' : 'Updated'} Korean names for ${catalogs.pokemon.length} forms, ${catalogs.abilities.length} abilities, and ${catalogs.moves.length} moves.`,
 );

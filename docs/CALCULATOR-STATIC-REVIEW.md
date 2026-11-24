@@ -6,7 +6,7 @@
 
 **세 번째는 게임에 있는 전체 목록, 화면에서 고를 목록, 과거 검수 자료를 구별하는 일이다.** 현재 특성 216개 중 187개에는 같은 기본 분류가 붙는다. 스마트누오에 없는 특성 중에도 우리 화면에 필요한 것이 있고, 저장소의 큰 검수 파일 중에는 포켓몬 한글명의 출처가 들어 있는 것도 있다. 삭제 후보는 실제 사용처까지 확인한 뒤 제시했다.
 
-검수 기준은 `codex/champions-damage-cli`의 `9e1baaa`와 검수 당시 작업 트리의 미커밋 변경이다. 아래 횟수는 코드 경로에서 센 값이다. 이 검수에서 앱·CLI·테스트를 실행하거나 성능을 측정하지 않았다. 테스트 파일에서 인용하는 숫자는 파일에 적힌 조건과 기대값이다.
+검수 기준은 `codex/champions-damage-cli`의 `9e1baaa`와 당시 로컬 변경이다. 정리 전 파일은 커밋 `e5cb10e`에 있다. 아래 횟수는 코드 경로에서 센 값이다. 이 검수에서 앱·CLI·테스트를 실행하거나 성능을 측정하지 않았다. 테스트 파일에서 인용하는 숫자는 파일에 적힌 조건과 기대값이다.
 
 ## 목차
 
@@ -67,7 +67,7 @@
 
 ### 2-2. 기합의띠는 지금 1회 데미지를 1 HP 생존으로 바꾸는 코드가 없다
 
-현재 앱의 1회 데미지 함수와 엔진 패치에는 기합의띠를 발동해 HP를 1 남기는 전용 처리가 없다. 발견된 곳은 **엔진에 있는 도구명을 허용하는 일반 입력**, **내던지기 조사 자료**, **향후 KO 계산에서 생존을 지원한다는 규칙 문서**다. 일반 선택 목록에서 기합의띠를 빼는 방향을 반영할 곳은 도구 목록과 KO 계획이다. 옹골참은 별도 특성이므로 그 지원 여부까지 같은 결정에 묶을 이유는 없다. [도구 이름 허용](../packages/calculator/src/index.ts#L242) · [내던지기 조사 항목](../packages/calculator/data/champions/smartnuo-comparison.json#L40074) · [기합의띠·옹골참 계획](../packages/calculator/data/champions/CONDITIONAL-MOVE-RULES.md#L139)
+현재 앱의 1회 데미지 함수와 엔진 패치에는 기합의띠를 발동해 HP를 1 남기는 전용 처리가 없다. 발견된 곳은 **엔진에 있는 도구명을 허용하는 일반 입력**, **내던지기 조사 자료**, **향후 KO 계산에서 생존을 지원한다는 규칙 문서**다. 일반 선택 목록에서 기합의띠를 빼는 방향을 반영할 곳은 도구 목록과 KO 계획이다. 옹골참은 별도 특성이므로 그 지원 여부까지 같은 결정에 묶을 이유는 없다. [도구 이름 허용](../packages/calculator/src/index.ts#L242) · [기합의띠·옹골참 계획](DECISIONS.md#조건부-기술의-제품-규칙)
 
 **도구 효과를 제외하더라도, 들고 있는지 자체가 결과에 필요한 기술이 있다.** 애크러뱃은 공격자의 도구가 없을 때 위력이 두 배가 된다. 폴터가이스트는 상대 도구가 없으면 실패한다. 탁쳐서떨구기는 제거할 수 있는 상대 도구가 있는지, 내던지기는 어떤 도구를 들었는지가 중요하다. 이 기술을 계산할 때 지원 목록 밖의 모든 도구를 일괄적으로 ‘도구 없음’으로 치환하면 다른 오류가 생긴다. 설치된 엔진의 `src/mechanics/champions.ts` 268·590·614·677행에서 각각의 사용처를 확인할 수 있다.
 
@@ -78,7 +78,7 @@
 - **풍선**은 현재 접지 여부와 땅 기술 무효에 직접 영향을 준다. 효과를 받는 첫 타격으로 풍선이 터지는 상황과 땅 기술이 무효여서 풍선이 유지되는 상황이 다르다.
 - **하양허브**는 랭크가 떨어진 뒤의 상태를 복구한다. 용성군을 다시 사용할 때처럼 바뀐 랭크가 후속 데미지에 쓰이는 경우가 별도 계획에 해당한다.
 
-이 목록은 기존 결정의 적용 시점을 설명한다. **규칙 문서에 적힌 항목을 전부 현재 구현된 기능으로 세면 안 된다.** [도구별 기존 결정](../packages/calculator/data/champions/CONDITIONAL-MOVE-RULES.md#L130) · [부자유친의 반감열매 처리](../patches/@smogon__calc@0.12.0.patch#L113)
+이 목록은 기존 결정의 적용 시점을 설명한다. **규칙 문서에 적힌 항목을 전부 현재 구현된 기능으로 세면 안 된다.** [도구별 기존 결정](DECISIONS.md#조건부-기술의-제품-규칙) · [부자유친의 반감열매 처리](../patches/@smogon__calc@0.12.0.patch#L113)
 
 ### 2-4. 서투름을 선택하지 않는 제품에서도 지금은 모든 스피드 비교가 도구 억제를 검사한다
 
@@ -90,9 +90,9 @@
 
 **위협처럼 공격 전에 끝난 랭크 변화는 시작 랭크로 표현할 수 있다.** 셸암즈는 분류를 정하기 전에 양쪽의 위협을 각각 한 번 검사한다. 엔진의 `checkIntimidate`가 실제로 랭크를 바꾸려면 위협 보유자의 `abilityOn`이 켜져 있어야 한다. 현재 앱의 `createPokemon`은 위협에 그 토글을 지정하지 않는다. 여기에 새 토글을 만드는 것보다 사용자가 정한 최종 랭크를 따르는 방향이 간단하다. 셸암즈는 또한 양쪽의 공격·특수공격·방어·특수방어, 총 여덟 값을 준비하지만 비교식이 읽는 값은 공격자의 공격·특수공격과 방어자의 방어·특수방어 네 개다. [셸암즈의 사전 처리와 비교식](../packages/calculator/src/one-use.ts#L106) · [특성 토글 설정](../packages/calculator/src/index.ts#L254)
 
-**지구력처럼 첫 타격을 맞은 뒤 방어가 오르는 효과는 시작 랭크 한 개로 표현할 수 없다.** 예를 들어 방어 0인 상대에게 물리 연속기를 쓰면 첫 타격은 0, 다음 타격은 바뀐 방어를 사용한다. 깨어진갑옷 역시 타격 사이 능력치를 바꿀 수 있다. 메테오빔·일렉트로빔은 기술 자체가 공격 전에 특수공격을 올려 첫 데미지부터 바뀐다. 클리어스모그는 입력한 랭크로 먼저 때리고 나서 랭크를 초기화한다. 모두 ‘랭크가 바뀐다’는 한 규칙으로 없애면 서로 다른 결과를 잃는다. 피뢰침·초식·전기엔진처럼 랭크 변화 외에 기술 무효도 있는 특성은 무효 효과까지 함께 빼지 않도록 살펴야 한다. [기술별 랭크 변경 시점](../packages/calculator/data/champions/CONDITIONAL-MOVE-RULES.md#L126) · [엔진 호출 경로](../packages/calculator/src/one-use.ts#L93)
+**지구력처럼 첫 타격을 맞은 뒤 방어가 오르는 효과는 시작 랭크 한 개로 표현할 수 없다.** 예를 들어 방어 0인 상대에게 물리 연속기를 쓰면 첫 타격은 0, 다음 타격은 바뀐 방어를 사용한다. 깨어진갑옷 역시 타격 사이 능력치를 바꿀 수 있다. 메테오빔·일렉트로빔은 기술 자체가 공격 전에 특수공격을 올려 첫 데미지부터 바뀐다. 클리어스모그는 입력한 랭크로 먼저 때리고 나서 랭크를 초기화한다. 모두 ‘랭크가 바뀐다’는 한 규칙으로 없애면 서로 다른 결과를 잃는다. 피뢰침·초식·전기엔진처럼 랭크 변화 외에 기술 무효도 있는 특성은 무효 효과까지 함께 빼지 않도록 살펴야 한다. [기술별 랭크 변경 시점](DECISIONS.md#조건부-기술의-제품-규칙) · [엔진 호출 경로](../packages/calculator/src/one-use.ts#L93)
 
-**반대로 제품에서 제외한 효과도 이름만 전달하면 엔진 안에서 실행될 수 있다.** 설치된 엔진의 `src/mechanics/util.ts` 388–425행은 연속 타격 사이에 넘치는씨로 그래스필드를, 모래뿜기로 모래바람을 설정하거나 방어 랭크를 바꾼다. 455행부터는 접촉 시 미라·떠도는영혼이 특성을 바꾼다. 예를 들어 씨기관총을 맞은 올리르바의 넘치는씨는 뒤 타격의 필드를 바꿀 수 있다. 제품 규칙은 필드를 직접 선택하고 특성 교환을 제외하지만, 지금 계산 함수는 엔진에 존재하는 이름을 받아들인다. 제품 선택 목록과 전달값이 같은 결정을 따르는지 확인할 지점이다. [제외한 특성 규칙](../packages/calculator/scripts/champions-product-rules.mjs#L296) · [현재 특성 입력](../packages/calculator/src/index.ts#L235)
+**반대로 제품에서 제외한 효과도 이름만 전달하면 엔진 안에서 실행될 수 있다.** 설치된 엔진의 `src/mechanics/util.ts` 388–425행은 연속 타격 사이에 넘치는씨로 그래스필드를, 모래뿜기로 모래바람을 설정하거나 방어 랭크를 바꾼다. 455행부터는 접촉 시 미라·떠도는영혼이 특성을 바꾼다. 예를 들어 씨기관총을 맞은 올리르바의 넘치는씨는 뒤 타격의 필드를 바꿀 수 있다. 제품 규칙은 필드를 직접 선택하고 특성 교환을 제외하지만, 지금 계산 함수는 엔진에 존재하는 이름을 받아들인다. 제품 선택 목록과 전달값이 같은 결정을 따르는지 확인할 지점이다. [제외한 특성 규칙](../packages/calculator/scripts/champions-product-rules.mjs) · [현재 특성 입력](../packages/calculator/src/index.ts#L235)
 
 <a id="combinations"></a>
 
@@ -100,7 +100,7 @@
 
 ### 3-1. 셸암즈의 동점 처리는 필요하고, 셸암즈에 부자유친까지 붙여 난수를 조합하는 처리는 줄일 수 있다
 
-현재 포챔스 목록에서 셸암즈를 배우는 폼은 **야도란 (가라르)**이다. 이 폼의 특성은 퀵드로·마이페이스·재생력이다. 부자유친을 가진 **메가캥카**는 셸암즈를 배우지 않는다. 사용자가 폼의 습득 목록에서 기술을 확정하는 화면에서는 두 조건이 동시에 성립하지 않는다. [야도란 (가라르)의 특성·기술](../packages/calculator/data/champions/pokemon.json#L34063) · [메가캥카의 특성·기술](../packages/calculator/data/champions/pokemon.json#L20056)
+현재 포챔스 목록에서 셸암즈를 배우는 폼은 **야도란 (가라르)**이다. 이 폼의 특성은 퀵드로·마이페이스·재생력이다. 부자유친을 가진 **메가캥카**는 셸암즈를 배우지 않는다. 사용자가 폼의 습득 목록에서 기술을 확정하는 화면에서는 두 조건이 동시에 성립하지 않는다. [야도란 (가라르)의 특성·기술](../packages/calculator/data/champions/pokemon.json) · [메가캥카의 특성·기술](../packages/calculator/data/champions/pokemon.json)
 
 **실제 조합에서 보존해야 할 것은 물리·특수 판정과 동점의 두 결과다.** 파일에 있는 예에서는 공격/방어 비율이 120/120, 특수공격/특수방어 비율이 120/121이다. 비율은 다르지만 게임의 정수 계산을 거친 판정값은 둘 다 39다. 리플렉터가 있을 때 이 예의 기대값은 물리 50%에서 25~30, 특수 50%에서 51~61이다. 각 갈래의 난수 16개를 합쳐 32개가 된다. 벽은 분류가 정해진 뒤 데미지에 적용하며 접촉 판정도 분류에 맞춰야 한다. 완성된 데미지 두 개에서 단순히 큰 값만 고르면 이 동점 결과가 사라진다. [동점 예와 기대값](../packages/calculator/test/champions.test.mjs#L721) · [분류·접촉 결정](../packages/calculator/src/one-use.ts#L124)
 
@@ -110,7 +110,7 @@
 
 생성기는 원본 기술에서 자식 타격 제외·충전·지연 공격을 나타내는 표시를 읽어 기술 17개를 추출한다. 이 파일은 249바이트이고 새 기술이 생기면 같은 방법으로 갱신할 수 있다. **17개와 메가캥카의 습득 목록을 대조하면 구멍파기·솔라빔·죽기살기·내던지기 네 개가 겹친다.** 죽기살기는 우리 계산 대상에서 제외했다. 메가캥카가 자기 메가스톤을 들고 내던지기를 선택하면 그 도구는 던질 수 없다.
 
-따라서 구멍파기와 솔라빔으로 탈만 깨지는지, 반대로 아이언테일은 탈이 깨진 뒤 자식 타격이 들어가는지가 실제 화면을 대표하는 예다. 메가캥카의 미래예지·지구던지기, 캥카나이트 대신 검은철구를 들고 쓰는 내던지기는 엔진 분기를 조사하는 데 쓰인 입력이다. 과거 기록의 51건은 **제외 플래그 17개 × 방어 상태 3가지**다. 51가지 상황을 전부 제품에서 제공한다는 근거로 사용할 수 없다. [플래그 추출](../packages/calculator/scripts/extract-champions.mjs#L461) · [현재 테스트 조합](../packages/calculator/test/champions.test.mjs#L683) · [51건의 검증 목적](DECISIONS.md#L266)
+따라서 구멍파기와 솔라빔으로 탈만 깨지는지, 반대로 아이언테일은 탈이 깨진 뒤 자식 타격이 들어가는지가 실제 화면을 대표하는 예다. 메가캥카의 미래예지·지구던지기, 캥카나이트 대신 검은철구를 들고 쓰는 내던지기는 엔진 분기를 조사하는 데 쓰인 입력이다. 과거 기록의 51건은 **제외 플래그 17개 × 방어 상태 3가지**다. 51가지 상황을 전부 제품에서 제공한다는 근거로 사용할 수 없다. [플래그 추출](../packages/calculator/scripts/extract-champions.mjs) · [현재 테스트 조합](../packages/calculator/test/champions.test.mjs#L683) · [51건의 검증 목적](DECISIONS.md#L266)
 
 ### 3-3. 스피드·보복·애널라이즈는 각각 실제 습득 가능한 조합으로 검증할 수 있다
 
@@ -134,7 +134,7 @@
 
 둘 다 현재 `abilityActive`라는 포켓몬 속성을 쓴다. 곡예는 포켓몬이 도구를 잃고 활성화된 상태이므로 한 상대에서 다른 상대로 바뀌어도 같은 포켓몬 상태로 사용할 수 있다. ON이면 도구 입력을 막는다. 애널라이즈는 같은 아쿠스타라도 상대 A를 칠 때 ON, 상대 B를 칠 때 OFF로 둘 수 있도록 정했다. 포켓몬 객체 하나를 재사용하면서 여기에 애널라이즈 ON까지 고정하면 둘을 따로 표시하지 못한다. **상대·공격 방향에 속하는 값은 그 한 번의 기술 호출에 붙이는 편이 맞다.**
 
-입력 일관성도 함께 볼 부분이다. `disguiseIntact`는 다른 포켓몬에 넣어도 참거짓이면 지나가지만, `abilityActive`는 해당 특성이 아니면 데미지 함수에서 거부한다. 스피드 준비 함수는 곡예가 아니면 같은 값을 먼저 버린다. 실제 입력 폼에서 해당하는 곳에서만 토글을 만들고, 공통 입력 검사에는 같은 기준을 적용하면 이런 차이를 설명하기 쉬워진다. [포켓몬 토글 처리](../packages/calculator/src/index.ts#L212) · [기술에 애널라이즈 전달](../packages/calculator/src/index.ts#L383) · [스피드에서 제거](../packages/calculator/src/index.ts#L464) · [상대별 제품 규칙](../packages/calculator/scripts/champions-product-rules.mjs#L254)
+입력 일관성도 함께 볼 부분이다. `disguiseIntact`는 다른 포켓몬에 넣어도 참거짓이면 지나가지만, `abilityActive`는 해당 특성이 아니면 데미지 함수에서 거부한다. 스피드 준비 함수는 곡예가 아니면 같은 값을 먼저 버린다. 실제 입력 폼에서 해당하는 곳에서만 토글을 만들고, 공통 입력 검사에는 같은 기준을 적용하면 이런 차이를 설명하기 쉬워진다. [포켓몬 토글 처리](../packages/calculator/src/index.ts#L212) · [기술에 애널라이즈 전달](../packages/calculator/src/index.ts#L383) · [스피드에서 제거](../packages/calculator/src/index.ts#L464) · [상대별 제품 규칙](../packages/calculator/scripts/champions-product-rules.mjs)
 
 ### 4-3. 검은철구·부유 보정은 실제로 필요하지만, 방어자를 처음부터 다시 만들 필요는 검토할 수 있다
 
@@ -179,7 +179,7 @@
 2. **328개 포함 분류.** 여기에 막치기와 발버둥이 포함돼 있다. 현재 습득 목록에는 둘 다 배우는 폼이 없다. 막치기는 엔진 기술 데이터도 빠져 있고, 발버둥은 엔진에서 이름은 찾을 수 있다.
 3. **326개 선택 후보.** 포함 분류와 실제 폼의 습득 목록을 모두 만족하는 기술의 전체 합집합이다. 사용자가 한 포켓몬을 골랐을 때는 이 중에서도 **그 폼이 배울 수 있는 기술만** 보여 준다.
 
-지금 `engineEntry`가 확인하는 것은 입력한 이름이 엔진에 있느냐이다. 목록에서 항목을 확정하는 화면에는 폼별 습득 관계와 제품 제외 규칙도 필요하다. 한편 오타가 든 기술명에 입력 오류를 내는 검사는 CLI와 브라우저 양쪽에서 유지할 가치가 있다. [폼별 습득 목록 생성](../packages/calculator/scripts/extract-champions.mjs#L235) · [막치기](../packages/calculator/data/champions/moves.json#L12401) · [발버둥](../packages/calculator/data/champions/moves.json#L16808) · [현재 계산기의 이름 검사](../packages/calculator/src/index.ts#L497)
+지금 `engineEntry`가 확인하는 것은 입력한 이름이 엔진에 있느냐이다. 목록에서 항목을 확정하는 화면에는 폼별 습득 관계와 제품 제외 규칙도 필요하다. 한편 오타가 든 기술명에 입력 오류를 내는 검사는 CLI와 브라우저 양쪽에서 유지할 가치가 있다. [폼별 습득 목록 생성](../packages/calculator/scripts/extract-champions.mjs) · [막치기](../packages/calculator/data/champions/moves.json) · [발버둥](../packages/calculator/data/champions/moves.json) · [현재 계산기의 이름 검사](../packages/calculator/src/index.ts#L497)
 
 ### 5-2. 특성 187개의 기본 분류만으로는 화면 선택 목록을 만들 수 없다
 
@@ -191,49 +191,32 @@
 - **서투름**은 도구 효과를 막을 수 있어 엔진에 전달하면 실제 결과에 영향을 줄 수 있다. 사용자가 이 상호작용을 계산 범위에서 빼려는 경우다. 화면에서 제외하고도 입력 경로가 그 조건을 전제로 매번 포켓몬을 복제하는 부분은 함께 정리할 대상이다.
 - **탈·테일아머**는 비교 사이트 목록에서 찾지 못해도 우리 계산에 남길 이유가 있다. 탈은 첫 타격을 흡수하고, 테일아머는 우선도가 올라간 상대 기술을 막아 데미지를 0으로 만들 수 있다.
 
-따라서 스마트누오와의 차이 117개를 한꺼번에 빼거나 그대로 노출하면 안 된다. **각 특성을 고르면 우리 화면에서 어떤 결과가 달라지는지**가 제품 목록의 기준이다. 원본 폼별 전체 특성은 업데이트 때 다시 대조할 수 있게 보관할 가치가 있다. [기본 분류가 붙는 위치](../packages/calculator/scripts/champions-product-rules.mjs#L363) · [스마트누오의 목록 수](../packages/calculator/data/champions/SMARTNUO-COMPARISON.md#L19) · [특성별 실제 선택지 기록](../packages/calculator/data/champions/smartnuo-comparison.json#L3645)
+따라서 스마트누오와의 차이 117개를 한꺼번에 빼거나 그대로 노출하면 안 된다. **각 특성을 고르면 우리 화면에서 어떤 결과가 달라지는지**가 제품 목록의 기준이다. 원본 폼별 전체 특성은 업데이트 때 다시 대조할 수 있게 보관할 가치가 있다. [기본 분류가 붙는 위치](../packages/calculator/scripts/champions-product-rules.mjs) · [카탈로그의 현재 범위](../packages/calculator/data/champions/README.md)
 
 ### 5-3. 내던지기 조사 도구 166개를 일반 도구 선택 목록으로 쓰면 범위가 커진다
 
 조사한 166개는 메가스톤 81개와 그 밖의 도구 85개다. 이 자료가 답하는 질문은 ‘무엇을 던질 수 있고 그때 위력은 얼마인가’이다. 회복용 도구나 날씨 지속 시간을 늘리는 도구도 던지는 위력을 가질 수 있다. 그렇다고 그 도구의 회복 효과나 지속 턴까지 우리가 계산할 필요가 생기지는 않는다.
 
-일반 선택 목록에는 현재 입력에서 쓰는 효과를 기준으로 올리고, 내던지기를 고르면 투척 가능 여부·위력표를 사용할 수 있다. 도구 보유 자체가 필요한 애크러뱃·폴터가이스트·탁쳐서떨구기의 입력도 함께 고려한다. 현재 `createPokemon`은 엔진이 인식하는 도구 이름을 허용하므로 일반 선택 범위는 여기서 확정되지 않는다. [현재 도구 입력](../packages/calculator/src/index.ts#L242) · [투척 가능 여부 판정](../packages/calculator/src/index.ts#L316) · [투척 위력·소유자 예외 자료](../packages/calculator/data/champions/fling-item-overrides.json#L1)
+일반 선택 목록에는 현재 입력에서 쓰는 효과를 기준으로 올리고, 내던지기를 고르면 투척 가능 여부·위력표를 사용할 수 있다. 도구 보유 자체가 필요한 애크러뱃·폴터가이스트·탁쳐서떨구기의 입력도 함께 고려한다. 현재 `createPokemon`은 엔진이 인식하는 도구 이름을 허용하므로 일반 선택 범위는 여기서 확정되지 않는다. [현재 도구 입력](../packages/calculator/src/index.ts#L242) · [투척 가능 여부 판정](../packages/calculator/src/index.ts#L316) · [투척 위력·소유자 예외 자료](../packages/calculator/data/champions/fling-item-overrides.json)
 
 ### 5-4. `planned`와 ‘검토 필요 0개’는 구현 상태를 정확히 보여 주지 못한다
 
 현재 특성은 **214개 `planned`, 2개 `implemented`**이고, 구현 표시가 붙은 것은 애널라이즈와 곡예다. 기술은 **513개 `planned`, 2개 `implemented`**이며, 두 기술은 보복과 코골기다. 내던지기는 1회 위력과 사용 불가를 처리하고, 탈은 첫 타격을 흡수하는 코드가 있지만 두 항목의 전체 표시는 `planned`다. 생성기는 해당 항목에 연결된 규칙이 전부 구현 표시를 가져야 전체를 `implemented`로 기록한다.
 
-또 제품 규칙을 덮어쓸 때 `reviewRequired`를 일괄 `false`로 바꾸고, 보고서는 이 값을 읽어 미검토 목록을 만든다. 원본 조건 분류가 한때 검토 대상으로 표시한 **기술 78개·특성 28개**는 별도 `mechanicReviewRequired`에 남는다. ‘제품 검토 0개’도 ‘106개 전부 미완료’도 이 값만으로 결론낼 수 없다. 구현 상황을 보려면 **어떤 입력·어떤 1회 결과까지 동작하는지**를 코드와 연결해 읽어야 한다. [구현·검토 표시 생성](../packages/calculator/scripts/champions-product-rules.mjs#L355) · [보고서 필터](../packages/calculator/scripts/extract-champions.mjs#L373) · [내던지기 항목](../packages/calculator/data/champions/moves.json#L6390) · [탈 항목](../packages/calculator/data/champions/abilities.json#L1018)
+또 제품 규칙을 덮어쓸 때 `reviewRequired`를 일괄 `false`로 바꾸고, 보고서는 이 값을 읽어 미검토 목록을 만든다. 원본 조건 분류가 한때 검토 대상으로 표시한 **기술 78개·특성 28개**는 별도 `mechanicReviewRequired`에 남는다. ‘제품 검토 0개’도 ‘106개 전부 미완료’도 이 값만으로 결론낼 수 없다. 구현 상황을 보려면 **어떤 입력·어떤 1회 결과까지 동작하는지**를 코드와 연결해 읽어야 한다. [구현·검토 표시 생성](../packages/calculator/scripts/champions-product-rules.mjs) · [보고서 필터](../packages/calculator/scripts/extract-champions.mjs) · [내던지기 항목](../packages/calculator/data/champions/moves.json) · [탈 항목](../packages/calculator/data/champions/abilities.json)
 
-### 5-5. 데이터 폴더는 약 4.2MB지만, 현재 계산 코드가 직접 읽는 JSON은 10,533바이트다
+### 5-5. 제품 데이터와 조사 결과의 보관
 
-`data/champions` 아래 추적 파일 20개의 크기 합계는 **4,200,655바이트**다. 여기에는 설명 문서와 스크린샷도 포함된다. 현재 계산 모듈이 직접 가져오는 이 폴더의 JSON은 세 개다.
+검수 당시 데이터 폴더는 4,200,655바이트였고, 계산 함수가 직접 읽은 세 JSON은 10,533바이트였다. 내던지기 도구 보정, 부자유친 제외 기술, 폼 별칭은 현재 계산 입력이다. 이 수치로 브라우저 전송량이나 실행 시간을 측정하지는 않았다.
 
-- **`fling-item-overrides.json`, 9,434바이트.** 엔진에 보완할 투척 정보다. 위력 보정 87개에는 메가스톤 81개와 일반 도구 6개가 포함된다.
-- **`parental-bond-exclusions.json`, 249바이트.** 자식 타격을 제외하는 원본 기술 플래그의 추출 결과다.
-- **`species-aliases.json`, 850바이트.** 포챔스 폼 ID와 엔진 ID가 다른 25개를 연결한다.
-
-따라서 ‘저장소에서 무엇을 줄일까’와 ‘사용자의 브라우저가 무엇을 읽을까’는 답이 다르다. 10,533바이트는 이 JSON 파일 세 개의 원본 크기 합계다. 설치된 엔진 크기나 배포 번들·네트워크 전송량은 이번 검수에서 측정하지 않았다. [실제 JSON 가져오기](../packages/calculator/src/index.ts#L19) · [주요 데이터의 생성 위치](../packages/calculator/scripts/extract-champions.mjs#L455)
-
-### 5-6. 과거 검수 파일 안에 들어 있는 한글명은 분리해서 보존해야 한다
-
-`smartnuo-comparison.json`은 940,014바이트다. 여기에는 스마트누오 UI 관찰 82건뿐 아니라 **포켓몬·폼 382개의 한글명과 특성 216개의 한글명**이 있다. 사이트에서 대응되지 않았던 폼 5개의 보완 근거도 함께 있다. 기술 한글명 515개는 별도 `move-names.ko.json`에도 들어 있다. 화면에 이름을 보여주기 위해 과거 관찰 전체를 가져오거나, 반대로 큰 파일을 삭제해 폼·특성 한글명을 잃을 필요가 없다. 화면에 쓸 ID·한글명 대응만 작게 꺼내고 조사 원본은 근거 자료로 유지할 수 있다. [기술명](../packages/calculator/data/champions/smartnuo-comparison.json#L38) · [특성명](../packages/calculator/data/champions/smartnuo-comparison.json#L3645) · [폼 이름](../packages/calculator/data/champions/smartnuo-comparison.json#L5986) · [82건의 관찰](../packages/calculator/data/champions/smartnuo-comparison.json#L9426) · [5개 폼 보완 기록](../packages/calculator/data/champions/SMARTNUO-COMPARISON.md#L160)
-
-`conditional-audit.json`은 1,095,618바이트다. 이 파일과 스마트누오 관찰 JSON, 두 조사 보고서, 두 스크린샷을 합하면 **6개 파일 2,487,508바이트**다. 과거에 보관하기로 한 조사 자료이고 현재 계산 코드가 직접 가져오지 않는다. 배포 화면의 목록 파일과 별도로 보관하는 방향이면 검수 이력과 화면 크기를 함께 관리할 수 있다. [조건부 검수 보고서](../packages/calculator/data/champions/CONDITIONAL-AUDIT.md) · [스마트누오 보고서와 증거](../packages/calculator/data/champions/SMARTNUO-COMPARISON.md#L5)
-
-### 5-7. 폼과 기술의 연결은 보존하고, 그 연결에서 다시 만들 수 있는 값부터 줄인다
-
-- **제외된 습득 기술.** 현재 382개 폼의 `excludedMoveIds`는 모두 빈 배열이다. 현재 화면용 자료에서는 생략할 수 있다. 다음 업데이트에서 유효한 제외 항목이 생기면 원본을 추적할 수 있도록 추출 규칙은 유지한다. [폼별 출력](../packages/calculator/scripts/extract-champions.mjs#L235)
-- **특성 슬롯.** 폼별 특성 슬롯 812개에 `slot`, `hidden`, `special`이 함께 있다. 숨겨진 특성 여부는 `slot === 'H'`, 특수 슬롯 여부는 `slot === 'S'`에서 구할 수 있다. 같은 의미를 세 필드에 반복 저장할 필요가 있는지 확인할 수 있다. [슬롯 생성](../packages/calculator/scripts/extract-champions.mjs#L146)
-- **같은 습득 목록을 가진 폼.** 382개 폼의 기술 배열을 내용으로 비교하면 서로 다른 목록은 257개다. 같은 배열을 공유하는 방식은 가능하지만, 폼별로 무엇을 배울 수 있는지 나타내는 **23,176개 연결**은 유지해야 한다. 저장 크기와 다음 패치에서 개별 폼을 수정하는 편의성을 함께 따져볼 항목이다. [습득 목록 추출](../packages/calculator/scripts/extract-champions.mjs#L152) · [기술 ID 출력](../packages/calculator/scripts/extract-champions.mjs#L248)
-- **조건별 입력 색인.** `engine-diff.json`에는 조건 입력이 필요한 기술 74개와 특성 17개가 다시 모여 있다. 개별 분류에서 생성하는 목록이라 손으로 두 군데를 관리할 필요가 없다. 엔진 별칭 25개도 중복 표현이지만, 계산 함수에서 큰 폼 목록 전체를 읽지 않게 해 주는 작은 파일이라는 용도가 있다. [색인 내용](../packages/calculator/data/champions/engine-diff.json#L2224) · [색인 생성](../packages/calculator/scripts/extract-champions.mjs#L381) · [별칭 생성](../packages/calculator/scripts/extract-champions.mjs#L457)
+Smartnuo 비교 자료에서 포켓몬·폼 382개와 특성 216개의 한글명, 원본에 없던 폼 5개의 표기 근거를 분리했다. 두 조사 원본과 당시 상세 보고서는 보존 커밋 `e5cb10e`에서 확인할 수 있다. 폼별 습득 목록과 엔진 별칭은 선택과 계산에 남긴다. [제품 카탈로그와 갱신 절차](../packages/calculator/data/champions/README.md)
 
 ### 5-8. 데이터 생성 스크립트에도 반복이 있지만 사용자 입력 때 발생하는 비용과는 구분한다
 
-1. 원본 기술의 함수 내용을 문자열로 읽고 정규식으로 조건 단서를 찾는 `sourceSignals`가 일부 기술의 분류 과정과 결과 생성 과정에서 두 번 호출된다. 한 번 구한 단서를 두 곳에서 사용할 수 있다. [결과 저장](../packages/calculator/scripts/champions-conditions.mjs#L449) · [분류 중 재조회](../packages/calculator/scripts/champions-conditions.mjs#L519)
-2. 전투 중 변하는 폼을 제외할 때 같은 선행 폼 목록을 필터와 결과 작성에서 두 번 조회한다. 습득 출처에 쓰는 상위 폼도 같은 목록을 두 번 정렬한다. [선행 폼 조회](../packages/calculator/scripts/extract-champions.mjs#L103) · [출처 목록 정렬](../packages/calculator/scripts/extract-champions.mjs#L250)
-3. 클리어스모그를 랭크 변화 기술로 분류하는 조건이 판정 함수 내부와 그 함수를 부르는 위치에 모두 있다. 한쪽이 담당해도 같은 의도를 표현할 수 있다. [판정 함수](../packages/calculator/scripts/champions-product-rules.mjs#L323) · [호출부](../packages/calculator/scripts/champions-product-rules.mjs#L347)
-4. 목록을 다시 만들 때마다 성묘에 아군 기절 0회와 2회를 넣어 엔진 데미지를 두 번 계산한다. 엔진 버전에 대한 과거 관찰을 재현하기 위한 코드다. 목록 재생성과 엔진 버전 변경에 따른 검증을 별도로 할지 검토할 수 있다. [생성 중 호출](../packages/calculator/scripts/extract-champions.mjs#L412) · [성묘 비교 내용](../packages/calculator/scripts/extract-champions.mjs#L510)
+1. 원본 기술의 함수 내용을 문자열로 읽고 정규식으로 조건 단서를 찾는 `sourceSignals`가 일부 기술의 분류 과정과 결과 생성 과정에서 두 번 호출된다. 한 번 구한 단서를 두 곳에서 사용할 수 있다. [결과 저장](../packages/calculator/scripts/champions-conditions.mjs) · [분류 중 재조회](../packages/calculator/scripts/champions-conditions.mjs)
+2. 전투 중 변하는 폼을 제외할 때 같은 선행 폼 목록을 필터와 결과 작성에서 두 번 조회한다. 습득 출처에 쓰는 상위 폼도 같은 목록을 두 번 정렬한다. [선행 폼 조회](../packages/calculator/scripts/extract-champions.mjs) · [출처 목록 정렬](../packages/calculator/scripts/extract-champions.mjs)
+3. 클리어스모그를 랭크 변화 기술로 분류하는 조건이 판정 함수 내부와 그 함수를 부르는 위치에 모두 있다. 한쪽이 담당해도 같은 의도를 표현할 수 있다. [판정 함수](../packages/calculator/scripts/champions-product-rules.mjs) · [호출부](../packages/calculator/scripts/champions-product-rules.mjs)
+4. 목록을 다시 만들 때마다 성묘에 아군 기절 0회와 2회를 넣어 엔진 데미지를 두 번 계산한다. 엔진 버전에 대한 과거 관찰을 재현하기 위한 코드다. 목록 재생성과 엔진 버전 변경에 따른 검증을 별도로 할지 검토할 수 있다. [생성 중 호출](../packages/calculator/scripts/extract-champions.mjs) · [성묘 비교 내용](../packages/calculator/scripts/extract-champions.mjs)
 
 <a id="next"></a>
 

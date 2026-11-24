@@ -336,7 +336,7 @@ function guaranteedRankChange(raw) {
   );
 }
 
-export function applyProductRules(kind, id, classification, raw, definitions) {
+export function applyProductRules(kind, id, classification, raw) {
   const matches = productRules.rules.filter(
     (r) =>
       r.kind === kind &&
@@ -349,15 +349,8 @@ export function applyProductRules(kind, id, classification, raw, definitions) {
   const excluded = matches.some((r) => r.selection === 'excluded');
   const inputs = [...new Set(matches.flatMap((r) => r.inputs ?? []))].sort();
   const defaults = Object.assign({}, ...matches.map((r) => r.defaults ?? {}));
-  const definitionInputs = [
-    ...new Set(classification.ruleIds.flatMap((r) => definitions[r].inputs)),
-  ].sort();
   return {
     ...classification,
-    mechanicInputIds: classification.requiredInputIds,
-    mechanicReviewRequired: classification.reviewRequired,
-    mechanicReviewRuleIds: classification.unresolvedRuleIds,
-    definitionInputIds: definitionInputs,
     requiredInputIds: excluded ? [] : inputs,
     productRuleIds: matches.map((r) => r.id),
     productPolicy: {
@@ -378,7 +371,5 @@ export function applyProductRules(kind, id, classification, raw, definitions) {
           : null,
       defaults: excluded ? {} : defaults,
     },
-    reviewRequired: false,
-    unresolvedRuleIds: [],
   };
 }

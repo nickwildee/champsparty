@@ -71,36 +71,3 @@ function loadShowdownSource(root) {
     throw error;
   }
 }
-
-export function sourceEntryIndex(root, relativePath) {
-  const text = readFileSync(join(root, relativePath), 'utf8');
-  const tree = ts.createSourceFile(
-    relativePath,
-    text,
-    ts.ScriptTarget.Latest,
-    true,
-  );
-  const entries = new Map();
-  for (const statement of tree.statements) {
-    if (!ts.isVariableStatement(statement)) continue;
-    for (const declaration of statement.declarationList.declarations) {
-      if (
-        !declaration.initializer ||
-        !ts.isObjectLiteralExpression(declaration.initializer)
-      )
-        continue;
-      for (const property of declaration.initializer.properties) {
-        if (!property.name) continue;
-        const id = property.name.text;
-        if (!id) continue;
-        entries.set(id, {
-          path: relativePath,
-          line:
-            tree.getLineAndCharacterOfPosition(property.getStart(tree)).line +
-            1,
-        });
-      }
-    }
-  }
-  return entries;
-}

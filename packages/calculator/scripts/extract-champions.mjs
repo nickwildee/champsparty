@@ -1,9 +1,9 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
-import process from 'node:process';
+import { parseArgs } from 'node:util';
 import console from 'node:console';
 import {
   Generations,
@@ -14,7 +14,7 @@ import {
   toID,
 } from '@smogon/calc';
 import { getFlingPower } from '@smogon/calc/dist/items.js';
-import { withPinnedShowdown, sourceEntryIndex } from './showdown-source.mjs';
+import { withPinnedShowdown } from './showdown-source.mjs';
 import {
   classifyMove,
   classifyAbility,
@@ -28,19 +28,76 @@ const dataDir = resolve(
   '../data/champions',
 );
 const pin = JSON.parse(readFileSync(join(dataDir, 'source-pin.json'), 'utf8'));
-const args = process.argv.slice(2);
-const archiveIndex = args.indexOf('--archive');
-if (archiveIndex < 0 || !args[archiveIndex + 1]) {
+const { values } = parseArgs({
+  options: {
+    archive: { type: 'string' },
+    check: { type: 'boolean', default: false },
+    diagnostics: { type: 'string' },
+  },
+});
+if (!values.archive || values.diagnostics === '')
   throw new Error(
-    'Usage: catalog:extract --archive /path/to/pinned/showdown.tar.gz [--check]',
+    'Usage: catalog:extract --archive <pinned archive> [--check] [--diagnostics <directory>]',
   );
-}
-const archive = resolve(args[archiveIndex + 1]);
-const check = args.includes('--check');
+const archive = resolve(values.archive);
+const diagnosticsDir = values.diagnostics && resolve(values.diagnostics);
+const check = values.check;
+const catalogDefaults = {
+  availableInSource: true,
+  engineDataPresent: true,
+  ruleIds: ['existing-context'],
+  requiredInputIds: [],
+  productRuleIds: [],
+  selectionByKind: { move: 'included', ability: 'damage-or-speed-only' },
+  implementation:
+    productRules.defaultImplementation ?? productRules.implementation,
+  maximumUses: null,
+  defaults: {},
+};
 const engineVersion = require('@smogon/calc/package.json').version;
 if (engineVersion !== pin.engine.version)
   throw new Error('Engine version differs from source-pin.json.');
 withPinnedShowdown(archive, pin.showdown, extract);
+
+// Omitted fields take the defaults shared by the catalog in conditions.json.
+function productEntry(
+  { id, name, classification, engineDataPresent, availableInSource },
+  kind,
+) {
+  const {
+    category,
+    ruleIds,
+    hitCount,
+    defaultStatus,
+    requiredInputIds,
+    productRuleIds,
+    productPolicy,
+  } = classification;
+  const policy = {};
+  if (productPolicy.selection !== catalogDefaults.selectionByKind[kind])
+    policy.selection = productPolicy.selection;
+  if (productPolicy.implementation !== catalogDefaults.implementation)
+    policy.implementation = productPolicy.implementation;
+  if (productPolicy.maximumUses !== null)
+    policy.maximumUses = productPolicy.maximumUses;
+  if (Object.keys(productPolicy.defaults).length)
+    policy.defaults = productPolicy.defaults;
+  return {
+    id,
+    name,
+    ...(category && { category }),
+    ...(availableInSource === false && { availableInSource: false }),
+    ...(!engineDataPresent && { engineDataPresent: false }),
+    ...(ruleIds.length === 1 && ruleIds[0] === 'existing-context'
+      ? {}
+      : { ruleIds }),
+    ...(hitCount && { hitCount }),
+    ...(defaultStatus && { defaultStatus }),
+    ...(requiredInputIds.length > 0 && { requiredInputIds }),
+    ...(productRuleIds.length > 0 && { productRuleIds }),
+    ...(Object.keys(policy).length > 0 && { productPolicy: policy }),
+  };
+}
 
 function sorted(values) {
   return [...new Set(values)].sort();
@@ -65,7 +122,9 @@ function flingItemOverrides(dex, engine, pokemon) {
         const holder = { baseSpecies: dex.species.get(id) };
         return item.onTakeItem(item, holder) === false;
       });
-      const blockedHolders = sorted(blocked.map((holder) => holder.engineId));
+      const blockedHolders = sorted(
+        blocked.map((holder) => holder.engineId ?? holder.id),
+      );
       if (blockedHolders.length) entry.blockedHolders = blockedHolders;
     }
     if (Object.keys(entry).length) overrides[item.id] = entry;
@@ -73,7 +132,7 @@ function flingItemOverrides(dex, engine, pokemon) {
   return overrides;
 }
 
-function extract({ dex, root: sourceRoot, sourceHashes }) {
+function extract({ dex, sourceHashes }) {
   const engine = Generations.get(0);
   const engineSpecies = new Map([...engine.species].map((s) => [s.id, s]));
   const engineMoves = new Map([...engine.moves].map((m) => [m.id, m]));
@@ -100,38 +159,27 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
         }))
       : [];
   };
-  const excludedBattleOnlyForms = candidates
-    .filter((species) => unavailableBattleFormParents(species).length)
-    .map((species) => ({
-      id: species.id,
-      name: species.name,
-      reason: 'all-transformation-prerequisites-unavailable',
-      prerequisites: unavailableBattleFormParents(species),
-    }));
+  const excludedBattleOnlyForms = candidates.flatMap((species) => {
+    const prerequisites = unavailableBattleFormParents(species);
+    return prerequisites.length
+      ? [
+          {
+            id: species.id,
+            name: species.name,
+            reason: 'all-transformation-prerequisites-unavailable',
+            prerequisites,
+          },
+        ]
+      : [];
+  });
   const excludedFormIds = new Set(excludedBattleOnlyForms.map((s) => s.id));
   const roster = candidates.filter((s) => !excludedFormIds.has(s.id));
   const availableMoves = dex.moves
     .all()
     .filter((m) => m.exists && m.num > 0 && !m.isNonstandard);
-  const rosterIds = new Set(roster.map((s) => s.id));
   const moveIds = new Set(availableMoves.map((m) => m.id));
   const referencedMoveIds = new Set(moveIds);
   const usedAbilityIds = new Set();
-  const indexes = {};
-  for (const path of [
-    'data/pokedex.ts',
-    'data/mods/champions/formats-data.ts',
-    'data/mods/champions/learnsets.ts',
-    'data/moves.ts',
-    'data/mods/champions/moves.ts',
-    'data/abilities.ts',
-    'data/mods/champions/abilities.ts',
-  ])
-    indexes[path] = sourceEntryIndex(sourceRoot, path);
-  const evidence = (id, paths) =>
-    paths.flatMap((path) =>
-      indexes[path].has(id) ? [indexes[path].get(id)] : [],
-    );
   const pokemon = [];
   const speciesMissing = [];
   const aliases = [];
@@ -141,30 +189,27 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
   const defaultAbilityDifferences = [];
   const additionalAbilityOptions = [];
   const unavailableLearnsetReferences = [];
-  const errors = [];
 
   for (const s of roster) {
     const abilities = Object.entries(s.abilities).map(([slot, name]) => {
       const id = toID(name);
       usedAbilityIds.add(id);
-      return { slot, id, name, hidden: slot === 'H', special: slot === 'S' };
+      return { slot, id, name };
     });
-    let rawMoveIds = [];
-    let parents = [];
-    try {
-      parents = dex.species.getFullLearnset(s.id).map((l) => l.species.id);
-      rawMoveIds = sorted(dex.species.getMovePool(s.id));
-    } catch (error) {
-      errors.push({ speciesId: s.id, error: error.message });
-    }
+    const rawMoveIds = sorted(dex.species.getMovePool(s.id));
     for (const id of rawMoveIds) referencedMoveIds.add(id);
-    const excluded = rawMoveIds.filter((id) => !moveIds.has(id));
-    for (const id of excluded)
-      unavailableLearnsetReferences.push({
-        speciesId: s.id,
-        moveId: id,
-        reason: dex.moves.get(id).isNonstandard ?? 'not-in-available-move-list',
-      });
+    if (diagnosticsDir) {
+      for (const id of rawMoveIds) {
+        if (!moveIds.has(id)) {
+          unavailableLearnsetReferences.push({
+            speciesId: s.id,
+            moveId: id,
+            reason:
+              dex.moves.get(id).isNonstandard ?? 'not-in-available-move-list',
+          });
+        }
+      }
+    }
     let engineId = engineSpecies.has(s.id) ? s.id : null;
     let aliasReason = null;
     if (s.id === 'aegislash' && engineSpecies.has('aegislashshield')) {
@@ -185,7 +230,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     if (aliasReason)
       aliases.push({ speciesId: s.id, engineId, reason: aliasReason });
     const e = engineId ? engineSpecies.get(engineId) : null;
-    if (!e)
+    if (diagnosticsDir && !e)
       speciesMissing.push({
         id: s.id,
         name: s.name,
@@ -193,7 +238,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
         changesFrom: s.changesFrom || null,
         cosmetic: !!s.isCosmeticForme,
       });
-    else {
+    else if (diagnosticsDir) {
       for (const stat of ['hp', 'atk', 'def', 'spa', 'spd', 'spe']) {
         if (s.baseStats[stat] !== e.baseStats[stat])
           statDifferences.push({
@@ -236,27 +281,23 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
       id: s.id,
       name: s.name,
       nationalDexNumber: s.num,
-      baseSpeciesId: toID(s.baseSpecies),
-      forme: s.forme || null,
-      cosmetic: !!s.isCosmeticForme,
-      battleOnly: s.battleOnly || null,
-      changesFrom: s.changesFrom ? toID(s.changesFrom) : null,
-      requiredItemIds: sorted(
-        (s.requiredItems || (s.requiredItem ? [s.requiredItem] : [])).map(toID),
+      ...(s.id !== toID(s.baseSpecies) && {
+        baseSpeciesId: toID(s.baseSpecies),
+      }),
+      ...(s.forme && { forme: s.forme }),
+      ...(s.isCosmeticForme && { cosmetic: true }),
+      ...(s.battleOnly && { battleOnly: s.battleOnly }),
+      ...(s.changesFrom && { changesFrom: toID(s.changesFrom) }),
+      ...((s.requiredItems?.length || s.requiredItem) && {
+        requiredItemIds: sorted(
+          (s.requiredItems || [s.requiredItem]).map(toID),
+        ),
+      }),
+      ...(engineId !== s.id && { engineId }),
+      abilities: Object.fromEntries(
+        abilities.map(({ slot, id }) => [slot, id]),
       ),
-      abilities,
       moveIds: rawMoveIds.filter((id) => moveIds.has(id)),
-      excludedMoveIds: excluded,
-      learnsetSourceSpeciesIds: sorted(parents),
-      engineId,
-      engineMapping: aliasReason || (engineId ? 'exact-id' : 'missing'),
-      source: evidence(s.id, [
-        'data/pokedex.ts',
-        'data/mods/champions/formats-data.ts',
-      ]),
-      learnsetSource: sorted(parents).flatMap((id) =>
-        evidence(id, ['data/mods/champions/learnsets.ts']),
-      ),
     });
   }
 
@@ -266,10 +307,8 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
       id,
       name: m.name,
       availableInSource: moveIds.has(id),
-      sourceNonstandard: m.isNonstandard || null,
       engineDataPresent: engineMoves.has(id),
       classification: classifyMove(m, dex.data.Moves[id]),
-      source: evidence(id, ['data/moves.ts', 'data/mods/champions/moves.ts']),
     };
   });
   const abilities = sorted(usedAbilityIds).map((id) => {
@@ -280,12 +319,53 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
       sourceNonstandard: a.isNonstandard || null,
       engineDataPresent: engineAbilities.has(id),
       classification: classifyAbility(a, dex.data.Abilities[id]),
-      source: evidence(id, [
-        'data/abilities.ts',
-        'data/mods/champions/abilities.ts',
-      ]),
     };
   });
+  const conditions = {
+    schemaVersion: 4,
+    catalogDefaults,
+    definitions: conditionDefinitions,
+    productRules,
+  };
+  const artifacts = {
+    'pokemon.json': pokemon,
+    'species-aliases.json': Object.fromEntries(
+      aliases.map(({ speciesId, engineId }) => [speciesId, engineId]),
+    ),
+    'fling-item-overrides.json': flingItemOverrides(dex, engine, pokemon),
+    'parental-bond-exclusions.json': sorted(
+      availableMoves
+        .filter(
+          ({ category, flags }) =>
+            category !== 'Status' &&
+            (flags.noparentalbond || flags.charge || flags.futuremove),
+        )
+        .map(({ id }) => id),
+    ),
+    'moves.json': moves.map((row) => productEntry(row, 'move')),
+    'abilities.json': abilities.map((row) => productEntry(row, 'ability')),
+    'conditions.json': conditions,
+  };
+  const hashes = {};
+  for (const [file, content] of Object.entries(artifacts)) {
+    // A single catalog record is the unit of review. Keep the lists of IDs inline.
+    const rows = ['pokemon.json', 'moves.json', 'abilities.json'].includes(
+      file,
+    );
+    const json = rows
+      ? '[\n' +
+        content.map((row) => '  ' + JSON.stringify(row)).join(',\n') +
+        '\n]\n'
+      : pretty(content);
+    output(dataDir, file, json);
+    if (diagnosticsDir) hashes[file] = hash(json);
+  }
+  console.log(
+    `${check ? 'Verified' : 'Wrote'} ${pokemon.length} forms, ${moves.length} moves, ${abilities.length} abilities.`,
+  );
+  if (!diagnosticsDir) return;
+
+  const rosterIds = new Set(roster.map((s) => s.id));
   const moveDifferences = [];
   for (const m of availableMoves) {
     const e = engineMoves.get(m.id);
@@ -369,15 +449,7 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
     sourceAbilityAvailabilityConflicts: abilities
       .filter((a) => a.sourceNonstandard)
       .map((a) => ({ id: a.id, nonstandard: a.sourceNonstandard })),
-    extractionErrors: errors,
-    classificationReviewRequired: {
-      moves: moves
-        .filter((m) => m.classification.reviewRequired)
-        .map((m) => m.id),
-      abilities: abilities
-        .filter((a) => a.classification.reviewRequired)
-        .map((a) => a.id),
-    },
+
     conditionInputIndex: {
       availableMoves: moves
         .filter(
@@ -409,22 +481,42 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
           rules: a.classification.ruleIds,
         })),
     },
+    // Preserve exceptional evidence without distributing it as selection metadata.
+    mechanicNotes: [
+      ...moves.map((entry) => ({ kind: 'move', ...entry })),
+      ...abilities.map((entry) => ({ kind: 'ability', ...entry })),
+    ].flatMap(({ kind, id, classification }) => {
+      const {
+        mechanicNote,
+        historyDependencies,
+        counterSemantics,
+        knownEngineGap,
+      } = classification;
+      if (
+        !mechanicNote &&
+        !historyDependencies &&
+        !counterSemantics &&
+        !knownEngineGap
+      )
+        return [];
+      return [
+        {
+          kind,
+          id,
+          mechanicNote,
+          historyDependencies,
+          counterSemantics,
+          knownEngineGap,
+        },
+      ];
+    }),
     mechanicProbes: mechanicProbes(engine),
   };
-  const conditions = {
-    schemaVersion: 3,
-    definitions: conditionDefinitions,
-    productRules,
-    note: 'mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope. requiredInputIds/productRuleIds describe the product rules, including both implemented one-use behavior and planned inputs. For example, the calculator sets the user to sleep for Snore; move-specific input forms and repeated KO calculations are planned.',
-  };
-  const flingItems = flingItemOverrides(dex, engine, pokemon);
   const manifest = {
     ...pin,
     extraction: {
       speciesApi: "Dex.mod('champions').species.all()",
       movePoolApi: "Dex.mod('champions').species.getMovePool(id, false)",
-      preserveRawMovePool:
-        'Reconstruct as the sorted union of moveIds and excludedMoveIds.',
       availabilityFilter:
         'exists && num > 0 && !isNonstandard; battle-only forms also need at least one available battleOnly prerequisite',
       legalityScope:
@@ -450,60 +542,28 @@ function extract({ dex, root: sourceRoot, sourceHashes }) {
           .digest('hex'),
       ]),
     ),
-    artifactSha256: {},
+    artifactSha256: hashes,
   };
-  for (const [file, content] of Object.entries({
-    'pokemon.json': pokemon,
-    'species-aliases.json': Object.fromEntries(
-      aliases.map(({ speciesId, engineId }) => [speciesId, engineId]),
-    ),
-    'fling-item-overrides.json': flingItems,
-    'parental-bond-exclusions.json': sorted(
-      availableMoves
-        .filter(
-          ({ category, flags }) =>
-            category !== 'Status' &&
-            (flags.noparentalbond || flags.charge || flags.futuremove),
-        )
-        .map(({ id }) => id),
-    ),
-    'moves.json': moves,
-    'abilities.json': abilities,
-    'conditions.json': conditions,
-    'engine-diff.json': report,
-  })) {
-    const json = JSON.stringify(content, null, 2) + '\n';
-    manifest.artifactSha256[file] = createHash('sha256')
-      .update(json)
-      .digest('hex');
-    output(file, json);
-  }
-  output('manifest.json', JSON.stringify(manifest, null, 2) + '\n');
-  console.log(
-    JSON.stringify(
-      {
-        ...report.counts,
-        moveDataDifferences: moveDifferences.length,
-        missingAbilities: report.missingAbilityData.length,
-        reviewMoves: report.classificationReviewRequired.moves.length,
-        reviewAbilities: report.classificationReviewRequired.abilities.length,
-        check,
-      },
-      null,
-      2,
-    ),
-  );
-  if (errors.length)
-    throw new Error(
-      'Some learnsets could not be extracted; see engine-diff.json.',
-    );
+  if (!check) mkdirSync(diagnosticsDir, { recursive: true });
+  const reportJson = pretty(report);
+  hashes['engine-diff.json'] = hash(reportJson);
+  output(diagnosticsDir, 'engine-diff.json', reportJson);
+  output(diagnosticsDir, 'manifest.json', pretty(manifest));
 }
 
-function output(file, json) {
-  const path = join(dataDir, file);
+function hash(value) {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+function pretty(value) {
+  return JSON.stringify(value, null, 2) + '\n';
+}
+
+function output(directory, file, json) {
+  const path = join(directory, file);
   if (check) {
     if (readFileSync(path, 'utf8') !== json)
-      throw new Error(`Catalog is not reproducible: ${file}`);
+      throw new Error(`Catalog is not reproducible: ${path}`);
   } else writeFileSync(path, json);
 }
 

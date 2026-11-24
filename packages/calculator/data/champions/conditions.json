@@ -1,5 +1,21 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
+  "catalogDefaults": {
+    "availableInSource": true,
+    "engineDataPresent": true,
+    "ruleIds": [
+      "existing-context"
+    ],
+    "requiredInputIds": [],
+    "productRuleIds": [],
+    "selectionByKind": {
+      "move": "included",
+      "ability": "damage-or-speed-only"
+    },
+    "implementation": "planned",
+    "maximumUses": null,
+    "defaults": {}
+  },
   "definitions": {
     "unresolved-context": {
       "label": "원본 문맥 참조",
@@ -833,6 +849,5 @@
         "inputs": []
       }
     ]
-  },
-  "note": "mechanicInputIds/mechanicReviewRuleIds preserve the diagnostic audit scope. requiredInputIds/productRuleIds describe the product rules, including both implemented one-use behavior and planned inputs. For example, the calculator sets the user to sleep for Snore; move-specific input forms and repeated KO calculations are planned."
+  }
 }
