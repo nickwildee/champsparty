@@ -307,7 +307,6 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 | `pnpm install --frozen-lockfile`                                           | 기록된 lockfile을 변경하지 않고 의존성 설치                                 |
 | `pnpm calc:check packages/calculator/fixtures/champions-damage-input.json` | 양쪽 세팅과 기술 하나로 1회 데미지·난수 출력                                |
 | `pnpm calc:check --speed <입력.json>`                                      | 양쪽 최종 스피드와 같은 우선도에서 먼저 움직이는 쪽 출력                    |
-| `pnpm --filter @champsparty/calculator test`                               | 이름·HP·입력 오류·우선도 차단·조건 분류와 원본 검증 회귀 검사               |
 | `pnpm db:check`                                                            | 로컬 DB 접속·DB 이름·앱 역할 확인 후 연결 정리 (macOS 셸 기준)              |
 | `pnpm db:migrate`                                                          | 마이그레이션 전용 계정으로 로컬 DB에 SQL 적용                               |
 | `pnpm dev`                                                                 | 개발 서버 실행, 기본 주소 `http://localhost:3000`                           |
@@ -318,6 +317,8 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 | `pnpm build`                                                               | 웹 프로덕션 빌드                                                            |
 | `pnpm start`                                                               | `pnpm build` 후 프로덕션 서버 실행                                          |
 | `pnpm -r list --depth -1`                                                  | 루트와 두 패키지의 워크스페이스 인식 확인                                   |
+
+계산기 회귀 검사는 `node --test --test-name-pattern="<확인한 테스트 이름>" packages/calculator/test/champions.test.mjs`로 선택 실행한다. 에이전트는 해당 테스트 안의 모든 사례가 [프로젝트 검증 기준](../AGENTS.md)을 충족하는지 먼저 확인한다.
 
 `next-env.d.ts`는 Next.js가 생성한다. 개발 서버를 처음 실행하기 전에도 `pnpm typecheck`가 필요한 타입 파일을 준비한다. `.next/`, `next-env.d.ts`, `*.tsbuildinfo`와 개인 `.codex/` 설정은 Git에서 제외하며 lockfile은 추적한다.
 
