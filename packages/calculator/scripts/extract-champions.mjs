@@ -365,7 +365,7 @@ function extract({ dex, sourceHashes }) {
   );
   if (!diagnosticsDir) return;
 
-  const rosterIds = new Set(roster.map((s) => s.id));
+  const mappedEngineIds = new Set(pokemon.map((p) => p.engineId ?? p.id));
   const moveDifferences = [];
   for (const m of availableMoves) {
     const e = engineMoves.get(m.id);
@@ -414,7 +414,7 @@ function extract({ dex, sourceHashes }) {
     excludedBattleOnlyForms,
     speciesMappings: aliases,
     engineOnlySpecies: [...engineSpecies.values()]
-      .filter((s) => !rosterIds.has(s.id))
+      .filter((s) => !mappedEngineIds.has(s.id))
       .map((s) => ({
         id: s.id,
         name: s.name,
@@ -573,7 +573,7 @@ function mechanicProbes(gen) {
     const result = calculate(
       gen,
       new Pokemon(gen, 'Houndstone', { alliesFainted }),
-      new Pokemon(gen, 'Metagross-Mega'),
+      new Pokemon(gen, 'Metagross-Mega', { item: 'Metagrossite' }),
       new Move(gen, 'Last Respects'),
       new Field({ gameType: 'Singles' }),
     );

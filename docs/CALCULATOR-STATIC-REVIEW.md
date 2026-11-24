@@ -110,7 +110,7 @@
 
 생성기는 원본 기술에서 자식 타격 제외·충전·지연 공격을 나타내는 표시를 읽어 기술 17개를 추출한다. 이 파일은 249바이트이고 새 기술이 생기면 같은 방법으로 갱신할 수 있다. **17개와 메가캥카의 습득 목록을 대조하면 구멍파기·솔라빔·죽기살기·내던지기 네 개가 겹친다.** 죽기살기는 우리 계산 대상에서 제외했다. 메가캥카가 자기 메가스톤을 들고 내던지기를 선택하면 그 도구는 던질 수 없다.
 
-따라서 구멍파기와 솔라빔으로 탈만 깨지는지, 반대로 아이언테일은 탈이 깨진 뒤 자식 타격이 들어가는지가 실제 화면을 대표하는 예다. 메가캥카의 미래예지·지구던지기, 캥카나이트 대신 검은철구를 들고 쓰는 내던지기는 엔진 분기를 조사하는 데 쓰인 입력이다. 과거 기록의 51건은 **제외 플래그 17개 × 방어 상태 3가지**다. 51가지 상황을 전부 제품에서 제공한다는 근거로 사용할 수 없다. [플래그 추출](../packages/calculator/scripts/extract-champions.mjs) · [현재 테스트 조합](../packages/calculator/test/champions.test.mjs#L683) · [51건의 검증 목적](DECISIONS.md#L266)
+따라서 구멍파기와 솔라빔으로 탈만 깨지는지, 반대로 아이언테일은 탈이 깨진 뒤 자식 타격이 들어가는지가 실제 화면을 대표하는 예다. 메가캥카의 미래예지·지구던지기, 캥카나이트 대신 검은철구를 들고 쓰는 내던지기는 엔진 분기를 조사하는 데 쓰인 입력이다. 과거 기록의 51건은 **제외 플래그 17개 × 방어 상태 3가지**다. 51가지 상황을 전부 제품에서 제공한다는 근거로 사용할 수 없다. [플래그 추출](../packages/calculator/scripts/extract-champions.mjs) · [현재 테스트 조합](../packages/calculator/test/champions.test.mjs#L683) · [51건의 검증 목적](DECISIONS.md#싱글-cli의-부자유친셸암즈탈)
 
 ### 3-3. 스피드·보복·애널라이즈는 각각 실제 습득 가능한 조합으로 검증할 수 있다
 
@@ -216,7 +216,7 @@ Smartnuo 비교 자료에서 포켓몬·폼 382개와 특성 216개의 한글명
 1. 원본 기술의 함수 내용을 문자열로 읽고 정규식으로 조건 단서를 찾는 `sourceSignals`가 일부 기술의 분류 과정과 결과 생성 과정에서 두 번 호출된다. 한 번 구한 단서를 두 곳에서 사용할 수 있다. [결과 저장](../packages/calculator/scripts/champions-conditions.mjs) · [분류 중 재조회](../packages/calculator/scripts/champions-conditions.mjs)
 2. 전투 중 변하는 폼을 제외할 때 같은 선행 폼 목록을 필터와 결과 작성에서 두 번 조회한다. 습득 출처에 쓰는 상위 폼도 같은 목록을 두 번 정렬한다. [선행 폼 조회](../packages/calculator/scripts/extract-champions.mjs) · [출처 목록 정렬](../packages/calculator/scripts/extract-champions.mjs)
 3. 클리어스모그를 랭크 변화 기술로 분류하는 조건이 판정 함수 내부와 그 함수를 부르는 위치에 모두 있다. 한쪽이 담당해도 같은 의도를 표현할 수 있다. [판정 함수](../packages/calculator/scripts/champions-product-rules.mjs) · [호출부](../packages/calculator/scripts/champions-product-rules.mjs)
-4. 목록을 다시 만들 때마다 성묘에 아군 기절 0회와 2회를 넣어 엔진 데미지를 두 번 계산한다. 엔진 버전에 대한 과거 관찰을 재현하기 위한 코드다. 목록 재생성과 엔진 버전 변경에 따른 검증을 별도로 할지 검토할 수 있다. [생성 중 호출](../packages/calculator/scripts/extract-champions.mjs) · [성묘 비교 내용](../packages/calculator/scripts/extract-champions.mjs)
+4. 검수 당시에는 목록을 갱신할 때마다 성묘의 아군 기절 0회·2회 데미지를 비교했다. 현재는 `--diagnostics`를 지정할 때만 이 비교를 실행한다. [현재 추출기](../packages/calculator/scripts/extract-champions.mjs)
 
 <a id="next"></a>
 

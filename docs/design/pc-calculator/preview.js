@@ -144,9 +144,11 @@ function option(value, selected) {
     '</option>'
   );
 }
-function selectField(label, key, values, b) {
+function selectField(label, key, values, b, hidden = false) {
   return (
-    '<label class="control"><span>' +
+    '<label class="control"' +
+    (hidden ? ' hidden' : '') +
+    '><span>' +
     label +
     '</span><select class="select" data-field="' +
     key +
@@ -155,8 +157,19 @@ function selectField(label, key, values, b) {
     '</select></label>'
   );
 }
+function totalPoints(b) {
+  return b.points.reduce((sum, value) => sum + value, 0);
+}
+function statValues(b) {
+  const rawValid =
+    b.nature === dex[b.id].nature &&
+    b.points.every((v, i) => v === dex[b.id].points[i]);
+  return (
+    '<th scope="row">실수치</th>' +
+    dex[b.id].stats.map((v) => '<td>' + (rawValid ? v : '—') + '</td>').join('')
+  );
+}
 function statTable(b) {
-  const total = b.points.reduce((a, v) => a + v, 0);
   const points = b.points
     .map(
       (v, i) =>
@@ -193,22 +206,17 @@ function statTable(b) {
           '</select></td>',
     )
     .join('');
-  const rawValid =
-    b.nature === dex[b.id].nature &&
-    b.points.every((v, i) => v === dex[b.id].points[i]);
   return (
     '<div class="block-heading"><h4>능력치 배분</h4><span class="budget"><b>' +
-    total +
+    totalPoints(b) +
     '</b> / 66 포인트</span></div><table class="stats"><thead><tr><th></th>' +
     labels.map((v) => '<th scope="col">' + v + '</th>').join('') +
     '</tr></thead><tbody><tr><th scope="row">포인트</th>' +
     points +
     '</tr><tr><th scope="row">시작 랭크</th>' +
     ranks +
-    '</tr><tr class="value"><th scope="row">실수치</th>' +
-    dex[b.id].stats
-      .map((v) => '<td>' + (rawValid ? v : '—') + '</td>')
-      .join('') +
+    '</tr><tr class="value">' +
+    statValues(b) +
     '</tr></tbody></table>'
   );
 }
@@ -229,7 +237,7 @@ function setupFields(b, includeMove) {
       [d.item, '없음', '구애스카프', '생명의구슬', '검은철구', '반감열매'],
       b,
     ) +
-    (includeMove ? selectField('기술', 'move', d.moves, b) : '') +
+    selectField('기술', 'move', d.moves, b, !includeMove) +
     '</div>'
   );
 }
@@ -251,6 +259,9 @@ function vitals(b) {
     '</div>'
   );
 }
+function ownMovePower() {
+  return own.id === 445 && exactBuild(own) ? '27,300' : '—';
+}
 function renderOwn() {
   const d = dex[own.id];
   $('#own').innerHTML =
@@ -268,7 +279,7 @@ function renderOwn() {
     vitals(own) +
     '</div></div>' +
     '<div class="own-metrics" aria-label="세팅 지표, 배치 예시"><div><small>기술 결정력</small><b>' +
-    (own.id === 445 && exactBuild(own) ? '27,300' : '—') +
+    ownMovePower() +
     '</b></div><div><small>물리내구</small><b>—</b></div><div><small>특수내구</small><b>—</b></div></div>';
 }
 function metric(b, i, valid) {
@@ -298,6 +309,10 @@ function metric(b, i, valid) {
     detail +
     '</span></div>'
   );
+}
+function metrics(b) {
+  const valid = own.id === 445 && exactBuild(own) && exactBuild(b);
+  return [0, 1, 2].map((i) => metric(b, i, valid)).join('');
 }
 function toggle(label, attr, checked) {
   return (
@@ -376,7 +391,6 @@ function renderOpponents() {
       .map((b, index) => {
         const d = dex[b.id],
           isOpen = expanded === index;
-        const valid = own.id === 445 && exactBuild(own) && exactBuild(b);
         return (
           '<article class="card opponent' +
           (isOpen ? ' open' : '') +
@@ -399,7 +413,7 @@ function renderOpponents() {
           ' 상세 설정">' +
           (isOpen ? '접기' : '상세 설정') +
           '<i class="chev"></i></button></div><div class="metrics">' +
-          [0, 1, 2].map((i) => metric(b, i, valid)).join('') +
+          metrics(b) +
           '</div>' +
           (isOpen ? editor(b, index) : '') +
           '</article>'
@@ -501,20 +515,23 @@ $('#search').addEventListener('keydown', (event) => {
     $('#choices .choice')?.click();
   }
 });
-document.addEventListener('input', (event) => {
-  const el = event.target;
-  if (!el.matches('.hp-number,.hp-range')) return;
-  const v = el.valueAsNumber;
-  if (!Number.isInteger(v) || v < 1 || v > 100) return;
+function showHealth(el, v) {
   const health = el.closest('.health');
   health.querySelector('.hp-number').value = v;
   const slider = health.querySelector('.hp-range');
   slider.value = v;
   slider.style.setProperty('--v', v + '%');
+}
+document.addEventListener('input', (event) => {
+  const el = event.target;
+  if (!el.matches('.hp-number,.hp-range')) return;
+  const v = el.valueAsNumber;
+  if (Number.isInteger(v) && v >= 1 && v <= 100) showHealth(el, v);
 });
 document.addEventListener('change', (event) => {
   const el = event.target,
-    b = ownerOf(el);
+    b = ownerOf(el),
+    card = el.closest('[data-owner]');
   if (!b) return;
   if (el.dataset.field) b[el.dataset.field] = el.value;
   else if ('point' in el.dataset) {
@@ -526,6 +543,8 @@ document.addEventListener('change', (event) => {
       room,
       Math.max(0, Math.trunc(el.valueAsNumber || 0)),
     );
+    el.value = b.points[i];
+    card.querySelector('.budget b').textContent = totalPoints(b);
   } else if ('rank' in el.dataset)
     b.ranks[Number(el.dataset.rank)] = Number(el.value);
   else if ('flag' in el.dataset) b.flags[el.dataset.flag] = el.checked;
@@ -535,9 +554,21 @@ document.addEventListener('change', (event) => {
       return;
     }
     b.modes[Number(el.dataset.mode)] = el.checked;
-  } else if (el.matches('.hp-number,.hp-range'))
+    if (el.dataset.mode === '1')
+      card.querySelector('[data-field="move"]').closest('label').hidden =
+        !el.checked;
+  } else if (el.matches('.hp-number,.hp-range')) {
     b.hp = Math.min(100, Math.max(1, Math.round(el.valueAsNumber || b.hp)));
-  else return;
-  render();
+    showHealth(el, b.hp);
+  } else return;
+
+  if (el.dataset.field === 'nature' || 'point' in el.dataset)
+    card.querySelector('.stats .value').innerHTML = statValues(b);
+  if (b === own) {
+    $('.own-metrics b').textContent = ownMovePower();
+    document.querySelectorAll('.opponent').forEach((opponent) => {
+      opponent.querySelector('.metrics').innerHTML = metrics(ownerOf(opponent));
+    });
+  } else card.querySelector('.metrics').innerHTML = metrics(b);
 });
 initial();

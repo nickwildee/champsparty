@@ -10,6 +10,7 @@ import {
 } from '@smogon/calc';
 import type { Move as MoveData } from '@smogon/calc/dist/data/interface.js';
 import { getFlingPower } from '@smogon/calc/dist/items.js';
+import { multiDamageRange } from '@smogon/calc/dist/result.js';
 import {
   checkAirLock,
   checkItem,
@@ -90,7 +91,9 @@ export interface ChampionsSpeedInput {
 
 export interface ChampionsDamageSummary {
   move: string;
+  /** Hit count used for one damage calculation, even if the target faints earlier. */
   hits: number;
+  hitSummary?: string;
   basePower: number;
   /** Power reported in the engine description, when available. */
   reportedPower: number | null;
@@ -569,6 +572,22 @@ export function calculateChampionsDamage(
   return result;
 }
 
+function describeHits(damage: Result['damage'], hits: number): string {
+  const basis = `${hits}타 기준`;
+  const [min, max] = multiDamageRange(damage);
+  const range = (low: number, high: number) =>
+    low === high ? String(low) : `${low}~${high}`;
+
+  if (typeof min === 'number' && typeof max === 'number') {
+    return hits === 1 ? `1타 ${range(min, max)} 데미지` : basis;
+  }
+  if (!Array.isArray(min) || !Array.isArray(max)) return basis;
+  const ranges = min.map((value, i) => range(value, max[i]));
+  if (ranges.every((value) => value === ranges[0]))
+    return `1타당 ${ranges[0]} 데미지 · ${basis}`;
+  return `${ranges.map((value, i) => `${i + 1}타 ${value} 데미지`).join(' · ')} · ${basis}`;
+}
+
 export function summarizeChampionsDamage(
   result: ChampionsDamageResult,
 ): ChampionsDamageSummary {
@@ -580,9 +599,13 @@ export function summarizeChampionsDamage(
     result.move.hits === 1 &&
     Array.isArray(perUseDamage) &&
     perUseDamage.length === 2;
+  const hits = hasChildHit ? 2 : result.move.hits;
   return {
     move: result.move.name,
-    hits: hasChildHit ? 2 : result.move.hits,
+    hits,
+    ...(!result.unavailableReason && {
+      hitSummary: describeHits(result.damage, hits),
+    }),
     basePower: result.move.bp,
     reportedPower: result.rawDesc.moveBP ?? null,
     attackerHp: {

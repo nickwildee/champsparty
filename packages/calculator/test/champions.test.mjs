@@ -924,3 +924,29 @@ test('Multiscale and defense-stage-ignoring moves keep the native damage rolls',
     assert.deepEqual(rolls(6), rolls(0));
   }
 });
+
+test('multi-hit summaries label the assumed count and each hit’s damage', () => {
+  const defender = pokemon('Metagross', {
+    ability: 'Clear Body',
+    hpPercent: 1,
+  });
+  const boneRush = calculate(
+    pokemon('Lucario', { ability: 'Inner Focus' }),
+    defender,
+    'Bone Rush',
+  );
+  assert.equal(boneRush.defenderHp.current, 3);
+  assert.equal(boneRush.hits, 3);
+  assert.deepEqual(boneRush.damageRange, [66, 78]);
+  assert.equal(boneRush.hitSummary, '1타당 22~26 데미지 · 3타 기준');
+
+  const tripleAxel = calculate(
+    pokemon('Weavile', { ability: 'Pressure' }),
+    defender,
+    'Triple Axel',
+  );
+  assert.equal(
+    tripleAxel.hitSummary,
+    '1타 6~7 데미지 · 2타 11~13 데미지 · 3타 16~19 데미지 · 3타 기준',
+  );
+});
