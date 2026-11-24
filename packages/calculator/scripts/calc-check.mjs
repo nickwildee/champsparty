@@ -4,6 +4,7 @@ import {
   calculateChampionsDamage,
   ChampionsInputError,
   compareChampionsSpeed,
+  selectChampionsMove,
   summarizeChampionsDamage,
 } from '../src/index.ts';
 
@@ -21,7 +22,11 @@ try {
   stage = 'engine';
   let summary;
   if (speed) {
-    summary = compareChampionsSpeed(input);
+    const selected =
+      input?.move === undefined
+        ? input
+        : selectChampionsMove(input, input.move);
+    summary = compareChampionsSpeed(selected);
   } else {
     const result = calculateChampionsDamage(input);
     stage = 'result';

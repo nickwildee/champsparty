@@ -29,7 +29,7 @@ export interface ChampionsPokemonInput {
   species: string;
   nature: string;
   ability?: string;
-  /** Unburden defaults to active. Only its inactive state permits a held item. */
+  /** Unburden defaults to ON (no held item); Analytic defaults to OFF. */
   abilityActive?: boolean;
   item?: string;
   /** 0–32 per stat, up to 66 per Pokémon. Omitted stats have 0 points. */
@@ -70,6 +70,22 @@ export interface ChampionsMatchupInput {
 
 export interface ChampionsDamageInput extends ChampionsMatchupInput {
   move: string;
+  /** Payback's double-power condition, selected for this opponent. */
+  moveConditionSatisfied?: boolean;
+}
+
+type SpeedPokemonInput = Pick<
+  ChampionsPokemonInput,
+  'species' | 'nature' | 'ability' | 'abilityActive' | 'item' | 'status'
+> & {
+  statPoints: { readonly spe?: number };
+  boosts?: { readonly spe?: number };
+};
+
+export interface ChampionsSpeedInput {
+  attacker: SpeedPokemonInput;
+  defender: SpeedPokemonInput;
+  field?: Pick<ChampionsFieldInput, 'weather' | 'terrain' | 'trickRoom'>;
 }
 
 export interface ChampionsDamageSummary {
@@ -245,9 +261,11 @@ function createPokemon(
         `${side}.item: 곡예가 ON이면 도구를 지정할 수 없습니다.`,
       );
     }
+  } else if (pokemon.hasAbility('Analytic')) {
+    pokemon.abilityOn = input.abilityActive ?? false;
   } else if (input.abilityActive !== undefined) {
     throw new ChampionsInputError(
-      `${side}.abilityActive: 현재 곡예에만 지정할 수 있습니다.`,
+      `${side}.abilityActive: 곡예 또는 애널라이즈에만 지정할 수 있습니다.`,
     );
   }
 
@@ -336,6 +354,7 @@ function createMove(
   attacker: Pokemon,
   field: Field,
   powerOverride?: number,
+  moveConditionSatisfied?: boolean,
 ): Move {
   let priorityBoosted = false;
   if (data.name === 'Grassy Glide' && field.hasTerrain('Grassy')) {
@@ -358,6 +377,12 @@ function createMove(
     overrides: {
       ...(priorityBoosted && { priority: (data.priority ?? 0) + 1 }),
       ...(powerOverride !== undefined && { basePower: powerOverride }),
+      ...(data.id === 'payback' && {
+        paybackBoosted: moveConditionSatisfied ?? false,
+      }),
+      ...(attacker.hasAbility('Analytic') && {
+        analyticActive: attacker.abilityOn,
+      }),
       ...(attacker.hasAbility('Parental Bond') &&
         movesWithoutChildHit.has(data.id) && {
           flags: { noparentalbond: 1 },
@@ -378,13 +403,15 @@ function unavailableMoveReason(move: Move, field: Field): string | undefined {
   }
 }
 
-/** Returns the new selection, including any change to the user's status slot. */
-export function selectChampionsMove(
+function applyMoveSelection(
   input: ChampionsMatchupInput,
-  move: string,
+  data: MoveData,
 ): ChampionsDamageInput {
-  const selected = { ...input, move };
-  if (typeof move === 'string' && toID(move) === 'snore') {
+  const selected: ChampionsDamageInput = { ...input, move: data.name };
+  if (data.id !== 'payback' || toID(input.move) !== data.id) {
+    delete selected.moveConditionSatisfied;
+  }
+  if (data.id === 'snore') {
     requireObject(input.attacker, 'attacker');
     checkOption(input.attacker.status, statusOptions, 'attacker.status');
     selected.attacker = { ...input.attacker, status: 'slp' };
@@ -392,34 +419,68 @@ export function selectChampionsMove(
   return selected;
 }
 
-function createMatchup(input: ChampionsMatchupInput) {
+/** Call when a move is confirmed, including when a CLI request supplies one. */
+export function selectChampionsMove(
+  input: ChampionsMatchupInput,
+  move: string,
+): ChampionsDamageInput {
   requireObject(input, 'input');
-  const attacker = createPokemon(input.attacker, 'attacker');
-  const defender = createPokemon(input.defender, 'defender');
-  if (input.field !== undefined) {
-    requireObject(input.field, 'field');
-    checkOption(input.field.weather, weatherOptions, 'field.weather');
-    checkOption(input.field.terrain, terrainOptions, 'field.terrain');
-    checkBoolean(input.field.gravity, 'field.gravity');
-    checkBoolean(input.field.trickRoom, 'field.trickRoom');
-  }
-  const field = new Field({
-    gameType: 'Singles',
-    weather: input.field?.weather,
-    terrain: input.field?.terrain,
-    isGravity: input.field?.gravity,
-    attackerSide: toEngineSide(input.field?.attackerSide, 'field.attackerSide'),
-    defenderSide: toEngineSide(input.field?.defenderSide, 'field.defenderSide'),
-  });
-
-  return { attacker, defender, field };
+  return applyMoveSelection(input, engineEntry(champions.moves, move, 'move'));
 }
 
-export function compareChampionsSpeed(input: ChampionsMatchupInput) {
+function createField(input?: ChampionsFieldInput) {
+  if (input !== undefined) {
+    requireObject(input, 'field');
+    checkOption(input.weather, weatherOptions, 'field.weather');
+    checkOption(input.terrain, terrainOptions, 'field.terrain');
+    checkBoolean(input.gravity, 'field.gravity');
+  }
+  return new Field({
+    gameType: 'Singles',
+    weather: input?.weather,
+    terrain: input?.terrain,
+    isGravity: input?.gravity,
+    attackerSide: toEngineSide(input?.attackerSide, 'field.attackerSide'),
+    defenderSide: toEngineSide(input?.defenderSide, 'field.defenderSide'),
+  });
+}
+
+function createSpeedPokemon(
+  input: SpeedPokemonInput,
+  side: 'attacker' | 'defender',
+) {
+  requireObject(input, side);
+  // Full builds submitted to the CLI still obey the 66-point allocation limit.
+  checkStats(input, side, 'statPoints');
+  if (input.boosts !== undefined) requireObject(input.boosts, `${side}.boosts`);
+  const { spe: points = 0 } = input.statPoints;
+  const { spe: stage = 0 } = input.boosts ?? {};
+  return createPokemon(
+    {
+      species: input.species,
+      nature: input.nature,
+      ability: input.ability,
+      item: input.item,
+      abilityActive:
+        toID(input.ability) === 'unburden' ? input.abilityActive : undefined,
+      status: input.status,
+      statPoints: { spe: points },
+      boosts: { spe: stage },
+    },
+    side,
+  );
+}
+
+export function compareChampionsSpeed(input: ChampionsSpeedInput) {
   requireObject(input, 'input');
-  const matchup =
-    input.move === undefined ? input : selectChampionsMove(input, input.move);
-  const { attacker, defender, field } = createMatchup(matchup);
+  const attacker = createSpeedPokemon(input.attacker, 'attacker');
+  const defender = createSpeedPokemon(input.defender, 'defender');
+  if (input.field !== undefined) requireObject(input.field, 'field');
+  checkBoolean(input.field?.trickRoom, 'field.trickRoom');
+  const field = createField({
+    weather: input.field?.weather,
+    terrain: input.field?.terrain,
+  });
   const speeds = matchupSpeeds(attacker, defender, field);
   const difference = speeds.attacker - speeds.defender;
   const order = input.field?.trickRoom ? -difference : difference;
@@ -433,12 +494,26 @@ export function calculateChampionsDamage(
   request: ChampionsDamageInput,
 ): ChampionsDamageResult {
   requireObject(request, 'input');
-  const input = selectChampionsMove(request, request.move);
-  const { attacker, defender, field } = createMatchup(input);
-  const data = engineEntry(champions.moves, input.move, 'move');
+  const data = engineEntry(champions.moves, request.move, 'move');
+  const input = applyMoveSelection(request, data);
+  const attacker = createPokemon(input.attacker, 'attacker');
+  const defender = createPokemon(input.defender, 'defender');
+  const field = createField(input.field);
   const fling =
     data.name === 'Fling' ? resolveFling(attacker, field) : undefined;
-  const move = createMove(data, attacker, field, fling?.overridePower);
+  checkBoolean(request.moveConditionSatisfied, 'moveConditionSatisfied');
+  if (request.moveConditionSatisfied !== undefined && data.id !== 'payback') {
+    throw new ChampionsInputError(
+      'moveConditionSatisfied: 보복에만 지정할 수 있습니다.',
+    );
+  }
+  const move = createMove(
+    data,
+    attacker,
+    field,
+    fling?.overridePower,
+    request.moveConditionSatisfied,
+  );
   const unavailableReason =
     fling?.unavailableReason ?? unavailableMoveReason(move, field);
   if (unavailableReason) {
@@ -451,22 +526,13 @@ export function calculateChampionsDamage(
     return Object.assign(result, { unavailableReason });
   }
 
-  // Payback and Analytic still use the engine's Speed-based turn-order estimate.
-  const speedRatio = move.named('Electro Ball', 'Gyro Ball');
-  const usesTurnOrder =
-    move.category !== 'Status' &&
-    (move.named('Payback') || attacker.hasAbility('Analytic'));
-  if (speedRatio || usesTurnOrder) {
+  if (move.named('Electro Ball', 'Gyro Ball')) {
     const speeds = matchupSpeeds(attacker, defender, field);
-    // An order comparison stays valid when only the faster side is clipped
-    // and the slower side is below 999.
-    if (speedRatio || Math.min(speeds.attacker, speeds.defender) >= 999) {
-      for (const side of ['attacker', 'defender'] as const) {
-        if (speeds[side] > 999) {
-          throw new ChampionsInputError(
-            `${side}.spe: 스피드를 사용하는 데미지 계산에서 최종 스피드가 999를 초과합니다.`,
-          );
-        }
+    for (const side of ['attacker', 'defender'] as const) {
+      if (speeds[side] > 999) {
+        throw new ChampionsInputError(
+          `${side}.spe: 스피드를 사용하는 데미지 계산에서 최종 스피드가 999를 초과합니다.`,
+        );
       }
     }
   }

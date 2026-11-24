@@ -131,7 +131,7 @@
       ],
       "productPolicy": {
         "selection": "damage-or-speed-only",
-        "implementation": "planned",
+        "implementation": "implemented",
         "maximumUses": null,
         "defaults": {
           "abilityActive": false

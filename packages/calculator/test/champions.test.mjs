@@ -261,13 +261,127 @@ test('Speed comparison keeps distinct values over 999, ties, and Trick Room orde
   assert.doesNotThrow(() =>
     calculateChampionsDamage({ ...matchup, move: 'Close Combat' }),
   );
-  assert.throws(
-    () => calculateChampionsDamage({ ...matchup, move: 'Payback' }),
-    ChampionsInputError,
+  assert.equal(
+    calculateChampionsDamage({ ...matchup, move: 'Payback' }).rawDesc.moveBP,
+    50,
   );
   assert.throws(
     () => compareChampionsSpeed({ ...matchup, field: { trickRoom: 1 } }),
     /field\.trickRoom/,
+  );
+});
+
+test('Speed reads the current status; only Quick Feet boosts other major statuses', () => {
+  const attacker = pokemon('Jolteon', { statPoints: { spe: 32 } });
+  const defender = pokemon('Hippowdon', { statPoints: { spe: 32 } });
+  for (const status of ['', 'par', 'slp', 'brn', 'psn', 'tox', 'frz']) {
+    const input = { attacker: { ...attacker, status }, defender };
+    assert.equal(
+      compareChampionsSpeed(input).attacker,
+      status === 'par' ? 100 : 200,
+    );
+    assert.equal(
+      compareChampionsSpeed({
+        ...input,
+        attacker: { ...input.attacker, ability: 'Quick Feet' },
+      }).attacker,
+      status ? 300 : 200,
+    );
+  }
+  const matchup = { attacker: { ...attacker, status: 'par' }, defender };
+  assert.equal(
+    compareChampionsSpeed({ ...matchup, move: 'Snore' }).first,
+    'defender',
+  );
+  const selected = selectChampionsMove(matchup, 'snore');
+  assert.equal(compareChampionsSpeed(selected).first, 'attacker');
+  assert.equal(matchup.attacker.status, 'par');
+  assert.throws(() => selectChampionsMove(matchup, 'Snroe'), /move:/);
+});
+
+test('the speed CLI validates confirmed moves before comparing the resolved builds', (t) => {
+  const temp = mkdtempSync(join(tmpdir(), 'champions-speed-'));
+  t.after(() => rmSync(temp, { recursive: true, force: true }));
+  const path = join(temp, 'input.json');
+  const cli = fileURLToPath(
+    new URL('../scripts/calc-check.mjs', import.meta.url),
+  );
+  const attacker = pokemon('Jolteon', {
+    statPoints: { spe: 32 },
+    status: 'par',
+  });
+  const defender = pokemon('Hippowdon', { statPoints: { spe: 32 } });
+  for (const [move, expected] of [
+    [undefined, 'defender'],
+    ['Snore', 'attacker'],
+    ['Snroe', null],
+    [false, null],
+    [null, null],
+  ]) {
+    writeFileSync(path, JSON.stringify({ attacker, defender, move }));
+    const run = spawnSync(process.execPath, [cli, '--speed', path], {
+      encoding: 'utf8',
+    });
+    if (expected) {
+      assert.equal(run.status, 0, run.stderr);
+      assert.equal(JSON.parse(run.stdout).first, expected);
+    } else {
+      assert.equal(run.status, 1);
+      assert.equal(JSON.parse(run.stderr).stage, 'input');
+      assert.match(JSON.parse(run.stderr).message, /^move:/);
+    }
+  }
+});
+
+test('Payback and Analytic use independent manual conditions at any Speed', () => {
+  const attacker = pokemon('Starmie', {
+    nature: 'Timid',
+    ability: 'Analytic',
+    item: 'Choice Scarf',
+    boosts: { spe: 6 },
+    statPoints: { spe: 32 },
+  });
+  const defender = pokemon('Liepard', {
+    ability: 'Unburden',
+    boosts: { spe: 6 },
+    statPoints: { spe: 32 },
+  });
+  const psychic = { attacker, defender, move: 'Psychic' };
+  for (const abilityActive of [false, true]) {
+    assert.deepEqual(
+      calculateChampionsDamage({
+        ...psychic,
+        attacker: { ...attacker, abilityActive },
+      }).range(),
+      [0, 0],
+    );
+  }
+  const target = pokemon('Hippowdon');
+  const run = (stage, abilityActive, moveConditionSatisfied) =>
+    calculateChampionsDamage({
+      attacker: { ...attacker, boosts: { spe: stage }, abilityActive },
+      defender: target,
+      move: 'Payback',
+      moveConditionSatisfied,
+    });
+  for (const active of [false, true]) {
+    for (const boosted of [false, true]) {
+      const fast = run(6, active, boosted);
+      assert.equal(fast.rawDesc.moveBP, boosted ? 100 : 50);
+      assert.deepEqual(fast.damage, run(-6, active, boosted).damage);
+      assert.equal(fast.rawDesc.attackerAbility === 'Analytic', active);
+    }
+  }
+  assert.deepEqual(
+    run(-6, undefined, undefined).damage,
+    run(6, false, false).damage,
+  );
+  assert.ok(run(6, true, false).range()[0] > run(6, false, false).range()[0]);
+  assert.ok(run(6, false, true).range()[0] > run(6, false, false).range()[0]);
+  assert.throws(
+    () =>
+      calculateChampionsDamage({ ...psychic, moveConditionSatisfied: true }),
+    /moveConditionSatisfied/,
   );
 });
 

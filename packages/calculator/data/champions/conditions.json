@@ -427,6 +427,7 @@
         "ids": [
           "payback"
         ],
+        "implementation": "implemented",
         "inputs": [
           "moveConditionSatisfied"
         ],
@@ -676,6 +677,7 @@
         "ids": [
           "analytic"
         ],
+        "implementation": "implemented",
         "inputs": [
           "abilityActive"
         ],

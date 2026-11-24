@@ -1,13 +1,18 @@
 diff --git a/dist/data/interface.d.ts b/dist/data/interface.d.ts
-index 66ee9fe298c321342654776424f99120772085d3..0929e4b2573773156f80df792cfb8fc52d7e1cd8 100644
+index 66ee9fe298c321342654776424f99120772085d3..e2d408d7ba54299353ff7fe3516800559bf3dd8a 100644
 --- a/dist/data/interface.d.ts
 +++ b/dist/data/interface.d.ts
 @@ -70,2 +70,3 @@
  export interface MoveFlags {
 +    noparentalbond?: 1 | 0;
      contact?: 1 | 0;
+@@ -84,2 +85,4 @@
+     readonly kind: 'Move';
++    readonly paybackBoosted?: boolean;
++    readonly analyticActive?: boolean;
+     readonly basePower: number;
 diff --git a/dist/mechanics/champions.js b/dist/mechanics/champions.js
-index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..4319bb7e0506594f7a0f3ff4da0cfa367237ae2f 100644
+index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..ba9a3b2bc7da9077f7a390339c901234b9048108 100644
 --- a/dist/mechanics/champions.js
 +++ b/dist/mechanics/champions.js
 @@ -38,3 +38,3 @@
@@ -39,11 +44,21 @@ index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..4319bb7e0506594f7a0f3ff4da0cfa36
 +        (0, util_2.checkMultihitBoost)(gen, child, target, move, field, desc);
 +        childDamage = calculateChampions(gen, child, target, move, field).damage;
          desc.attackerAbility = attacker.ability;
+@@ -309,3 +315,3 @@
+         case 'Payback':
+-            basePower = move.bp * (turnOrder === 'last' ? 2 : 1);
++            basePower = move.bp * ((move.overrides?.paybackBoosted ?? (turnOrder === 'last')) ? 2 : 1);
+             desc.moveBP = basePower;
 @@ -380,3 +386,3 @@
          case 'Fling':
 -            basePower = (0, items_1.getFlingPower)(attacker.item, gen.num);
 +            basePower = move.overrides?.basePower ?? (0, items_1.getFlingPower)(attacker.item, gen.num);
              desc.moveBP = basePower;
+@@ -501,3 +507,3 @@
+         (attacker.hasAbility('Analytic') &&
+-            (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out' || attacker.abilityOn)) ||
++            (move.overrides?.analyticActive ?? (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out' || attacker.abilityOn))) ||
+         (attacker.hasAbility('Tough Claws') && move.flags.contact)) ||
 @@ -797,6 +803,3 @@
      }
 -    if (move.hasType((0, items_1.getBerryResistType)(defender.item)) &&
@@ -65,15 +80,20 @@ index d5cbf6e6d44f2396cb1306611cb5d61c9e419fbc..4319bb7e0506594f7a0f3ff4da0cfa36
 +
  function hasTerrainSeed(pokemon) {
 diff --git a/src/data/interface.ts b/src/data/interface.ts
-index 366f17ee288b9b753f8e7f35c31feff032a5ca4e..4304b22160c845cbbdc101bd136b5bcf7caaaf4a 100644
+index 366f17ee288b9b753f8e7f35c31feff032a5ca4e..56b2dfede4aa2f1236bf1080d86877a15da3c699 100644
 --- a/src/data/interface.ts
 +++ b/src/data/interface.ts
 @@ -88,2 +88,3 @@
  export interface MoveFlags {
 +  noparentalbond?: 1 | 0;
    contact?: 1 | 0;
+@@ -105,2 +106,4 @@
+   readonly kind: 'Move';
++  readonly paybackBoosted?: boolean;
++  readonly analyticActive?: boolean;
+   readonly basePower: number;
 diff --git a/src/mechanics/champions.ts b/src/mechanics/champions.ts
-index 348763f4f98594f3975c8d439fdc2f7c4281f953..ef295bdd732915bc938bd69da2fc57ebbba9b8ac 100644
+index 348763f4f98594f3975c8d439fdc2f7c4281f953..37d73c8cab27cc7615f21d3566b2254372f7b232 100644
 --- a/src/mechanics/champions.ts
 +++ b/src/mechanics/champions.ts
 @@ -89,2 +89,2 @@
@@ -103,11 +123,21 @@ index 348763f4f98594f3975c8d439fdc2f7c4281f953..ef295bdd732915bc938bd69da2fc57eb
 +    checkMultihitBoost(gen, child, target, move, field, desc);
 +    childDamage = calculateChampions(gen, child, target, move, field).damage as number[];
      desc.attackerAbility = attacker.ability;
+@@ -537,3 +543,3 @@
+   case 'Payback':
+-    basePower = move.bp * (turnOrder === 'last' ? 2 : 1);
++    basePower = move.bp * ((move.overrides?.paybackBoosted ?? (turnOrder === 'last')) ? 2 : 1);
+     desc.moveBP = basePower;
 @@ -608,3 +614,3 @@
    case 'Fling':
 -    basePower = getFlingPower(attacker.item, gen.num);
 +    basePower = move.overrides?.basePower ?? getFlingPower(attacker.item, gen.num);
      desc.moveBP = basePower;
+@@ -775,3 +781,3 @@
+     (attacker.hasAbility('Analytic') &&
+-      (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out' || attacker.abilityOn)) ||
++      (move.overrides?.analyticActive ?? (turnOrder !== 'first' || field.defenderSide.isSwitching === 'out' || attacker.abilityOn))) ||
+     (attacker.hasAbility('Tough Claws') && move.flags.contact)) ||
 @@ -1177,5 +1183,2 @@
 -  if (move.hasType(getBerryResistType(defender.item)) &&
 -      (typeEffectiveness > 1 || move.hasType('Normal')) &&

@@ -3,7 +3,7 @@
   "asOf": "2026-11-18",
   "scope": "Only IDs in the pinned Champions moves.json; display labels, not mechanics or availability.",
   "championsCommit": "f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
-  "catalogSha256": "37d2bffb313768aa58ce316113e1806a86b60cb212b258c90346c24cf28e6cb2",
+  "catalogSha256": "3c899ab1a9b857129a2d0e9770d24366bcc7bae31465a1321fd2b3ade304d1de",
   "source": {
     "repository": "https://github.com/kwsch/PKHeX",
     "commit": "fd1c538cc5e91cd7328f5048007f5f44bb78577c",

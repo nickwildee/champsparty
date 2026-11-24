@@ -127,6 +127,7 @@ export const productRules = {
       },
     ),
     move('payback-toggle', 'payback', {
+      implementation: 'implemented',
       inputs: ['moveConditionSatisfied'],
       defaults: { moveConditionSatisfied: false },
       scope: 'opponent',
@@ -251,6 +252,7 @@ export const productRules = {
       },
     ),
     ability('analytic-toggle', 'analytic', {
+      implementation: 'implemented',
       inputs: ['abilityActive'],
       defaults: { abilityActive: false },
       scope: 'opponent',
