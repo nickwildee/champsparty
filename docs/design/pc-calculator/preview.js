@@ -272,10 +272,15 @@ function renderOwn() {
     '</b></div><div><small>물리내구</small><b>—</b></div><div><small>특수내구</small><b>—</b></div></div>';
 }
 function metric(b, i, valid) {
-  const values =
-    i === 2
-      ? ['내가 빠름', own.id === 445 ? '169 vs ' + dex[b.id].stats[5] : '—']
-      : dex[b.id].results?.[i];
+  let values = dex[b.id].results?.[i];
+  if (i === 2) {
+    const ownSpeed = dex[own.id].stats[5];
+    const opponentSpeed = dex[b.id].stats[5];
+    let label = '동속';
+    if (ownSpeed > opponentSpeed) label = '내가 빠름';
+    else if (ownSpeed < opponentSpeed) label = '내가 느림';
+    values = [label, `${ownSpeed} vs ${opponentSpeed}`];
+  }
   let value = '—',
     detail = '세팅 변경';
   if (!b.modes[i]) detail = '비교 해제';
