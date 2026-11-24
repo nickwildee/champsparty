@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-17",
+  "showdown": {
+    "repository": "https://github.com/smogon/pokemon-showdown",
+    "commit": "f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
+    "committedAt": "2026-11-16T10:46:26Z",
+    "archiveUrl": "https://codeload.github.com/smogon/pokemon-showdown/tar.gz/f827a1d41064e0dec4c19c6ea0394fcf0c23479c",
+    "archiveSha256": "61ad7f166ccf62594f1931c8bc65a2eeaabcfcb5f1a2aecd92ea734296467456",
+    "mod": "champions",
+    "license": "MIT",
+    "licensePath": "LICENSE"
+  },
+  "engine": {
+    "package": "@smogon/calc",
+    "version": "0.12.0"
+  },
+  "rosterRule": "Showdown champions: exists && num > 0 && !isNonstandard; battle-only forms require an available battleOnly prerequisite; preserve cosmetic forms; no OU/Uber tier filtering",
+  "officialGameRosterVerified": false
+}

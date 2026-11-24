@@ -1,0 +1,602 @@
+{
+  "abomasite": {
+    "power": 80,
+    "blockedHolders": [
+      "abomasnow",
+      "abomasnowmega"
+    ]
+  },
+  "absolite": {
+    "power": 80,
+    "blockedHolders": [
+      "absol",
+      "absolmega",
+      "absolmegaz"
+    ]
+  },
+  "absolitez": {
+    "power": 80,
+    "blockedHolders": [
+      "absol",
+      "absolmega",
+      "absolmegaz"
+    ]
+  },
+  "aerodactylite": {
+    "power": 80,
+    "blockedHolders": [
+      "aerodactyl",
+      "aerodactylmega"
+    ]
+  },
+  "aggronite": {
+    "power": 80,
+    "blockedHolders": [
+      "aggron",
+      "aggronmega"
+    ]
+  },
+  "alakazite": {
+    "power": 80,
+    "blockedHolders": [
+      "alakazam",
+      "alakazammega"
+    ]
+  },
+  "altarianite": {
+    "power": 80,
+    "blockedHolders": [
+      "altaria",
+      "altariamega"
+    ]
+  },
+  "ampharosite": {
+    "power": 80,
+    "blockedHolders": [
+      "ampharos",
+      "ampharosmega"
+    ]
+  },
+  "audinite": {
+    "power": 80,
+    "blockedHolders": [
+      "audino",
+      "audinomega"
+    ]
+  },
+  "banettite": {
+    "power": 80,
+    "blockedHolders": [
+      "banette",
+      "banettemega"
+    ]
+  },
+  "barbaracite": {
+    "power": 80,
+    "blockedHolders": [
+      "barbaracle",
+      "barbaraclemega"
+    ]
+  },
+  "baxcalibrite": {
+    "power": 80,
+    "blockedHolders": [
+      "baxcalibur",
+      "baxcaliburmega"
+    ]
+  },
+  "beedrillite": {
+    "power": 80,
+    "blockedHolders": [
+      "beedrill",
+      "beedrillmega"
+    ]
+  },
+  "bigroot": {
+    "power": 10
+  },
+  "bindingband": {
+    "power": 30
+  },
+  "blastoisinite": {
+    "power": 80,
+    "blockedHolders": [
+      "blastoise",
+      "blastoisemega"
+    ]
+  },
+  "blazikenite": {
+    "power": 80,
+    "blockedHolders": [
+      "blaziken",
+      "blazikenmega"
+    ]
+  },
+  "brightpowder": {
+    "power": 10
+  },
+  "cameruptite": {
+    "power": 80,
+    "blockedHolders": [
+      "camerupt",
+      "cameruptmega"
+    ]
+  },
+  "chandelurite": {
+    "power": 80,
+    "blockedHolders": [
+      "chandelure",
+      "chandeluremega"
+    ]
+  },
+  "charizarditex": {
+    "power": 80,
+    "blockedHolders": [
+      "charizard",
+      "charizardmegax",
+      "charizardmegay"
+    ]
+  },
+  "charizarditey": {
+    "power": 80,
+    "blockedHolders": [
+      "charizard",
+      "charizardmegax",
+      "charizardmegay"
+    ]
+  },
+  "chesnaughtite": {
+    "power": 80,
+    "blockedHolders": [
+      "chesnaught",
+      "chesnaughtmega"
+    ]
+  },
+  "chimechite": {
+    "power": 80,
+    "blockedHolders": [
+      "chimecho",
+      "chimechomega"
+    ]
+  },
+  "clefablite": {
+    "power": 80,
+    "blockedHolders": [
+      "clefable",
+      "clefablemega"
+    ]
+  },
+  "crabominite": {
+    "power": 80,
+    "blockedHolders": [
+      "crabominable",
+      "crabominablemega"
+    ]
+  },
+  "delphoxite": {
+    "power": 80,
+    "blockedHolders": [
+      "delphox",
+      "delphoxmega"
+    ]
+  },
+  "dragalgite": {
+    "power": 80,
+    "blockedHolders": [
+      "dragalge",
+      "dragalgemega"
+    ]
+  },
+  "dragoninite": {
+    "power": 80,
+    "blockedHolders": [
+      "dragonite",
+      "dragonitemega"
+    ]
+  },
+  "drampanite": {
+    "power": 80,
+    "blockedHolders": [
+      "drampa",
+      "drampamega"
+    ]
+  },
+  "eelektrossite": {
+    "power": 80,
+    "blockedHolders": [
+      "eelektross",
+      "eelektrossmega"
+    ]
+  },
+  "emboarite": {
+    "power": 80,
+    "blockedHolders": [
+      "emboar",
+      "emboarmega"
+    ]
+  },
+  "excadrite": {
+    "power": 80,
+    "blockedHolders": [
+      "excadrill",
+      "excadrillmega"
+    ]
+  },
+  "fairyfeather": {
+    "power": 10
+  },
+  "falinksite": {
+    "power": 80,
+    "blockedHolders": [
+      "falinks",
+      "falinksmega"
+    ]
+  },
+  "feraligite": {
+    "power": 80,
+    "blockedHolders": [
+      "feraligatr",
+      "feraligatrmega"
+    ]
+  },
+  "floettite": {
+    "power": 80,
+    "blockedHolders": [
+      "floetteeternal",
+      "floettemega"
+    ]
+  },
+  "froslassite": {
+    "power": 80,
+    "blockedHolders": [
+      "froslass",
+      "froslassmega"
+    ]
+  },
+  "galladite": {
+    "power": 80,
+    "blockedHolders": [
+      "gallade",
+      "gallademega"
+    ]
+  },
+  "garchompite": {
+    "power": 80,
+    "blockedHolders": [
+      "garchomp",
+      "garchompmega",
+      "garchompmegaz"
+    ]
+  },
+  "garchompitez": {
+    "power": 80,
+    "blockedHolders": [
+      "garchomp",
+      "garchompmega",
+      "garchompmegaz"
+    ]
+  },
+  "gardevoirite": {
+    "power": 80,
+    "blockedHolders": [
+      "gardevoir",
+      "gardevoirmega"
+    ]
+  },
+  "gengarite": {
+    "power": 80,
+    "blockedHolders": [
+      "gengar",
+      "gengarmega"
+    ]
+  },
+  "glalitite": {
+    "power": 80,
+    "blockedHolders": [
+      "glalie",
+      "glaliemega"
+    ]
+  },
+  "glimmoranite": {
+    "power": 80,
+    "blockedHolders": [
+      "glimmora",
+      "glimmoramega"
+    ]
+  },
+  "golisopite": {
+    "power": 80,
+    "blockedHolders": [
+      "golisopod",
+      "golisopodmega"
+    ]
+  },
+  "golurkite": {
+    "power": 80,
+    "blockedHolders": [
+      "golurk",
+      "golurkmega"
+    ]
+  },
+  "greninjite": {
+    "power": 80,
+    "blockedHolders": [
+      "greninja",
+      "greninjamega"
+    ]
+  },
+  "gyaradosite": {
+    "power": 80,
+    "blockedHolders": [
+      "gyarados",
+      "gyaradosmega"
+    ]
+  },
+  "hawluchanite": {
+    "power": 80,
+    "blockedHolders": [
+      "hawlucha",
+      "hawluchamega"
+    ]
+  },
+  "heracronite": {
+    "power": 80,
+    "blockedHolders": [
+      "heracross",
+      "heracrossmega"
+    ]
+  },
+  "houndoominite": {
+    "power": 80,
+    "blockedHolders": [
+      "houndoom",
+      "houndoommega"
+    ]
+  },
+  "kangaskhanite": {
+    "power": 80,
+    "blockedHolders": [
+      "kangaskhan",
+      "kangaskhanmega"
+    ]
+  },
+  "lopunnite": {
+    "power": 80,
+    "blockedHolders": [
+      "lopunny",
+      "lopunnymega"
+    ]
+  },
+  "lucarionite": {
+    "power": 80,
+    "blockedHolders": [
+      "lucario",
+      "lucariomega",
+      "lucariomegaz"
+    ]
+  },
+  "lucarionitez": {
+    "power": 80,
+    "blockedHolders": [
+      "lucario",
+      "lucariomega",
+      "lucariomegaz"
+    ]
+  },
+  "malamarite": {
+    "power": 80,
+    "blockedHolders": [
+      "malamar",
+      "malamarmega"
+    ]
+  },
+  "manectite": {
+    "power": 80,
+    "blockedHolders": [
+      "manectric",
+      "manectricmega"
+    ]
+  },
+  "mawilite": {
+    "power": 80,
+    "blockedHolders": [
+      "mawile",
+      "mawilemega"
+    ]
+  },
+  "medichamite": {
+    "power": 80,
+    "blockedHolders": [
+      "medicham",
+      "medichammega"
+    ]
+  },
+  "meganiumite": {
+    "power": 80,
+    "blockedHolders": [
+      "meganium",
+      "meganiummega"
+    ]
+  },
+  "meowsticite": {
+    "power": 80,
+    "blockedHolders": [
+      "meowstic",
+      "meowsticf",
+      "meowsticfmega",
+      "meowsticmmega"
+    ]
+  },
+  "metagrossite": {
+    "power": 80,
+    "blockedHolders": [
+      "metagross",
+      "metagrossmega"
+    ]
+  },
+  "metronome": {
+    "power": 30
+  },
+  "pidgeotite": {
+    "power": 80,
+    "blockedHolders": [
+      "pidgeot",
+      "pidgeotmega"
+    ]
+  },
+  "pinsirite": {
+    "power": 80,
+    "blockedHolders": [
+      "pinsir",
+      "pinsirmega"
+    ]
+  },
+  "pyroarite": {
+    "power": 80,
+    "blockedHolders": [
+      "pyroar",
+      "pyroarmega"
+    ]
+  },
+  "raichunitex": {
+    "power": 80,
+    "blockedHolders": [
+      "raichu",
+      "raichualola",
+      "raichumegax",
+      "raichumegay"
+    ]
+  },
+  "raichunitey": {
+    "power": 80,
+    "blockedHolders": [
+      "raichu",
+      "raichualola",
+      "raichumegax",
+      "raichumegay"
+    ]
+  },
+  "sablenite": {
+    "power": 80,
+    "blockedHolders": [
+      "sableye",
+      "sableyemega"
+    ]
+  },
+  "salamencite": {
+    "power": 80,
+    "blockedHolders": [
+      "salamence",
+      "salamencemega"
+    ]
+  },
+  "sceptilite": {
+    "power": 80,
+    "blockedHolders": [
+      "sceptile",
+      "sceptilemega"
+    ]
+  },
+  "scizorite": {
+    "power": 80,
+    "blockedHolders": [
+      "scizor",
+      "scizormega"
+    ]
+  },
+  "scolipite": {
+    "power": 80,
+    "blockedHolders": [
+      "scolipede",
+      "scolipedemega"
+    ]
+  },
+  "scovillainite": {
+    "power": 80,
+    "blockedHolders": [
+      "scovillain",
+      "scovillainmega"
+    ]
+  },
+  "scraftinite": {
+    "power": 80,
+    "blockedHolders": [
+      "scrafty",
+      "scraftymega"
+    ]
+  },
+  "sharpedonite": {
+    "power": 80,
+    "blockedHolders": [
+      "sharpedo",
+      "sharpedomega"
+    ]
+  },
+  "shellbell": {
+    "power": 30
+  },
+  "skarmorite": {
+    "power": 80,
+    "blockedHolders": [
+      "skarmory",
+      "skarmorymega"
+    ]
+  },
+  "slowbronite": {
+    "power": 80,
+    "blockedHolders": [
+      "slowbro",
+      "slowbrogalar",
+      "slowbromega"
+    ]
+  },
+  "staraptite": {
+    "power": 80,
+    "blockedHolders": [
+      "staraptor",
+      "staraptormega"
+    ]
+  },
+  "starminite": {
+    "power": 80,
+    "blockedHolders": [
+      "starmie",
+      "starmiemega"
+    ]
+  },
+  "steelixite": {
+    "power": 80,
+    "blockedHolders": [
+      "steelix",
+      "steelixmega"
+    ]
+  },
+  "swampertite": {
+    "power": 80,
+    "blockedHolders": [
+      "swampert",
+      "swampertmega"
+    ]
+  },
+  "tyranitarite": {
+    "power": 80,
+    "blockedHolders": [
+      "tyranitar",
+      "tyranitarmega"
+    ]
+  },
+  "venusaurite": {
+    "power": 80,
+    "blockedHolders": [
+      "venusaur",
+      "venusaurmega"
+    ]
+  },
+  "victreebelite": {
+    "power": 80,
+    "blockedHolders": [
+      "victreebel",
+      "victreebelmega"
+    ]
+  }
+}

@@ -176,6 +176,9 @@ overrides:
   eslint-plugin-jsx-a11y@6.10.2>eslint:peer: ^9 || ^10
   eslint-plugin-react@7.37.5>eslint:peer: ^9 || ^10
 
+patchedDependencies:
+  '@smogon/calc@0.12.0': 6e1bc064b1f3a7dcb6231cc0f5388969f8cf43d1c57f8fe4abcbf5ecf3b6c999
+
 importers:
 
   .:
@@ -258,6 +261,10 @@ importers:
         version: 5.9.3
 
   packages/calculator:
+    dependencies:
+      '@smogon/calc':
+        specifier: 0.12.0
+        version: 0.12.0(patch_hash=6e1bc064b1f3a7dcb6231cc0f5388969f8cf43d1c57f8fe4abcbf5ecf3b6c999)
     devDependencies:
       '@eslint/js':
         specifier: ^10
@@ -1347,6 +1354,9 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
+  '@smogon/calc@0.12.0':
+    resolution: {integrity: sha512-rNkdYV/ZGIugxD+hZlHdDaZLdGPYRIm+AaMFM18X2T2Pf8jpuuro9aoeiaZh51zcRR4tN3NRjSPoEXZ5ZDTuuA==}
+
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -1456,6 +1466,9 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/node@18.19.130':
+    resolution: {integrity: sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==}
 
   '@types/node@26.6.6':
     resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
@@ -3297,6 +3310,9 @@ packages:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   undici-types@8.9.0:
     resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
@@ -4181,6 +4197,10 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
+  '@smogon/calc@0.12.0(patch_hash=6e1bc064b1f3a7dcb6231cc0f5388969f8cf43d1c57f8fe4abcbf5ecf3b6c999)':
+    dependencies:
+      '@types/node': 18.19.130
+
   '@standard-schema/spec@1.1.0': {}
 
   '@swc/helpers@0.5.23':
@@ -4263,6 +4283,10 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/node@18.19.130':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/node@26.6.6':
     dependencies:
@@ -6352,6 +6376,8 @@ snapshots:
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
+
+  undici-types@5.26.5: {}
 
   undici-types@8.9.0: {}
 

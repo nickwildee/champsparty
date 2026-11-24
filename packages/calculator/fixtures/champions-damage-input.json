@@ -1,0 +1,34 @@
+{
+  "attacker": {
+    "species": "Garchomp",
+    "nature": "Jolly",
+    "ability": "Sand Veil",
+    "item": "Soft Sand",
+    "statPoints": {
+      "hp": 2,
+      "atk": 32,
+      "spe": 32
+    },
+    "boosts": {
+      "atk": 0
+    },
+    "hpPercent": 100
+  },
+  "defender": {
+    "species": "Hippowdon",
+    "nature": "Impish",
+    "ability": "Sand Force",
+    "statPoints": {
+      "hp": 32,
+      "def": 32,
+      "spd": 2
+    },
+    "hpPercent": 100
+  },
+  "move": "Earthquake",
+  "field": {
+    "gravity": false,
+    "attackerSide": {},
+    "defenderSide": {}
+  }
+}

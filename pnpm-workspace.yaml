@@ -26,3 +26,6 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/utils@8.73.0'
   - '@typescript-eslint/visitor-keys@8.73.0'
   - typescript-eslint@8.73.0
+
+patchedDependencies:
+  '@smogon/calc@0.12.0': patches/@smogon__calc@0.12.0.patch
