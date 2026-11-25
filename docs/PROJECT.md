@@ -289,7 +289,7 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 
 ### 네이버 로그인 시작 — #11
 
-네이버 개발자센터에 등록한 로컬 서비스 URL은 `http://localhost:3000`, 콜백은 `http://localhost:3000/api/auth/callback/naver`다. 기본 이용자 식별자만 사용하도록 추가 프로필 항목을 선택하지 않는다. 앱의 `BETTER_AUTH_URL`을 등록한 서비스 주소에 맞추고 `.env.local`에 `NAVER_CLIENT_ID`와 `NAVER_CLIENT_SECRET`을 넣은 뒤 서버를 재시작한다. 두 값이 모두 있으면 네이버 로그인이 활성화된다. 키가 없어도 세션 조회와 로그아웃을 사용할 수 있다.
+네이버 개발자센터에 등록한 로컬 서비스 URL은 `http://localhost:3000`, 콜백은 `http://localhost:3000/api/auth/callback/naver`다. 기본 이용자 식별자만 사용하도록 필수·추가 프로필 항목은 모두 비워 둔다. 앱의 `BETTER_AUTH_URL`을 등록한 서비스 주소에 맞추고 `.env.local`에 `NAVER_CLIENT_ID`와 `NAVER_CLIENT_SECRET`을 넣은 뒤 서버를 재시작한다. 두 값이 모두 있으면 네이버 로그인이 활성화된다. 키가 없어도 세션 조회와 로그아웃을 사용할 수 있다.
 
 당시 로컬 프로덕션 빌드에서 `POST /api/auth/sign-in/social`이 HTTP 200과 네이버 인증 URL을 반환했다. 콜백 주소 일치, 기본 요청에 `scope`가 없는 것까지 확인했다. 실제 동의·콜백·로그인한 세션은 #13에서 확인한다. [네이버 식별자 및 검증 범위 D21](DECISIONS.md#d21-네이버-이용자-식별자와-내부용-이메일)
 
