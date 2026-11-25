@@ -14,6 +14,12 @@ CLI 계산은 폼별 엔진 ID 예외(`species-aliases.json`), 내던지기 도�
 
 누락된 선택·입력 필드는 `conditions.json`의 `catalogDefaults`를 따른다. 폼의 `engineId`와 `baseSpeciesId`가 없으면 해당 폼의 `id`를 사용한다.
 
+## 계산기 선택 목록
+
+- 각 폼의 `abilities`와 `moveIds`에서 해당 항목의 `productPolicy.selection`이 `excluded`인 ID를 뺀다. 382개 폼에서 선택 가능한 특성은 총 110개, 공격 기술은 326개다. 선택할 특성이 없는 폼은 특성 칸을 비워 둔다. 원본 특성 슬롯은 가능한 상태이상을 확인할 때도 사용한다.
+- 일반 도구는 `conditions.json`의 `productRules.common.heldItemOptions`에 있는 32개 중 하나를 고르거나 비워 둔다. 키는 선택 ID, 값은 한글 표시명이다. `resistberry`는 반감열매 18종을 묶은 선택 ID다. 메가스톤은 일반 도구에서 제외하고 폼별 `requiredItemIds`를 유지한다. 메가진화 선택은 포켓몬 옆 토글로 제공할 예정이다.
+- 기합의띠·기합의머리띠·옹골참은 제외한다. 유턴·탁쳐서떨구기·애크러뱃은 공격 기술로 제공하며, 뒤의 두 기술에는 위력 강화 ON/OFF를 입력 규칙으로 지정했다.
+
 ## 갱신과 확인
 
 저장소 루트에서 실행한다. Showdown 아카이브 주소와 SHA-256은 [source-pin.json](source-pin.json)에 있다. `--check`는 고정 원본으로 다시 만든 파일과 저장된 파일을 비교한다. 갱신하려면 같은 명령에서 `--check`를 뺀다.
