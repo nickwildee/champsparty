@@ -1,11 +1,21 @@
 # 포켓몬 챔피언스 능력치 세부 조정 계산기
 
-- 정식 프로젝트명: 미정
-- 인계 문서 버전: 0.19
-- 기준일: 2026-11-24
-- 상태: 챔피언스 싱글 1회 데미지 CLI와 기술 카탈로그 구현. 네이버 로그인 시작 요청 검증 완료. 계산기 전용 입력·웹 화면·반복 KO와 로그인 UI(#12)는 후속 작업이다.
-- 협업 원칙: [AGENTS.md](../AGENTS.md)
-- 선택 이유와 변경 이력: [DECISIONS.md](DECISIONS.md)
+정식 프로젝트명은 미정이다. 인계 문서 0.20 · 2026-11-25 · 코드 기준 [`main`의 `55b3ac1`](https://github.com/nickwildee/champsparty/tree/55b3ac1cc4f549d9ca6960e182ea8c6b3f0f65ff).
+
+## 현재 상태와 다음 작업
+
+현재 계산은 터미널에서 실행한다. 웹 첫 화면에는 프로젝트 제목이 있고, 여러 상대를 비교하는 입력 화면은 [PC 시안](design/pc-calculator/index.html) 단계다. 아래 표는 기준 커밋에 반영된 동작과 당시의 검증 범위다.
+
+| 영역      | 구현하거나 확인한 범위                                                                                                                                                                                           | 다음 작업                                                                                                                                                                                                                                        |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 계산기    | 싱글 CLI에서 양쪽 세팅과 기술 하나로 1회 데미지·난수, 사용 불가 사유를 구한다. 스피드 비교는 양쪽 실수치와 같은 우선도에서의 선후를 출력한다.                                                                    | 가변 연속기의 적중 타수, 누적 횟수, 반사 기술의 상대 기술 등 전용 입력을 연결한다. 반복 KO의 상태 전달과 표시를 구현한다.                                                                                                                        |
+| 데이터·웹 | 폼별로 고를 수 있는 특성·공격 기술과 일반 도구 목록을 정리했다. 이전 지진 전용 검증 화면은 제거했다.                                                                                                             | 카탈로그를 통합 입력·결과 화면에 연결하고, 선택한 폼·도구·기술 조합을 검증한다. PC·모바일에서 실제 사용 흐름을 확인한다.                                                                                                                         |
+| 인증·저장 | 로컬 PostgreSQL의 역할별 권한과 앱 연결, 인증 테이블 마이그레이션, 비로그인 세션 조회·로그아웃 응답을 확인했다. 네이버 로그인 시작 요청은 등록한 콜백 주소가 든 인증 URL을 반환했다.                             | [#12](https://github.com/nickwildee/champsparty/issues/12)에서 로그인·로그아웃 화면과 서버 세션을 연결하고 [#13](https://github.com/nickwildee/champsparty/issues/13)에서 실제 계정의 동의·콜백·세션을 확인한다. 세팅 저장·복원은 후속 기능이다. |
+| 기본 검사 | `main` 대상 PR과 `main` 푸시에서 고정 설치·서식·린트·타입·웹 빌드를 실행한다. `verify`는 `main`의 필수 검사이며 [기준 커밋의 CI](https://github.com/nickwildee/champsparty/actions/runs/45599544158)가 통과했다. | DB 접속, 로그인 흐름과 게임 계산은 각 기능의 검증에서 확인한다.                                                                                                                                                                                  |
+
+**열린 결정.** 통합 상대 수 상한, 조건부 입력의 화면 배치, 모바일 동선, 결정력·내구 공식, 반복 KO의 대표 타수·예외·확률 표시 정밀도가 남아 있다. 예를 들어 1/65,536처럼 작은 양의 확률을 0%로 표시하지 않도록 표현 방법을 정해야 한다. 서버 쪽에는 세팅 저장 스키마와 배포용 DB·플랫폼 선택이 남아 있다.
+
+처음 실행할 때는 [개발 서버 실행과 기본 검사](#개발-서버-실행과-기본-검사)를, 제품을 설계할 때는 아래 [입력 조건](#32-입력-조건)과 [MVP 확인 기준](#9-mvp-확인-기준)을 참고한다. 협업 기준은 [AGENTS.md](../AGENTS.md), 기술 선택과 근거는 [DECISIONS.md](DECISIONS.md)에 있다.
 
 ## 1. 프로젝트의 목적
 
@@ -164,30 +174,14 @@
 
 ## 8. 현재 기술 방향
 
-아래는 구현 방향이며 설치·연동 완료 목록이 아니다. 선택 이유와 대안은 DECISIONS.md를 참고한다.
+| 적용 상태      | 구성                                                                                                                                                                                                                                                           |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 저장소와 웹    | pnpm 워크스페이스에 `apps/web`과 `packages/calculator`를 둔다. Next.js App Router·TypeScript·Tailwind CSS·PostCSS를 사용한다. 별도 API 서버 없이 웹의 서버 코드가 인증과 DB 접근을 담당한다.                                                                   |
+| 계산           | 계산 패키지가 입력 검증, 챔피언스 데미지 엔진 `@smogon/calc@0.12.0` 호출과 결과 가공을 담당한다. 웹은 `workspace:*`로 TypeScript 원본을 가져와 변환하므로 계산 패키지에 별도 빌드가 없다. 실제 계산기 UI에서 이 함수를 브라우저로 실행하는 것은 후속 작업이다. |
+| 인증·DB        | Better Auth, pg·Drizzle과 로컬 PostgreSQL 18.7을 연결했다. [로컬 DB·인증 구성](#로컬-postgresql-구성)에서 환경변수와 실행 조건을 확인할 수 있다.                                                                                                               |
+| 통합 화면 설계 | 작업 입력은 React `useReducer`, 작은 UI 상태는 `useState`로 관리하고 결과는 입력에서 계산한다. 계정에 저장한 데이터의 조회·갱신은 TanStack Query로 관리할 계획이다.                                                                                            |
 
-| 구분             | 방향                                                             |
-| ---------------- | ---------------------------------------------------------------- |
-| 애플리케이션     | Next.js + TypeScript                                             |
-| 저장소           | pnpm 워크스페이스, `apps/web`과 `packages/calculator` 구성 완료  |
-| 웹과 서버 기능   | `apps/web`에 화면, 인증과 저장 관련 서버 기능 배치               |
-| 계산 로직        | `packages/calculator`에서 입력·계산·결과 처리, 브라우저에서 실행 |
-| 데미지 엔진      | `@smogon/calc` `0.12.0` 설치·챔피언스 대표 사례 검증 완료        |
-| 작업 입력 상태   | React `useReducer`, 작은 UI 상태는 필요에 따라 `useState`        |
-| 계산 결과        | 현재 입력에서 파생                                               |
-| 서버 저장 데이터 | TanStack Query로 조회·갱신 상태 관리                             |
-| 저장소 DB        | 로컬 PostgreSQL 18.7·pg/Drizzle 공통 연결 구현·검증 완료         |
-| 인증             | Better Auth 네이버 제공자 연결, 로컬 로그인 시작 요청 검증       |
-| 스타일링         | Tailwind CSS, PostCSS 연동 완료                                  |
-| 기본 검사        | TypeScript 타입 검사, ESLint, Prettier 구성 완료                 |
-
-- 별도 API 서버는 초기 구성에 두지 않는다. 분리할 구체적인 필요가 생겼을 때 검토한다.
-- Node.js `26.13.1`(26 LTS), pnpm `12.19.0`, Node.js 버전 관리 도구 fnm을 사용한다. `.node-version`과 루트 `package.json`에 버전을 기록했고, 새 로그인·대화형 zsh에서 자동 전환과 워크스페이스 인식을 확인했다.
-- 실행 환경의 실제 설치 버전은 Next.js `16.4.6`, React·React DOM `19.3.0`, TypeScript `5.9.3`, Tailwind CSS `4.3.3`, ESLint `10.15.0`, Prettier `3.10.1`, 데미지 엔진 `@smogon/calc` `0.12.0`이다. 재설치 기준은 루트 `pnpm-lock.yaml`이다.
-- 로컬 PostgreSQL의 접속·권한, 앱의 pg·Drizzle 공통 연결과 Better Auth의 비로그인 API 응답을 검증했다. 실제 네이버 로그인·브라우저 세션 검증은 후속 작업이다.
-- App Router, `src/`, 웹 내부 별칭 `@/*`, Turbopack을 사용한다. React Compiler와 Cache Components는 이번 단계에서 활성화하지 않았다. 기존 루트 협업 지침을 사용하도록 Next.js의 지침 파일 자동 생성은 껐다.
-- 계산 패키지는 TypeScript 원본을 공개하고 웹이 `workspace:*` 의존성으로 가져온다. Next.js가 코드를 변환하므로 계산 패키지의 별도 빌드는 두지 않는다. 자세한 이유와 호환성 보정은 DECISIONS.md의 D14에 기록했다.
-- DB 접속·인증 환경변수와 인증 테이블은 아래 실행 구성에 기록했다. 추가 기술의 입력과 서비스 데이터 테이블은 후속 기능 설계에서 확정한다.
+실제 도구 버전은 [Node.js 버전 파일](../.node-version), [루트 패키지 설정](../package.json), [고정 의존성 목록](../pnpm-lock.yaml)에 기록한다. 초기 Next.js 옵션·패키지 연결·검사 도구 호환성은 [D14](DECISIONS.md#d14-두-패키지-연결과-최소-nextjs-실행-환경)에 있다.
 
 ## 9. MVP 확인 기준
 
@@ -206,85 +200,7 @@
 
 첫 배포 플랫폼, 일정, 구체적인 성능 목표 수치는 아직 정하지 않았다. 숫자를 임의로 완료 조건에 추가하지 않는다.
 
-## 10. 진행 상태와 다음 작업
-
-### 실제 저장소에서 확인한 상태
-
-- 새 저장소 생성·클론과 로컬 폴더 연결을 마쳤다. 초기에는 프로젝트명만 적힌 README가 있었다.
-- 저장소 초기 설정은 PR #1에서 `main`에 Squash 병합되었다. 기준 커밋은 `b988132`이다.
-- `.gitignore`, LF 줄바꿈용 `.gitattributes`, 작업·버그 이슈 양식, PR 양식과 README가 존재한다. 별도 `.editorconfig`와 레포 운영 가이드는 논의 후 제외했다.
-- `.gitignore`의 제외·허용 규칙 11개를 확인했다. 하위 폴더의 환경 파일과 설치 파일도 제외되며, `.env.example`, `package.json`, `pnpm-lock.yaml`은 허용된다. 이 확인은 경로 규칙 검사이며 실제 환경 변수나 의존성 파일을 생성한 것은 아니다.
-- `.gitattributes`의 텍스트 LF 줄바꿈 적용을 확인했다.
-- `AGENTS.md`, `docs/PROJECT.md`, `docs/DECISIONS.md`의 초판 인계는 `docs/project-handoff` 브랜치의 `f5a72e8`에 커밋되었다. 루트에 중복된 기획·결정 문서는 없고 내부 문서 링크는 정상이다.
-- 이후 문서 PR #2가 `89a96e8`, 개발 도구 PR #3이 `aea96d0`으로 `main`에 Squash 병합되었다. 이번 실행 환경 작업은 최신 `main`에서 만든 `codex/4-next-workspace` 브랜치와 이슈 #4에서 진행했다.
-- 초기 환경 조회에서는 Node.js `23.7.0`, npm `10.9.2`, pnpm `10.18.1`, Corepack `0.31.0`을 확인했다. 이후 fnm, Node.js `26.13.1`, pnpm `12.19.0`과 최소 루트 설정 반영을 합의했다.
-- `.node-version`, 비공개 패키지용 루트 `package.json`, `apps/*`·`packages/*`를 지정한 `pnpm-workspace.yaml`을 추가했다.
-- fnm `1.39.0`, Node.js `26.13.1`, pnpm `12.19.0`을 설치했다. 최초 Homebrew 설치는 실행 환경의 경로 쓰기 제한으로 실패했다. `.zshrc`의 마지막 줄바꿈 부재로 붙었던 PATH 설정과 fnm 연결문은 별도 줄로 분리했다. 현재 `eval "$(fnm env --use-on-cd --shell zsh)"`가 별도 줄에 있다.
-- 2026-11-17 샌드박스 안의 새 zsh에서는 fnm 멀티셸 링크 생성이 `Operation not permitted`로 막혀 실제 `node`가 Homebrew의 `v24.22.1`을 가리켰다. 권한 제한 밖에서 같은 새 로그인·대화형 zsh를 실행하자 `fnm current`와 `node --version`이 모두 `v26.13.1`, `npm --version`이 `11.20.0`, `pnpm --version`이 `12.19.0`이었다. `node`와 `pnpm`은 fnm 멀티셸 경로에서 실행됐다. 이 차이는 샌드박스 권한에 따른 것이며 사용자 셸 설정 오류로 확인되지 않았다.
-- 목표 버전의 새 셸에서 `pnpm -r list --depth -1`이 비공개 `champsparty` 루트를 인식했다. 이전에 목표 Node.js 설치 경로를 검증 프로세스의 PATH에만 지정했을 때도 Node.js `26.13.1`, npm `11.20.0`, pnpm `12.19.0`과 `pnpm --filter champsparty list --depth -1`의 루트 인식을 확인했다. 영구 PATH 설정은 변경하지 않았다.
-- 개발 도구 단계에서는 루트 JSON·버전, YAML 구문·경로, LF, 문서 링크와 공백 검사를 확인했다. 당시 lockfile에는 pnpm 자체 버전 관리 항목만 있었다. 이번 단계에서는 두 패키지의 실제 의존성과 내부 연결까지 lockfile에 반영했다.
-- 두 패키지 생성과 의존성 설치를 마쳤다. pnpm의 구성원 조회와 웹 의존성 조회에서 계산 패키지가 `link:../../packages/calculator`로 연결된 것을 확인했다.
-- 두 패키지의 타입 검사·린트, 웹 프로덕션 빌드를 통과했다. 개발 서버와 프로덕션 서버에서 페이지 표시 및 브라우저 버튼 클릭에 따른 값 변경을 확인했다. 기반 환경 검증 당시 실제 포켓몬 계산·로그인과 앱 DB 연결은 범위 밖이었다. 앱 DB 연결은 아래 #9에서 검증했다.
-
-### 로컬 PostgreSQL 구성
-
-- [인증 상위 이슈 #7](https://github.com/nickwildee/champsparty/issues/7)의 첫 작업인 [#8](https://github.com/nickwildee/champsparty/issues/8)에서 Homebrew PostgreSQL `18.7`을 구성했다. 데이터 디렉터리는 `/opt/homebrew/var/postgresql@18`이며 포트 `5432`의 루프백 주소와 `/tmp` 소켓으로 접속한다. macOS 로그인 시 자동 실행은 등록하지 않았다.
-- DB 이름은 `champsparty`이고 소유자는 `champsparty_migrator`다. `champsparty_app`은 실행 중인 앱용, `champsparty_migrator`는 테이블 구조 변경용이다. 두 역할 모두 슈퍼유저·DB 생성·역할 생성 권한이 없다.
-- `public`에는 서비스 테이블을, `drizzle`에는 후속 마이그레이션 이력을 둔다. 두 스키마의 소유자는 migrator다. 앱은 DB 접속과 `public` 사용만 허용하며, migrator가 `public`에 만드는 테이블에는 조회·추가·수정·삭제 권한을 자동 부여한다. 앱의 테이블·스키마·임시 테이블 생성, 구조 변경·삭제, `drizzle` 접근과 migrator 역할 전환은 허용하지 않는다.
-- 두 프로젝트 역할에는 IPv4·IPv6·Unix 소켓 모두 `scram-sha-256` 인증을 적용했다. DB 이름을 바꿔 인증 규칙을 우회하지 못하도록 모든 DB에 같은 규칙을 적용한다. 기존 `heoknoh` 관리 접속의 `trust` 규칙은 보존했다. 원본 설정은 `/opt/homebrew/var/postgresql@18/pg_hba.conf.champsparty-before-scram`에 보관한다.
-- 서로 다른 64자 무작위 비밀번호를 사용한다. 앱의 `DATABASE_URL`은 `apps/web/.env.local`, migrator의 `MIGRATION_DATABASE_URL`은 `apps/web/.env.migrations.local`에 저장했다. 두 파일은 권한 `0600`이고 Git에서 제외된다. 마이그레이션 전용 파일은 아래 #10에서 연결한 `pnpm db:migrate`가 읽는다. 비밀값은 문서·이슈에 기록하지 않는다.
-- #8에서 직접 검증 40개 항목이 통과했다. 두 역할 × 세 접속 경로에서 정상·오류·누락 비밀번호의 18개 경우, 다른 DB 이름을 통한 우회 거부 2개, 앱 권한 거부 9개, 자동 데이터 권한·migrator의 구조 변경 등을 확인했다. 검증용 테이블은 #8에서 제거했고 실제 인증·이력 테이블은 #10에서 적용했다.
-- 서버 중지 후 수동 재실행, 두 역할의 재접속과 잘못된 비밀번호 거부를 확인했다. 최종 상태는 실행 중이며 자동 실행 미등록, HBA 구문 오류 0개다. 이 단계에서 앱 의존성은 추가하지 않았으며 Drizzle 마이그레이션과 실제 네이버 로그인은 검증 범위가 아니다. 선택 이유와 제약은 [D17](DECISIONS.md#d17-로컬-postgresql과-서비스마이그레이션-역할-분리)에 기록했다.
-
-| 명령                                                                                                      | 용도                                                             |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `brew services run postgresql@18`                                                                         | 필요할 때 실행. 로그인 시 자동 실행은 등록하지 않음              |
-| `brew services stop postgresql@18`                                                                        | 서버 중지                                                        |
-| `brew services info postgresql@18 --json`                                                                 | 실행 상태와 자동 실행 등록 여부 확인                             |
-| `/opt/homebrew/opt/postgresql@18/bin/pg_isready -h 127.0.0.1 -p 5432`                                     | 서버의 접속 수락 상태 확인. 계정 인증 검증과는 별개              |
-| `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_app -d champsparty -W`      | 앱 역할로 접속. 비밀번호는 명령 인자가 아닌 숨겨진 입력으로 전달 |
-| `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_migrator -d champsparty -W` | 구조 변경 역할로 접속                                            |
-
-접속 후 `SELECT current_database(), current_user, version();`과 `SELECT 1;`로 대상 DB·역할·버전과 쿼리 실행을 확인할 수 있다. 앱 연결은 아래 #9, Better Auth와 인증 테이블은 [#10](https://github.com/nickwildee/champsparty/issues/10)에 정리했다.
-
-### pg·Drizzle 연결 — #9, 구현·검증 완료
-
-- pg 연결 풀을 같은 서버 실행 환경에서 재사용한다. 로컬 시작값은 최대 연결 10개, 연결 획득 대기·새 연결 생성 제한 5초, 유휴 연결 정리 10초다. SQL 실행 시간 제한이나 배포용 최적값의 검증을 뜻하지 않는다.
-- 개발 모드의 `globalThis`에 풀을 보관한다. DB 접속 정보·풀 설정을 바꾸면 개발 서버를 재시작한다. DB 모듈은 `server-only`로 표시한다.
-- `DATABASE_URL` 누락은 DB 기능을 처음 사용할 때 검사한다. DB 오류는 호출부에 전달하고 공통 코드에서 Next.js를 강제 종료하거나 작업을 자동 재시도하지 않는다. 유휴 연결 오류도 처리하며 실제 URL·비밀번호는 로그에 넣지 않는다.
-- 터미널 명령은 `@next/env`로 개발 환경 파일을 읽고 앱과 같은 연결 코드를 사용한다. 읽기 쿼리로 `SELECT 1`, DB `champsparty`·역할 `champsparty_app`을 확인한다. 확인용 공개 API나 테이블은 만들지 않는다.
-- 설치 버전은 `pg 8.23.1`, `drizzle-orm 0.45.4`, `server-only 0.0.1`, `@types/pg 8.23.1`, `@next/env 16.4.6`, `tsx 4.23.15`다. #9에서는 `esbuild@0.28.2`의 설치 후 스크립트를 `allowBuilds`로 허용했다. #10에서 추가한 허용 버전은 D20에 기록했다.
-- 루트 `pnpm db:check`로 앱 역할의 접속·대상 DB를 확인하고 풀을 닫는다. 성공·실패 종료 코드는 0·1이다. PostgreSQL은 실행 중이어야 하며 Next.js 개발 서버는 필요하지 않다. 실제 환경 파일은 Git에서 제외하고 `.env.example`의 `DATABASE_URL`은 비워 둔다.
-- 정상·실패 접속과 대상 역할 거부, 서버 전용 import, 설정 검사·풀 재사용·오류 전달·재시도 미사용·종료를 7개 임시 시나리오로 확인했다. 실제 Next.js 서버에서 정상 DB 요청 200, 잘못된 비밀번호·누락 설정의 요청 500 이후 일반 페이지 200을 확인했다. 클라이언트의 DB import는 빌드에서 거부됐고 검증용 페이지·서버는 제거했다.
-- Node.js `26.13.1`·pnpm `12.19.0`에서 일반 frozen-lockfile 설치·타입·린트·peer 검사와 임시 페이지 제거 후 최종 프로덕션 빌드를 통과했다. 서식·문서 링크·공백 검사도 통과했다. 배포 환경·실제 편집 이벤트 전체·인증 테이블·마이그레이션·로그인은 검증 범위가 아니다. 상세 선택과 한계는 [D18](DECISIONS.md#d18-앱-db-연결과-검증-방식)에 기록했다.
-
-### Better Auth와 인증 테이블 — #10
-
-- `better-auth 1.7.26`을 런타임에, `auth 1.7.26`과 `drizzle-kit 0.31.11`을 생성·마이그레이션에 사용한다. `auth-schema.config.ts`와 `drizzle.config.ts`에서 생성한 스키마·SQL·이력을 저장소에 유지한다. 초기 SQL은 `user`, `account`, `session`, `verification`을 만든다.
-- `pnpm db:migrate`는 앱 디렉터리의 `.env.migrations.local`에서 `MIGRATION_DATABASE_URL`을 읽고, 로컬 `champsparty` DB의 `champsparty_migrator`로 적용한다. 서비스 테이블은 `public`, 적용 이력은 `drizzle.__drizzle_migrations`에 저장된다.
-- 웹 서버는 `apps/web/.env.local`의 앱 역할 `DATABASE_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`을 쓴다. `BETTER_AUTH_URL`에는 `http://localhost:3000`처럼 프로토콜과 호스트, 필요하면 포트까지 적는다. 비밀값은 무작위 32바이트를 Base64로 인코딩해 준비한다. 실제 환경 파일과 비밀값은 Git에서 제외한다.
-- 세션은 DB에 저장하고 만료 7일·갱신 간격 1일을 적용한다. 쿠키 캐시와 이메일·비밀번호 로그인을 비활성화했다. 세션 생성 시 Better Auth가 제공받은 IP와 `User-Agent`를 기본 필드에 저장한다. 공개 배포 환경의 IP 확인과 반복 요청 제한은 [#21](https://github.com/nickwildee/champsparty/issues/21)에서 검토한다.
-- 개발 서버에서 쿠키 없는 `GET /api/auth/get-session`은 `200`과 `null`, `POST /api/auth/sign-out`은 `200`과 성공 응답을 반환했다. 로컬 PostgreSQL에서 앱 역할로 네 인증 테이블 조회, 키·권한, 마이그레이션 재실행 후 같은 SQL의 이력 1건을 확인했다. 선택 이유와 검증 범위는 [D20](DECISIONS.md#d20-better-auth-기반-인증-테이블과-세션-설정)에 기록했다.
-
-기본 인증 스키마를 다시 생성해야 할 때는 저장소 루트에서 아래 명령을 쓴다. 첫 명령은 TypeScript 스키마를 생성하며, 두 번째 명령은 이전 스냅샷과 차이가 있을 때 마이그레이션 SQL을 만든다. 생성 후 파일 차이를 검토하고 `pnpm db:migrate`로 로컬 DB에 반영한다.
-
-```sh
-pnpm --filter @champsparty/web exec auth generate --config auth-schema.config.ts --adapter drizzle --dialect postgresql --output src/server/auth-schema.ts
-pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config.ts
-```
-
-### 네이버 로그인 시작 — #11
-
-- 네이버 개발자센터의 PC 웹 서비스 URL은 `http://localhost:3000`, Callback URL은 `http://localhost:3000/api/auth/callback/naver`이다. `BETTER_AUTH_URL`로 설정한 앱 주소가 Better Auth의 허용 출처와 콜백 주소의 기준이 된다.
-- 개발자센터에서 앱을 등록할 때 기본 제공되는 이용자 식별자만 사용하도록 필수·추가 프로필 항목은 선택하지 않는다. 실제 동의 화면에 표시되는 항목은 #13에서 확인한다.
-- 웹 앱의 `.env.local`에 `NAVER_CLIENT_ID`와 `NAVER_CLIENT_SECRET`을 넣고 서버를 재시작한다. 두 값이 모두 있을 때 네이버 로그인이 활성화된다. 키가 없어도 기존 세션 조회와 로그아웃을 사용할 수 있다.
-- 네이버 개발자센터에서 이 앱에 발급한 `Client ID`와 `Client Secret`을 서버 환경변수로 설정했다. 로컬에서 프로덕션 빌드한 Next.js 앱을 PostgreSQL에 연결하고 `POST /api/auth/sign-in/social`을 호출해 HTTP 200과 네이버 인증 URL을 받았다. URL의 `redirect_uri`는 등록한 콜백 주소와 일치했고 기본 요청에 `scope` 파라미터가 없었다. 계정 식별 방식과 모의 응답 검증 결과는 [D21](DECISIONS.md#d21-네이버-이용자-식별자와-내부용-이메일)을 참고한다.
-
-### 계산기와 카탈로그 현황
-
-현재 CLI는 한 번의 기술 사용과 스피드 비교를 지원한다. 통합 웹 입력과 반복 KO는 후속 작업이다. 이전 지진 전용 화면은 제거했고 [당시 화면](images/champions-calculator.jpg)은 보존했다.
-
-고정 원본에서 포켓몬·폼 382개, 특성 216개, 기술 515개와 습득 관계 23,176건을 추출했다. 폼·특성·기술의 한국어 이름을 ID에 연결한다. 시즌별 적법성과 공식 게임의 전수 일치 여부는 확인하지 않았다. [데이터 구성·갱신 방법](../packages/calculator/data/champions/README.md) · [검증 결과와 한계](DECISIONS.md#조건부-입력-데이터와-엔진-호환성-후속-조사) · [조건부 입력·반복 처리 설계](DECISIONS.md#조건부-기술의-제품-규칙)
+## 10. 실행 방법과 검증 근거
 
 ### 코드 위치와 실행 방법
 
@@ -300,82 +216,106 @@ pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config
 | `apps/web/scripts/db-check.ts`                | 개발 환경 로딩과 읽기 쿼리·DB/역할 검증             |
 | 루트 `package.json`                           | 패키지별 작업 명령 실행과 저장소 전체 Prettier 관리 |
 
-프로젝트 폴더에서 fnm이 `.node-version`에 맞는 Node.js를 선택한 뒤 아래 명령을 실행한다. 새 환경에는 먼저 해당 Node.js·pnpm 도구를 준비해야 한다.
+#### 개발 서버 실행과 기본 검사
 
-| 명령                                                                       | 역할                                                                        |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `pnpm install --frozen-lockfile`                                           | 기록된 lockfile을 변경하지 않고 의존성 설치                                 |
-| `pnpm calc:check packages/calculator/fixtures/champions-damage-input.json` | 양쪽 세팅과 기술 하나로 1회 데미지·난수 출력                                |
-| `pnpm calc:check --speed <입력.json>`                                      | 양쪽 최종 스피드와 같은 우선도에서 먼저 움직이는 쪽 출력                    |
-| `pnpm db:check`                                                            | 로컬 DB 접속·DB 이름·앱 역할 확인 후 연결 정리 (macOS 셸 기준)              |
-| `pnpm db:migrate`                                                          | 마이그레이션 전용 계정으로 로컬 DB에 SQL 적용                               |
-| `pnpm dev`                                                                 | 개발 서버 실행, 기본 주소 `http://localhost:3000`                           |
-| `pnpm typecheck`                                                           | 계산 패키지와 웹의 타입 검사. 웹은 먼저 `next typegen`으로 라우트 타입 생성 |
-| `pnpm lint`                                                                | 두 패키지의 ESLint 검사, 경고도 실패로 처리                                 |
-| `pnpm format`                                                              | 저장소의 코드·설정·문서 서식 자동 수정                                      |
-| `pnpm format:check`                                                        | 수정 없이 서식 검사                                                         |
-| `pnpm build`                                                               | 웹 프로덕션 빌드                                                            |
-| `pnpm start`                                                               | `pnpm build` 후 프로덕션 서버 실행                                          |
-| `pnpm -r list --depth -1`                                                  | 루트와 두 패키지의 워크스페이스 인식 확인                                   |
+저장소 루트에서 실행한다. 새 환경에는 fnm 등으로 `.node-version`의 Node.js `26.13.1`과 루트 `package.json`의 pnpm `12.19.0`을 먼저 준비한다.
 
-계산기 회귀 검사는 `node --test --test-name-pattern="<확인한 테스트 이름>" packages/calculator/test/champions.test.mjs`로 선택 실행한다. 에이전트는 해당 테스트 안의 모든 사례가 [프로젝트 검증 기준](../AGENTS.md)을 충족하는지 먼저 확인한다.
+| 명령                             | 용도                                                                                     |
+| -------------------------------- | ---------------------------------------------------------------------------------------- |
+| `pnpm install --frozen-lockfile` | 고정한 의존성을 설치한다.                                                                |
+| `pnpm dev`                       | 개발 서버를 실행한다. 기본 주소는 `http://localhost:3000`이다.                           |
+| `pnpm format:check`              | 파일을 수정하지 않고 서식을 검사한다.                                                    |
+| `pnpm lint`                      | 웹·계산 패키지의 린트를 검사한다. 경고도 실패로 처리한다.                                |
+| `pnpm typecheck`                 | 두 패키지의 타입을 검사한다. 웹은 `next typegen`으로 필요한 라우트 타입을 먼저 생성한다. |
+| `pnpm build` · `pnpm start`      | 웹 프로덕션 빌드를 만든 뒤 해당 서버를 실행한다.                                         |
+| `pnpm -r list --depth -1`        | 루트와 두 패키지가 워크스페이스에 포함되어 있는지 확인한다.                              |
 
-`next-env.d.ts`는 Next.js가 생성한다. 개발 서버를 처음 실행하기 전에도 `pnpm typecheck`가 필요한 타입 파일을 준비한다. `.next/`, `next-env.d.ts`, `*.tsbuildinfo`와 개인 `.codex/` 설정은 Git에서 제외하며 lockfile은 추적한다.
+`pnpm format`은 저장소의 코드·설정·문서를 **수정**한다. CI에서 사용하는 서식 확인 명령은 `pnpm format:check`다. 빌드가 만든 `.next/`, `next-env.d.ts`, `*.tsbuildinfo` 등은 Git에서 제외하고 lockfile은 추적한다.
+
+#### 계산기·DB 작업에서 쓰는 명령
+
+| 명령                                                                       | 적용 조건과 결과                                                                                                                                       |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `pnpm calc:check packages/calculator/fixtures/champions-damage-input.json` | 양쪽 세팅과 기술 하나의 JSON으로 1회 데미지와 난수를 출력한다.                                                                                         |
+| `pnpm calc:check --speed <입력.json>`                                      | 확인할 JSON 경로를 지정해 양쪽 최종 스피드와 같은 우선도에서의 선후를 출력한다.                                                                        |
+| `pnpm db:check`                                                            | 실행 중인 로컬 PostgreSQL에 앱용 `DATABASE_URL`로 접속해 대상 DB와 역할을 확인한다. Next.js 개발 서버는 필요 없다.                                     |
+| `pnpm db:migrate`                                                          | 로컬 DB 스키마를 변경할 때 별도 migrator 계정으로 SQL을 적용한다. [인증 테이블 구성](#better-auth와-인증-테이블--10)에 조건과 스키마 생성 명령이 있다. |
+
+계산기 사례를 실행하거나 위임하기 전에 [프로젝트 검증 기준](../AGENTS.md)에 따라 카탈로그와 게임 규칙상 성립하는지 확인한다. 회귀 검사에서는 선택한 테스트 안의 모든 사례를 확인한 뒤 `node --test --test-name-pattern="<확인한 테스트 이름>" packages/calculator/test/champions.test.mjs`로 해당 테스트만 실행한다.
+
+### 계산기와 카탈로그 현황
+
+현재 CLI는 날씨·필드·접지·중력·양쪽 벽 등을 적용한다. 내던지기의 도구별 위력·사용 불가, 코골기·셸암즈·탈 등 일부 기술·특성의 1회 처리를 검수했다. 스피드 비교는 999 초과 실수치와 트릭룸을 지원한다. 개별 기술의 입력·예외·검증 범위는 [D15](DECISIONS.md#d15-챔피언스-데미지-엔진의-설치와-싱글-검증-계약)에 있다. [과거 지진 검증 화면](images/champions-calculator.jpg)은 당시 동작을 보여 준다.
+
+고정 원본에서 추출한 범위는 포켓몬·폼 382개, 특성 216개, 기술 515개, 습득 관계 23,176건이다. 제품의 선택 목록은 폼별 습득·특성 슬롯과 별도 선택 정책을 적용한다. 시즌별 참가 자격과 모든 조합의 적법성은 전수 검증하지 않았다. [카탈로그의 데이터·선택 목록·갱신 방법](../packages/calculator/data/champions/README.md) · [과거 엔진 호환성 조사](DECISIONS.md#조건부-입력-데이터와-엔진-호환성-후속-조사) · [조건부 입력·반복 처리 설계](DECISIONS.md#조건부-기술의-제품-규칙)
+
+### 로컬 PostgreSQL 구성
+
+[인증 작업 #7](https://github.com/nickwildee/champsparty/issues/7) 중 [#8](https://github.com/nickwildee/champsparty/issues/8)에서 Homebrew PostgreSQL `18.7`을 구성했다. 데이터 디렉터리는 `/opt/homebrew/var/postgresql@18`, 포트는 `5432`, Unix 소켓은 `/tmp`다. macOS 로그인 시 자동 실행은 등록하지 않았다.
+
+- 앱은 `apps/web/.env.local`의 `DATABASE_URL`로 `champsparty_app`에 접속한다. 이 역할은 `public`의 서비스 데이터를 읽고 쓴다.
+- 마이그레이션은 `apps/web/.env.migrations.local`의 `MIGRATION_DATABASE_URL`로 `champsparty_migrator`에 접속한다. 이 역할이 DB `champsparty`와 `public`·`drizzle` 스키마를 소유하고 구조를 변경한다. 두 역할은 서로 다른 비밀번호를 사용하며 실제 환경 파일은 권한 `0600`으로 Git에서 제외한다.
+- 두 프로젝트 역할에 IPv4·IPv6·Unix 소켓에서 SCRAM 비밀번호 인증을 적용했다. 이 설정을 적용하기 전의 HBA 파일은 `/opt/homebrew/var/postgresql@18/pg_hba.conf.champsparty-before-scram`에 있다. 당시 정상·오류·누락 비밀번호와 권한을 포함한 직접 검사 40건을 확인했다. 세부 권한과 기존 관리 역할의 로컬 `trust` 예외는 [D17](DECISIONS.md#d17-로컬-postgresql과-서비스마이그레이션-역할-분리)에 있다.
+
+| 명령                                                                                                      | 용도                                                             |
+| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `brew services run postgresql@18`                                                                         | 필요할 때 실행. 로그인 시 자동 실행은 등록하지 않음              |
+| `brew services stop postgresql@18`                                                                        | 서버 중지                                                        |
+| `brew services info postgresql@18 --json`                                                                 | 실행 상태와 자동 실행 등록 여부 확인                             |
+| `/opt/homebrew/opt/postgresql@18/bin/pg_isready -h 127.0.0.1 -p 5432`                                     | 서버의 접속 수락 상태 확인. 계정 인증 검증과는 별개              |
+| `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_app -d champsparty -W`      | 앱 역할로 접속. 비밀번호는 명령 인자가 아닌 숨겨진 입력으로 전달 |
+| `/opt/homebrew/opt/postgresql@18/bin/psql -h 127.0.0.1 -p 5432 -U champsparty_migrator -d champsparty -W` | 구조 변경 역할로 접속                                            |
+
+접속 후 `SELECT current_database(), current_user, version();`과 `SELECT 1;`로 대상 DB·역할·버전과 쿼리 실행을 확인한다. `pg_isready`는 서버의 접속 수락만 확인한다.
+
+### pg·Drizzle 연결 — #9, 구현·검증 완료
+
+앱은 서버 전용 모듈에서 pg 풀을 재사용한다. 로컬 풀당 최대 연결은 10개, 연결 획득 대기는 5초, 유휴 정리는 10초다. 개발 모드에서는 풀을 `globalThis`에 보관하므로 접속 정보나 풀 설정을 바꾸면 개발 서버를 재시작한다. DB 기능을 처음 호출할 때 설정 누락을 확인한다.
+
+루트 `pnpm db:check`는 macOS 셸에서 `@next/env`로 앱 개발 환경을 읽고 같은 연결 코드로 읽기 쿼리와 `champsparty`·`champsparty_app`을 확인한 뒤 풀을 닫는다. 종료 코드 0은 성공, 1은 실패다. 실제 DB·Next.js에서 성공·오류 응답과 서버 전용 경계를 확인했다. 재현 조건, 설치 버전, 임시 시나리오 7개의 범위와 한계는 [D18](DECISIONS.md#d18-앱-db-연결과-검증-방식)에 있다.
+
+### Better Auth와 인증 테이블 — #10
+
+웹 서버는 `apps/web/.env.local`의 앱 역할 `DATABASE_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`을 사용한다. 주소에는 프로토콜·호스트와 필요한 포트를 적고, 비밀값은 무작위 32바이트를 Base64로 인코딩해 준비한다. 세션은 DB에 저장하며 만료 7일·갱신 간격 1일이다.
+
+인증 스키마 변경 시 저장소 루트에서 다음 명령으로 TypeScript 스키마와 스냅샷 차이에 대한 SQL을 차례로 생성한다.
+
+```sh
+pnpm --filter @champsparty/web exec auth generate --config auth-schema.config.ts --adapter drizzle --dialect postgresql --output src/server/auth-schema.ts
+pnpm --filter @champsparty/web exec drizzle-kit generate --config drizzle.config.ts
+```
+
+생성한 차이를 검토한 뒤 `pnpm db:migrate`로 로컬 DB에 적용한다. 서비스 테이블은 `public`의 `user`·`account`·`session`·`verification`, 적용 이력은 `drizzle.__drizzle_migrations`에 저장된다. [#10](https://github.com/nickwildee/champsparty/issues/10)에서는 인증 테이블 접근, 재적용 후 같은 SQL의 이력 1건, 쿠키 없는 세션 조회(200·`null`)와 로그아웃(200)을 확인했다. 쿠키 설정·수집 항목과 검증 근거는 [D20](DECISIONS.md#d20-better-auth-기반-인증-테이블과-세션-설정)에, 배포 후 IP 확인·요청 제한 검토는 [#21](https://github.com/nickwildee/champsparty/issues/21)에 있다.
+
+### 네이버 로그인 시작 — #11
+
+네이버 개발자센터에 등록한 로컬 서비스 URL은 `http://localhost:3000`, 콜백은 `http://localhost:3000/api/auth/callback/naver`다. 기본 이용자 식별자만 사용하도록 추가 프로필 항목을 선택하지 않는다. 앱의 `BETTER_AUTH_URL`을 등록한 서비스 주소에 맞추고 `.env.local`에 `NAVER_CLIENT_ID`와 `NAVER_CLIENT_SECRET`을 넣은 뒤 서버를 재시작한다. 두 값이 모두 있으면 네이버 로그인이 활성화된다. 키가 없어도 세션 조회와 로그아웃을 사용할 수 있다.
+
+당시 로컬 프로덕션 빌드에서 `POST /api/auth/sign-in/social`이 HTTP 200과 네이버 인증 URL을 반환했다. 콜백 주소 일치, 기본 요청에 `scope`가 없는 것까지 확인했다. 실제 동의·콜백·로그인한 세션은 #13에서 확인한다. [네이버 식별자 및 검증 범위 D21](DECISIONS.md#d21-네이버-이용자-식별자와-내부용-이메일)
 
 ### 기반 실행 환경의 검증과 한계
 
-- Node.js `26.13.1`·pnpm `12.19.0` 환경에서 웹·계산 패키지 인식, 로컬 의존성 연결, 타입 검사·린트·빌드를 확인했다.
-- `pnpm install --frozen-lockfile`, `pnpm format:check`, `pnpm peers check`도 통과했다. lockfile 안의 앱 의존성 문서에서 두 패키지와 내부 링크를 확인했다.
-- 개발·프로덕션 페이지의 브라우저 상호작용으로 내부 패키지 함수 실행을 확인했고, Tailwind의 Flexbox·여백·버튼 색상 적용 및 브라우저 경고·오류가 없는 상태를 확인했다. 프로덕션 페이지 HTTP 응답은 200이었다.
-- 샌드박스 안의 첫 빌드는 Turbopack의 내부 포트 사용이 막혀 실패했다. 실패 때의 `.next` 캐시를 지우고 권한 제한 밖에서 같은 `pnpm build`를 실행하자 통과했다. 이 실행 환경의 제약과 앱 오류를 구분한다.
-- 연결 확인용 `add` 함수와 싱글 지진 검증 화면으로 패키지의 연결과 계산 실행을 차례로 확인했다.
-
-### GitHub Actions 기본 검사
-
-[`CI` 워크플로](../.github/workflows/ci.yml)의 `verify` 작업은 `main` 대상 PR과 `main` 푸시에서 실행된다. Ubuntu에서 저장소의 Node.js·pnpm 버전을 사용해 아래 명령을 순서대로 실행한다.
-
-1. `pnpm install --frozen-lockfile`
-2. `pnpm format:check`
-3. `pnpm lint`
-4. `pnpm typecheck`
-5. `pnpm build`
-
-[PR #25](https://github.com/nickwildee/champsparty/pull/25)에서 다섯 단계 통과, 임시 서식 오류 감지, 새 커밋에 의한 이전 실행 취소를 확인했다. DB 마이그레이션·로그인·기능 테스트는 이 작업의 검증 범위 밖이다. 실행 근거와 병합 후 확인 항목은 [D22](DECISIONS.md#d22-github-actions-기본-검사)에 기록했다.
-
-### 다음 순서
-
-인증 작업은 `#8 → #9 → #10 → #11 → #12 → #13` 순서로 진행한다. #11에서 네이버 로그인 시작 요청까지 확인했다. #12에서 로그인·로그아웃 UI와 서버 세션을 연결하고 #13에서 실제 계정으로 동의·콜백·세션을 통합 검증한다. 아래 계산기 확장 계획은 별도 작업으로 유지한다.
-
-1. 양쪽 세팅·기술 하나·배틀 조건으로 1회 데미지를 계산하는 공통 함수와 CLI를 구현했다. 기본 데미지, 날씨, 필드·접지·중력을 검증했다. 내던지기는 도구별 위력과 1회 데미지·난수 또는 사용 불가 사유를 반환한다. 필드가 없는 아이언롤러와 중력 중 사용할 수 없는 공격은 데미지 0과 사유를 반환한다.
-2. 양쪽 벽과 코골기·셸암즈·탈의 1회 처리를 검수했다. 부자유친의 추가 타격은 원본 플래그를 따르고, 내던지기는 필드에 맞는 시드가 먼저 소모되면 사용 불가 사유를 표시한다. CLI의 스피드 비교는 999를 넘는 실수치와 트릭룸을 지원한다. 연속기 타수·누적 횟수·반사 기술의 상대 기술 등 전용 입력 연결은 후속 작업이다.
-3. KO 단계에서는 1/65,536처럼 0%로 반올림되는 작은 양의 확률이 화면에 어떻게 표시되는지 검수한다. KO 표시, 결정력·물리내구·특수내구 공식을 구체화하고, PC 시안을 기반으로 통합 비교 화면을 구현한다.
-
-### 구현 전에 이어서 정할 사항
-
-| 항목               | 남은 결정 또는 검증                                                            |
-| ------------------ | ------------------------------------------------------------------------------ |
-| 게임 데이터와 입력 | 카탈로그를 사용하는 기술·특성 선택, 공통·조건부 입력 전달, 세팅 적법성         |
-| 계산 결과          | 결정력·내구 공식, 대표 타수 선택과 KO 확률 표시 정밀도, 지원 조건과 예외 표시  |
-| 엔진 호환성        | 지진 외 기술의 제품 입력 연결, 반감열매 등 상태 변화와 반복 공격 처리          |
-| 화면               | Tailwind를 사용하는 구체적인 화면·컴포넌트 구성                                |
-| 계정 저장과 배포   | 네이버 로그인 UI·실제 계정 검증, 저장 데이터 스키마, 배포용 DB 서비스와 플랫폼 |
+- 초기 저장소·세 인계 문서의 배치와 LF·제외 경로 검사는 [D12](DECISIONS.md#d12-초기-저장소-설정과-문서-구성)에 기록했다. fnm이 샌드박스에서 멀티셸 링크를 만들지 못한 조건과 당시 새 로그인 셸의 실제 버전은 [D13](DECISIONS.md#d13-개발-도구-버전과-최소-워크스페이스-설정)에 있다.
+- 초기 워크스페이스는 고정 설치, 서식·peer·타입·린트 검사, 프로덕션 빌드와 브라우저에서의 내부 패키지 호출을 확인했다. Turbopack이 내부 포트를 열지 못했던 실행 환경과 동일 명령의 재검증 조건은 [D14](DECISIONS.md#d14-두-패키지-연결과-최소-nextjs-실행-환경)에 있다.
+- [CI 워크플로](../.github/workflows/ci.yml)는 Ubuntu에서 저장소에 지정한 Node.js·pnpm으로 고정 설치 → 서식 → 린트 → 타입 검사 → 웹 빌드를 실행한다. 실행 로그와 검증 경계는 [D22](DECISIONS.md#d22-github-actions-기본-검사)에 있다.
 
 ## 11. 문서 유지
 
-- 2026-11-24에는 제품 데이터, 과거 조사 결과, 미구현 조건부 규칙의 위치를 정리했다.
-- 버전 0.2에서는 기획과 기능 범위를 유지하고, 초기 저장소 설정·문서 인계·개발 도구 설치와 실행 검증 결과를 갱신했다.
-- 버전 0.3에서는 워크스페이스·Next.js·Tailwind·검사 도구의 구성, 실행 방법과 실제 검증 결과를 반영했다.
-- 버전 0.4에서는 학습 대화·일반 개념 설명·승인 경위를 제외하고, 설치 오류의 원인·해결 내용과 검증 결과를 유지했다. 협업 지침은 공통 원칙 v1.2를 적용한다.
-- 버전 0.7에서는 PokéAPI 공식 일러스트를 사용하는 방향, 비상업적 운영과 권리 고지 계획, 조사 결과와 권리상 한계를 기록했다. 이미지·고지 코드는 미적용 상태다.
-- 버전 0.10에서는 로컬 PostgreSQL의 설치·수동 실행, 두 역할·스키마·자동 권한, SCRAM 인증·비밀값 보관과 실제 검증 결과를 반영했다. 앱 연결·마이그레이션·로그인은 후속 작업이다.
-- 버전 0.11에서는 pg·Drizzle 설치·공통 연결·환경변수 검사·터미널 명령, 특정 esbuild 버전 설치 스크립트 허용과 실제 DB·Next.js 오류 처리 검증을 반영했다.
-- 버전 0.12에서는 Better Auth 서버 설정, 인증 테이블 마이그레이션과 세션 정책, 비로그인 API 검증 결과를 반영했다.
-- 버전 0.13에서는 GitHub Actions 기본 검사와 PR 검증 결과를 반영했다.
-- 버전 0.14에서는 네이버 앱 설정, 이메일 없는 계정 식별과 로그인 시작 요청의 검증 결과를 반영했다.
-- 계산기 브랜치에서는 버전 0.12~0.15에 싱글 검증 화면·카탈로그·통합 상대 목록 기획을 기록하고 일회성 코드를 CLI로 교체했다.
-- 버전 0.16에서는 조건부 기술의 1회 계산 검수와 웹 입력 제한을 기록하고 인증·CI 인계 상태를 통합했다.
-- 버전 0.17에서는 웹 입력폼의 노출 조건과 기본값을 정리하고 현재 HP의 슬라이더·퍼센트 직접 입력을 함께 지원하는 설계를 기록했다.
-- 버전 0.19에서는 네이버 계정과 앱 사용자의 관계, 향후 계정 저장 세팅의 소유자 기준을 D19에 기록했다.
-- 기능 범위나 현재 상태가 바뀌면 승인된 범위에서 이 문서를 갱신한다.
-- 중요한 이유와 대안은 DECISIONS.md에 남긴다.
-- 현재 기획과 이전 아이디어가 다르면 최신 합의를 적용한다. 과거의 모바일 우선, 상대 10마리, 파티 취약점 보고서 등의 아이디어로 현재 범위를 바꾸지 않는다.
+기능 범위나 현재 상태가 바뀌면 해당 작업의 기준과 검증 범위를 갱신한다. 주요 선택과 변경 이유는 [결정 기록](DECISIONS.md)에 남긴다.
+
+- 0.20에서는 `main`의 현재 동작·미검증 범위·다음 과제를 앞에 모으고 작업별 실행 명령과 협업 지침 적용 이력을 연결했다.
+- 0.19에서는 네이버 계정과 저장 세팅 소유자 기준을 D19에 기록했다. 0.16~0.17에서는 기술의 1회 계산 범위와 입력 노출·기본값·현재 HP 편집 설계를 반영했다.
+- 인증 작업 0.10~0.14에서는 로컬 PostgreSQL, 앱 연결, 인증 테이블·세션, CI, 네이버 로그인 시작 요청을 순서대로 기록했다. 계산기 브랜치 0.12~0.15에서는 싱글 검증 화면·카탈로그·통합 상대 목록을 정리하고 일회성 코드를 CLI로 교체했다. 2026-11-24에 제품 데이터·과거 조사·조건부 규칙의 위치를 구분했다.
+- 0.2~0.4에서는 저장소·워크스페이스 초기 설정과 검증 근거를 정리했다. 0.7에서는 이미지 출처·권리와 남은 제약을 기록했다.
+
+### 협업 지침 적용 이력
+
+공통 원칙 버전과 이 저장소의 협업 지침 인계 버전을 함께 적는다. 위의 제품 인계 문서 버전과는 별도로 관리한다.
+
+- 2026-11-25 · v1.9 / 0.10 — 이 저장소의 작업별 문서 진입점과 적용 이력의 위치를 정리했다. PR 검토·머지 후 정리와 계산기 검증에는 공통 원칙 v1.9를 적용한다.
+- 2026-11-25 · v1.9 / 0.9 — 이 저장소의 PR 절차에 머지 후 로컬 작업 브랜치와 전용 워크트리의 정리 순서 및 보존 조건을 추가했다.
+- 2026-11-24 · v1.8 / 0.8 — 두 계산기 작업본의 에이전트 테스트와 리뷰를 실제 제품에서 성립하는 사례로 제한했다.
+- 2026-11-24 · v1.7 / 0.7 — 반복 안내를 통합하고 생성 데이터와 조사 기록의 보존 기준을 명시했다. 이 저장소의 두 계산기 작업본에 적용했다.
+- 2026-11-20 · v1.6 / 0.6 — 영향별 PR 검토·승인과 사용자 최종 머지 절차를 정했다.
+- 2026-11-18 · v1.5 / 0.5 — 합의한 반복 작업과 새 선택을 분리하고 최신 요청을 적용했다. v1.4 / 0.4에서는 작성 범위와 구현 방법 합의를, v1.3 / 0.3에서는 단계별 의사결정과 사전 조회 범위를 구분했다.
+- 2026-11-17 · v1.2 / 0.2 — 저장소의 기술 결정·검증 근거와 대화에서의 학습 설명을 구분했다.
